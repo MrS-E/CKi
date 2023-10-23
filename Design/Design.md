@@ -1,0 +1,12 @@
+# Design
+## GUI
+### Wireframes
+## Konsole
+### Input
+### Output
+## Datenbank
+## Code
+### Klassendiagramm
+### Zustandsdiagramm
+### Sequenzdiagramm
+## Tests
