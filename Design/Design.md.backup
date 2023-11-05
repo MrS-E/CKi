@@ -13,5 +13,5 @@ Die Applikation benötigt keine Applikation.
 ### Zustandsdiagramm
 ## Trainingsdaten
 Die Trainingsdaten sind das MNIST-Datenset mit den handschriftlichen Zahlen.
-
+[Datenset]("http://yann.lecun.com/exdb/mnist/")
 ## Tests
