@@ -48,7 +48,7 @@ Die hier aufgelisteten Use-Cases entsprechen den Use-Cases nach den Must-Have's 
 ![Testen](./assets/ablauf-testen.png)
 #### CNN-Magic
 Das Ablaufdiagramm eines CNN wurde durch ein externes Bild ersetzt, da dieses die Abläufe in einem CNN besser und konkreter visualisiert.
-![CNN Beispiel](file:///C:/Users/simeo/AppData/Local/Temp/GBMOl.jpg)
+![CNN Beispiel](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F1*RXJ6tAmfN1AYLQr7p48L7w.png&f=1&nofb=1&ipt=4eb63d23b17398cd376f86942611c6a9fda3b4520fc8eb09e736d7f19f0d276d&ipo=images)
 
 ## Umsetzung
 Wie im Themenblatt vom 15.09.2023 wird für die Umsetzung reines C++ verwendet.

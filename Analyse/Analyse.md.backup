@@ -48,7 +48,7 @@ Die hier aufgelisteten Use-Cases entsprechen den Use-Cases nach den Must-Have's 
 ![Testen](./assets/ablauf-testen.png)
 #### CNN-Magic
 Das Ablaufdiagramm eines CNN wurde durch ein externes Bild ersetzt, da dieses die Abläufe in einem CNN besser und konkreter visualisiert.
-![CNN Beispiel](file:///C:/Users/simeo/AppData/Local/Temp/GBMOl.jpg)
+![CNN Beispiel](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F1*RXJ6tAmfN1AYLQr7p48L7w.png&f=1&nofb=1&ipt=4eb63d23b17398cd376f86942611c6a9fda3b4520fc8eb09e736d7f19f0d276d&ipo=images)
 
 ## Umsetzung
 Wie im Themenblatt vom 15.09.2023 wird für die Umsetzung reines C++ verwendet.
@@ -82,12 +82,12 @@ Selbst wenn man unter dem Beschluss steht, dass man das CNN selber bauen wolle, 
 Bezüglich der Kosten kann das Projekt CKi nicht mit den Alternativen mithalten. C++ ist keine Sprache in welcher man schnell ein Produkt hervor bringt. Dies belegen etliche Studien und Artikel ([Programming Languages Table](https://www.cs.bsu.edu/homepages/dmz/cs697/langtbl.htm), [An Empirical Comparison of
 Seven Programming Languages](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.113.1831&rep=rep1&type=pdf), [Programming Languages by Energy Efficiency](https://haslab.github.io/SAFER/scp21.pdf), [Development time in various languages](https://stackoverflow.com/questions/1894453/development-time-in-various-languages))
 Zudem, dass keine dezidiert Bibliotheken für maschinelles Lernen zum Einsatz kommen erhöht den Entwicklungsaufwand, Zeitaufwand und so die Kosten.
-Wenn man die Stundenzahl aus der Planung mit einem Stundensatz von 50 CHF quantifizieren käme man auf eine gesamt Kostenaufwand von 15'000.-. Zuzüglich kämen noch Hardware Anschaffungen für die Entwicklung, diese können jedoch im Falle vom Projekt CKi vernachlässigt werden. 
+Wenn man die Stundenzahl aus der Planung mit einem Stundensatz von 50 CHF quantifizieren käme man auf eine gesamt Kostenaufwand von 8'600.-. Zuzüglich kämen noch Hardware Anschaffungen für die Entwicklung, diese können jedoch im Falle vom Projekt CKi vernachlässigt werden. 
 ### Nutzen
 Wie bereits im Abschnitt _Zielgruppe_ erwähnt ist dieses Produkt auf den Wissensgewinn ausgerichtet und nicht auf das Produkt selbst. Dementsprechend ist in der geplanten Umsetzung der Projektes CKi der maximale Nutzen gewährleistet. Leider lässt sich dieser Nutzen nicht/schlecht quantifizieren.
 ### Effektivität
 Der Vergleich in Effektivität der Anwendung die aus dem Projekt CKi resultiert und den professionell entwickelten Bibliotheken in Python, etc. zieht, wird CKi selbst mit GPU Berechnung und dem Geschwindigkeitsvorteil von C++ gegen diese Bibliotheken im Bezug auf Run-Time-Length verlieren.
 ### Vergleich
 Eine kurze Zusammenfassung der Kosten-Nuzen-Analyse zeigt den desolaten Zustand von CKi.\
-Es werden Kosten für die Arbeitszeit von 15'000 CHF anfallen. Die Effektivität ist niedriger als wenn das selbe Produkt mit einer vorhandenen Bibliothek geschrieben werden würde (und die Entwicklungsdauer wäre ebenfalls geringer). Der Nutzen des Endproduktes ist nichtig, da dieses nie zur wirklichen Anwendung kommen wird. Weiters gibt es unzählige kostenlose Alternativen, die es nur zu verwenden gilt.\
+Es werden Kosten für die Arbeitszeit von 8'600 CHF anfallen. Die Effektivität ist niedriger als wenn das selbe Produkt mit einer vorhandenen Bibliothek geschrieben werden würde (und die Entwicklungsdauer wäre ebenfalls geringer). Der Nutzen des Endproduktes ist nichtig, da dieses nie zur wirklichen Anwendung kommen wird. Weiters gibt es unzählige kostenlose Alternativen, die es nur zu verwenden gilt.\
 Das Projekt CKi kann und wird sich nur auf den Wissensgewinn für den Entwickler stützen in der Hoffnung diese nur Kosten-Politik aufzuwiegen. 
