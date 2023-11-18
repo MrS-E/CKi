@@ -1,11 +1,22 @@
 # Design
 ## Konsole
 ### Training
+#### Input
 `ki --training "[trainings.ubyte]"`
+#### Output
+Nach jedem Datensatz wird angezeigt wie viele der zum Training gegebenen Daten bereits abgearbeitet wurden.
 ### Test
+#### Input
 `ki --test "[test.ubyte]"`
+#### Output
+Nach jedem Datensatz wird angezeigt wie viele der zum Testen gegebenen Daten bereits abgearbeitet wurden.
+Zudem wird angezeigt wie viele der Datensatze Richtig bzw. Falsch erkannt wurden.
 ### Anwendung
+#### Input
 `ki "[image.jpg]"`
+#### Output
+Als Output werden alle Ziffern von 0 bis 9 mit den entsprechenden Prozentwerten zurückgegeben (Dies kommt daher, dass die KI die Wahrscheinlichkeit der Übereinstimmung für jede Ziffer berechnet.).
+Zudem wird auch angezeigt, welche Ziffer die höchste Übereinstimmung hat. Da diese die erkannte Ziffer darstellt.
 ## Datenbank
 Die Applikation benötigt keine Applikation.
 ## Code
