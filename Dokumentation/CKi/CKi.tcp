@@ -6,7 +6,7 @@ Version=4
 MainFile=CKi.tex
 UseBibTeX=1
 UseMakeIndex=0
-ActiveProfile=LaTeX ⇨ PDF
+ActiveProfile=XeLaTeX ⇨ PDF
 ProjectLanguage=de
 ProjectDialect=DE
 
