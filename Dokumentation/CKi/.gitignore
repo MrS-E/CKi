@@ -1,5 +1,6 @@
 *
 !*.tex
-CKi.tcp
-literatur.bib
-!images/*.*
+!CKi.tcp
+!literatur.bib
+!images
+!images/*
