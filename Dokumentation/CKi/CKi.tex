@@ -41,7 +41,7 @@
 
 %\usepackage{setspace}
 %\singlespacing        %% 1-zeilig (Standard)
-\onehalfspacing       %% 1,5-zeilig
+%\onehalfspacing       %% 1,5-zeilig
 %\doublespacing        %% 2-zeilig
 
 
@@ -61,6 +61,9 @@
 \usepackage{listings}
 
 \usepackage{import}
+
+\usepackage{xcolor}
+\usepackage{soul}
 
 \begin{document}
 
@@ -82,9 +85,8 @@
 
 \pagestyle{plain} %%Ab hier die Kopf-/Fusszeilen: headings / fancy / ...
 
-%% Haupttei
+%% Hauptteil
 %%Analyse
-\mainmatter
 \chapter{Analyse}
 \label{sec:Analyse}
 \input{analyse.tex}
