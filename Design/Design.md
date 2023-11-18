@@ -31,3 +31,8 @@ Zusätzlich gibt es die Main-Klasse, diese ist zuständig die oben genannten Kla
 Die Trainingsdaten sind das MNIST-Datenset mit den handschriftlichen Zahlen.
 [Datenset]("http://yann.lecun.com/exdb/mnist/")
 ## Tests
+Im Projekt CKI gibt es drei Arten von Tests. Es gibt das simple Ausprobieren. Da es nicht allzu viele Nutzerschnittstellen gibt, kann man diese ausführen und begutachten, ob diese mit der Beschreibung übereinstimmen.
+Bei einer dieser Schnittstellen wird die KI getestet. Dies geschieht, indem der KI ihr unbekannte Datensätze zu sehen bekommt und das Endergebnis mit einem vordefinierten Ergebnis abgeglichen wird.
+Egal ob das Ergebnis korrekt oder inkorrekt erkannt worden ist, wird es statistisch aufgenommen. Am Ende wird dem Nutzer eine Prozentzahl der korrekten Erkennungen präsentiert. Diesbezüglich ist dies
+kein Test, in dem die Applikation versagen könnte, es ist eine reine Leistungsüberprüfung, ob mehr Training vonnöten ist.
+Zusätzlich zu diesen zwei Testmöglichkeiten gibt es noch die Unit-Tests. Diese werden dazu genützt, um einzelne Funktionen und Klassen noch vor deren Verwendung zu überprüfen.
