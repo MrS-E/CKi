@@ -1,0 +1,112 @@
+%% Basierend auf einer TeXnicCenter-Vorlage von Tino Weinkauf.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,twoside,12pt]{report}
+% Alternative Optionen:
+%	Papiergröße: a4paper / a5paper / b5paper / letterpaper / legalpaper / executivepaper
+% Duplex: oneside / twoside
+% Grundlegende Fontgrößen: 10pt / 11pt / 12pt
+
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[ansinew]{inputenc}
+
+\usepackage{lmodern}
+
+
+\usepackage{float}
+\usepackage[export]{adjustbox}
+\usepackage{graphicx} %%Zum Laden von Grafiken
+\graphicspath{ {./images/} }
+%\usepackage{subfig} %%Teilabbildungen in einer Abbildung
+%\usepackage{pst-all} %%PSTricks - nicht verwendbar mit pdfLaTeX
+
+%% Beachten Sie:
+%% Die Einbindung einer Grafik erfolgt mit \includegraphics{Dateiname}
+%% bzw. über den Dialog im Einfügen-Menü.
+%% 
+%% Im Modus "LaTeX => PDF" können Sie u.a. folgende Grafikformate verwenden:
+%%   .jpg  .png  .pdf  .mps
+%% 
+%% In den Modi "LaTeX => DVI", "LaTeX => PS" und "LaTeX => PS => PDF"
+%% können Sie u.a. folgende Grafikformate verwenden:
+%%   .eps  .ps  .bmp  .pict  .pntg
+
+
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+%\usepackage{tabu}
+
+%\usepackage{setspace}
+%\singlespacing        %% 1-zeilig (Standard)
+\onehalfspacing       %% 1,5-zeilig
+%\doublespacing        %% 2-zeilig
+
+
+
+\usepackage{a4wide} %%Kleinere Seitenränder = mehr Text pro Zeile.
+\usepackage{fancyhdr} %%Fancy Kopf- und Fußzeilen
+\usepackage{longtable} %%Für Tabellen, die eine Seite überschreiten
+
+\usepackage{tabularx}
+\usepackage{xltabular}
+
+\usepackage{lscape}
+\usepackage{pdflscape}
+
+\usepackage{hyperref}
+
+\begin{document}
+
+\pagestyle{empty} %%Keine Kopf-/Fusszeilen auf den ersten Seiten.
+
+
+%% Deckblatt
+%% ==> Schreiben Sie hier Ihren Text oder fügen Sie eine externe Datei ein.
+
+%% Die einfache Version:
+\title{CKi ein CNN-Model in C++}
+\author{Simeon Stix}
+\date{05.11.2023} 
+\maketitle
+
+%% Inhaltsverzeichnis 
+\tableofcontents %Inhaltsverzeichnis
+\cleardoublepage %Das erste Kapitel soll auf einer ungeraden Seite beginnen.
+
+\pagestyle{plain} %%Ab hier die Kopf-/Fusszeilen: headings / fancy / ...
+
+%% Hauptteil 
+\input{analyse.tex}
+
+%% weitere Verzeichnisse 
+%%\addtocontents{toc}{\protect\vspace*{\baselineskip}}
+
+%% Literaturverzeichnis
+%% ==> Eine Datei 'literatur.bib' wird hierfür benötigt.
+%% ==> Sie müssen hierfür BibTeX verwenden (Projekt | Eigenschaften... | BibTeX)
+
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+\addbibresource{literatur.bib}
+\nocite{*} %Auch nicht-zitierte BibTeX-Einträge werden angezeigt.
+\bibliographystyle{plain} %Art der Ausgabe: plain / apalike / amsalpha / ...
+\bibliography{literatur} %Eine Datei 'literatur.bib' wird hierfür benötigt.
+
+%% Abbildungsverzeichnis
+%%\clearpage
+%%\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+%%\listoffigures
+
+%% Tabellenverzeichnis
+%%\clearpage
+%%\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+%%\listoftables
+
+
+%% Anhänge
+%%\appendix
+
+\end{document}
+
