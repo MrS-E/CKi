@@ -58,6 +58,10 @@
 
 \usepackage{hyperref}
 
+\usepackage{listings}
+
+\usepackage{import}
+
 \begin{document}
 
 \pagestyle{empty} %%Keine Kopf-/Fusszeilen auf den ersten Seiten.
@@ -78,8 +82,17 @@
 
 \pagestyle{plain} %%Ab hier die Kopf-/Fusszeilen: headings / fancy / ...
 
-%% Hauptteil 
+%% Haupttei
+%%Analyse
+\mainmatter
+\chapter{Analyse}
+\label{sec:Analyse}
 \input{analyse.tex}
+
+%%Design
+\chapter{Design}
+\label{sec:Design}
+\input{design.tex}
 
 %% weitere Verzeichnisse 
 %%\addtocontents{toc}{\protect\vspace*{\baselineskip}}
@@ -87,17 +100,17 @@
 %% Literaturverzeichnis
 %% ==> Eine Datei 'literatur.bib' wird hierfür benötigt.
 %% ==> Sie müssen hierfür BibTeX verwenden (Projekt | Eigenschaften... | BibTeX)
-
+\clearpage
 \addcontentsline{toc}{chapter}{Literaturverzeichnis}
-\addbibresource{literatur.bib}
+%%\addbibresource{literatur.bib}
 \nocite{*} %Auch nicht-zitierte BibTeX-Einträge werden angezeigt.
 \bibliographystyle{plain} %Art der Ausgabe: plain / apalike / amsalpha / ...
 \bibliography{literatur} %Eine Datei 'literatur.bib' wird hierfür benötigt.
 
 %% Abbildungsverzeichnis
-%%\clearpage
-%%\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
-%%\listoffigures
+\clearpage
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+\listoffigures
 
 %% Tabellenverzeichnis
 %%\clearpage
