@@ -1,6 +1,7 @@
 *
 !*.tex
 !CKi.tcp
+!CKi.pdf
 !literatur.bib
 !images
 !images/*
