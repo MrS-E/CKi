@@ -1,6 +1,6 @@
 %% Basierend auf einer TeXnicCenter-Vorlage von Tino Weinkauf.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[a4paper,twoside,12pt]{report}
+\documentclass[a4paper,oneside,12pt]{report}
 % Alternative Optionen:
 %	Papiergröße: a4paper / a5paper / b5paper / letterpaper / legalpaper / executivepaper
 % Duplex: oneside / twoside
@@ -58,18 +58,46 @@
 \usepackage{xcolor}
 \usepackage{soul}
 
-\begin{document}
+\usepackage{titling}
 
-\pagestyle{empty} %%Keine Kopf-/Fusszeilen auf den ersten Seiten.
-
+ %%Keine Kopf-/Fusszeilen auf den ersten Seiten.
+\pagestyle{empty}
 
 %% Deckblatt
 %% ==> Schreiben Sie hier Ihren Text oder fügen Sie eine externe Datei ein.
-
-%% Die einfache Version:
 \title{CKi ein CNN-Model in C++}
 \author{Simeon Stix}
-\date{05.11.2023} 
+\date{\today}
+\renewcommand{\maketitle}{
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        
+        \Huge
+        \textbf{\thetitle}
+        
+        \vspace{0.5cm}
+        \Large
+        by \theauthor
+        
+        \vspace{1.5cm}
+        
+        \today
+        
+        \vfill
+        
+        Version: 1
+        
+        \vspace{1cm}
+        
+        Betreuer: Sven Nüesch
+        
+    \end{center}
+\end{titlepage}
+}
+
+\begin{document}
+
 \maketitle
 
 %% Inhaltsverzeichnis 
@@ -113,9 +141,9 @@
 \listoffigures
 
 %% Tabellenverzeichnis
-%%\clearpage
-%%\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
-%%\listoftables
+%\clearpage
+%\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+%\listoftables
 
 
 %% Anhänge
