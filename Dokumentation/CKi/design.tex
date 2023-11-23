@@ -19,20 +19,21 @@ $ #Dieser Befehl nimmt ubyte-Dateien.
 \label{sec:TraiOutput}
 Nach jedem Datensatz wird angezeigt, wie viele der zum Training gegebenen Daten bereits abgearbeitet wurden. 
 
-\subsection{Test}
+\subsection{Verify}
 \label{sec:DesignTest}
 \subsubsection{Input}
 \label{sec:DesignTestInput}
 \begin{lstlisting}[language=bash]
-$ ki --test [file]
+$ ki --verify [file]
 $ #Dieser Befehl nimmt ubyte-Dateien.
 \end{lstlisting}
 
 \subsubsection{Output}
 \label{sec:TestOutput}
-Nach jedem Datensatz wird angezeigt, wie viele der zum Testen gegebenen Daten bereits abgearbeitet wurden. Zudem wird angezeigt, wie viele der Datensatz richtig bzw. falsch erkannt wurden.
+Nach jedem Datensatz wird angezeigt, wie viele der zum Testen gegebenen Daten bereits abgearbeitet wurden. Zudem wird angezeigt, wie viele der Datensatz richtig bzw. falsch erkannt wurden.\
+Eine interessante Erweiterung wäre es, bei diesem Befehl (oder in einer leicht abgewandelten Form) ein kleines Fenster zu öffnen, um dort direkt die Zahl zu zeichnen. Dies hätte den Vorteil, dass Parameter wie Grösse direkt bekannt und kontrolliert werden können.
 
-\subsection{Anwendung}
+\subsection{Prediction}
 \label{sec:DesignAnwendung}
 \subsubsection{Input}
 \label{sec:DesignUseInput}
