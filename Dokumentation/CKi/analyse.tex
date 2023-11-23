@@ -28,7 +28,7 @@ Ein CNN-Algorithmus oder auch Convolutional Neural Network wird beim maschinelle
 \centering
 \includegraphics[scale=0.5]{CNN-model-with-several-convolution-and-pooling-layers-performed-alternately-combined.jpeg}
 %von https://www.researchgate.net/publication/309751512/figure/fig1/AS:503017750437888@1496940185276/CNN-model-with-several-convolution-and-pooling-layers-performed-alternately-combined.png
-\caption{CNN Model Aufbau Grafik}
+\caption{CNN Model Aufbau Grafik von \href{https://www.researchgate.net/publication/309751512_Content-Aware_Convolutional_Neural_Network_for_Object_Recognition_Task}{researchgate.net}}
 \label{fig:AnalyseCNN-model-with-several-convolution-and-pooling-layers-performed-alternately-combined}
 \end{figure}
 Im Projekt CKi wird dieser wie im Themenblatt beschrieben mit Bild von einzelnen handgeschriebenen Ziffern trainiert.
@@ -106,7 +106,7 @@ Offiziell ist zwar Training keine Vorbedingung zu Testet, jedoch macht das Teste
 \label{sec:AnalyseUseCaseDiagramme}
 \begin{figure}[H]
 \centering
-\includegraphics[height=0.5\paperheight]{usecase.png}
+\includegraphics[height=0.35\paperheight]{usecase.png}
 \caption{Use-Case-Diagramm}
 \label{fig:analyseusecase}
 \end{figure}
@@ -128,7 +128,7 @@ Offiziell ist zwar Training keine Vorbedingung zu Testet, jedoch macht das Teste
 \label{sec:AnalyseTraining}
 \begin{figure}[H]
 \centering
-\includegraphics[height=0.5\paperheight]{ablauf-training.png}
+\includegraphics[height=0.65\paperheight]{ablauf-training.png}
 \caption{Ablaufdiagramm vom Training des CNN}
 \label{fig:analyseablauf-training}
 \end{figure}
@@ -138,7 +138,7 @@ Offiziell ist zwar Training keine Vorbedingung zu Testet, jedoch macht das Teste
 \label{sec:AnalyseTesten}
 \begin{figure}[H]
 \centering
-\includegraphics[height=0.5\paperheight]{ablauf-testen.png}
+\includegraphics[height=0.65\paperheight]{ablauf-testen.png}
 \caption{Ablaufdiagramm von einem Test des CNN}
 \label{fig:analyseablauf-testen}
 \end{figure}
@@ -146,12 +146,10 @@ Offiziell ist zwar Training keine Vorbedingung zu Testet, jedoch macht das Teste
 
 \subsubsection{CNN-Magic}
 \label{sec:AnalyseCNN-Magic}
-Das Ablaufdiagramm eines CNN wurde durch ein externes Bild ersetzt, da dieses die Abläufe in einem CNN besser und konkreter visualisiert.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{1 RXJ6tAmfN1AYLQr7p48L7w-631173908.png}
-% von https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F1*RXJ6tAmfN1AYLQr7p48L7w.png&f=1&nofb=1&ipt=4eb63d23b17398cd376f86942611c6a9fda3b4520fc8eb09e736d7f19f0d276d&ipo=images
-\caption{Visuelle Darstellung der Funktionsweise eines CNN}
+\caption{Visuelle Darstellung der Funktionsweise eines CNN von \href{https://blog.goodaudience.com/cnn-for-rnns-a-gentle-approach-to-use-cnns-for-nlp-53ab80768d43}{blog.goodaudience.com}}
 \label{fig:analyse1RXJ6tAmfN1AYLQr7p48L7w-631173908}
 \end{figure}
 
@@ -162,6 +160,13 @@ Wie im Themenblatt vom 15.09.2023 wird für die Umsetzung reines C++ verwendet.
 \subsection{Entwicklungsumgebung}
 \label{sec:AnalyseEntwicklungsumgebung}
 Bei der Entwicklungsumgebung wird das JetBrains Produkt \textbf{CLion} zum Einsatz kommen. Dieses beinhaltet alle benötigten Funktionalitäten, die bei der Entwicklung des Produktes nötig sind. Gegebenen Falles könnte noch \textbf{SQLite Browser} zur Verwendung kommen, da dieses ein besseres (und für den Entwickler ein gewohntes) Interface zur Handhabung von lokalen Datenbanken bietet. Für die Version Control des Projektes wird lokal \textbf{Git} verwendet und zur Sicherung in der Cloud wird sowohl \textbf{GitHub} als auch \textbf{GitLab} verwendet. Die Entwicklungsumgebung mit IDE und Version Control wird primär auf dem Betriebssystem Windows verwendet. Es kann jedoch nicht garantiert sein, dass die Entwicklung nicht teilweise unter einer Distribution von Linux ablaufen wird. Hierbei sollten (evtl. abgesehen von der GUI) keine Kompatibilitätsprobleme mit sich führen. 
+\subsubsection{Auflistung Versionen}
+\label{sec:AnalyseDevEnvAuflistung}
+\begin{itemize}
+\item JetBrains Toolbox 2.1.1.18388, Windows 11, x64
+\item CLion (von JetBrains Toolbox) 2023.2.2
+\item Git 2.39.2.windows.1
+\end{itemize}
 
 \subsection{CNN}
 \label{sec:AnalyseCNN}
@@ -186,12 +191,12 @@ Die Testdaten für CKi können in unzähliger Ausführung auf \href{https://www.
 \label{sec:AnalyseSpeicherung}
 Im gegebenen Fall würde es für die Schulung, des CNN, Sinn ergeben, die einzelnen Bilder nicht über Ordner- oder Archivstrukturen zu speichern, sondern in eine oder mehrere lokale Datenbanken abzuspeichern.
 
-\section{Nutzwertanalyse der Lösungsvarianten}
+\section{Abwägung des Nutzens und der Alternativen}
 \label{sec:AnalyseNutzwertanalyseDerLösungsvarianten}
 \subsection{Alternativen}
 \label{sec:AnalyseAlternativen}
 Die möglichen Alternativen zu einer kompletten Realisation eine CNN oder irgendeinem neuronalen Netzwerk in C++ ohne Bibliotheken oder Frameworks für neuronale Netze sind endlos. 
-Selbst wenn man bereits bestehende Produkte begutachtet, wird man auf GitHub schnell fündig. Bei einer Suche auf GitHub mit dem Query "mnist digit recogniser" findet man nach Stand 20.10.2023 02:13 178 Repositorien (je eines in C, C++, C\url{#}, Rust, drei in Java + Kotlin und 53 in Python).
+Selbst wenn man bereits bestehende Produkte begutachtet, wird man auf GitHub schnell fündig. Bei einer Suche auf GitHub mit dem Query "mnist digit recogniser" findet man nach Stand 20.10.2023 02:13 178 Repositorien (je eines in C, C++, C\#, Rust, drei in Java + Kotlin und 53 in Python).
 Selbst wenn man unter dem Beschluss steht, dass man das CNN selber bauen wolle, würde man für jede beliebige Sprache eine Bibliothek oder Framework finden, die einem diese Aufgabe erleichtern würde.
 
 \subsection{Kosten}
@@ -202,7 +207,27 @@ Bezüglich der Kosten kann das Projekt CKi nicht mit den Alternativen mithalten.
 \href{https://haslab.github.io/SAFER/scp21.pdf}{Programming Languages by Energy Efficiency}, 
 \href{https://stackoverflow.com/questions/1894453/development-time-in-various-languages}{Development time in various languages})
 Zudem, dass keine dezidierten Bibliotheken für maschinelles Lernen zum Einsatz kommen, erhöht den Entwicklungsaufwand, Zeitaufwand und so die Kosten.
-Wenn man die Stundenzahl aus der Planung mit einem Stundensatz von 50 CHF quantifizieren, käme man auf einen gesamten Kostenaufwand von 8'600.-. Zuzüglich kämen noch Hardware Anschaffungen für die Entwicklung, diese können jedoch im Falle vom Projekt CKi vernachlässigt werden.  
+Wenn man die Stundenzahl aus der Planung mit einem Stundensatz von 50 CHF quantifizieren, käme man auf einen gesamten Kostenaufwand von 8'600.- + Lizenzkosten. Zuzüglich kämen noch Hardware Anschaffungen für die Entwicklung, diese können jedoch im Falle vom Projekt CKi vernachlässigt werden.  
+
+\begin{xltabular}{\linewidth}{|X|c|r|}
+\hline
+Senior Developer & 2h & 100.00 Fr.
+\\\hline
+Junior Developer & 89h & 4450.00 Fr.
+\\\hline
+Projektleitung & 39h & 1950.00 Fr.
+\\\hline
+Hardware & 0 & 0.00 Fr.
+\\\hline
+Software & Lizenz & 827.00 Fr.
+\\\hline\hline
+Möglicher Zusatz-Entwicklungskosten  & 42h & 2100.00 Fr.
+\\\hline\hline
+Total &  & 9427.00 Fr.
+\\\hline
+\end{xltabular}
+\label{tab:AnalyseKostenTable}
+
 
 \subsection{Nutzen}
 \label{sec:AnalyseNutzen}
@@ -228,12 +253,41 @@ Wiederholende Kosten & 0.- Fr. & wiederholende Kosten & 0.- Fr.
 Absolut & 0.- Fr. & absolut & 8'600.- Fr.
 \\\hline
 \end{xltabular}
+\label{tab:AnalyseVergleichTable}
 
 Eine kurze Zusammenfassung der Kosten-Nutzen-Analyse zeigt den desolaten Zustand von CKi.\
 Es werden Kosten für die Arbeitszeit von 8'600 CHF anfallen. Die Effektivität ist niedriger, als wenn dasselbe Produkt mit einer vorhandenen Bibliothek geschrieben werden würde (und die Entwicklungsdauer wäre ebenfalls geringer). Der Nutzen des Endproduktes ist nichtig, da dieses nie zur wirklichen Anwendung kommen wird. Weiters gibt es unzählige kostenlose Alternativen, die es nur zu verwenden gilt.\
 Das Projekt CKi kann und wird sich nur auf den Wissensgewinn für den Entwickler stützen, in der Hoffnung, dass dieser die Kosten-Politik aufwiegen wird.
 
+\subsection{Nutzwertanalyse}
+\label{sec:AnalyseNutzwerkanalyse}
+Bei der Nutzwertanalyse werden unterschiedliche Alternativen systematisch und statistisch nach gewissen Kategorien verglichen. Konkret werden hier unterschiedliche Möglichkeiten der Implementierung miteinander verglichen, dabei wird eine Punkteskala von eins bis zehn verwendet. Wichtig bei der Implementation ist es, dass eine höhere Punktzahl nicht bedeutet, wie hoch diese Kategorie ist. Eine Entwicklungsdauer von 10 bedeutet nicht, dass diese besonders lang ist, sondern dass diese Option im Bereich Entwicklungsdauer zehn Punkte erhalten hat (also besonders schnell zum Implementieren ist).
 
-
+\begin{xltabular}{\linewidth}{|l|l||c|c||c|c|}
+\hline
+\multicolumn{2}{|X||}{Kriterien} & \multicolumn{2}{X||}{Python mit Tensflow} & \multicolumn{2}{X|}{C++}
+\\\hline
+Entwicklungsdauer & 10 \% & 10 & 1 & 2 & 0.2
+\\\hline
+Komplexität & 15 \% & 10 & 1.5 & 4 & 0.6
+\\\hline
+Sprachkenntnisse & 10 \% & 3 & 0.3 & 4 & 0.4
+\\\hline
+Frust & 10 \% & 5 & 0.5 & 7 & 0.7
+\\\hline
+Typisierung & 5 \% & 1 & 0.05 & 9 & 0.45
+\\\hline
+Run-Time-Length & 10 \% & 10 & 1 & 9 & 0.9
+\\\hline
+Testing & 5 \% & 6 & 0.3 & 7 & 0.35
+\\\hline
+Objektorintiert & 5 \% & 5 & 0.25 & 9 & 0.45
+\\\hline
+Wissensgewinn & 30 \% & 2 & 0.6 & 10 & 3
+\\\hline\hline
+Total & 100 \% & 52 & 5.5 & \hl{61} & \hl{7.05}
+\\\hline
+\end{xltabular}
+\label{tab:AnalyseNutzwertanalyse}
 
 
