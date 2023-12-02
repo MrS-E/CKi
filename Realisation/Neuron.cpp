@@ -16,3 +16,7 @@ double Neuron::calc_out(std::vector<double> &inputs, std::vector<double> &weight
 double Neuron::calc_err(double target) {
     return target - Neuron::out;
 }
+
+double Neuron::calc_delta(double error) {
+    return error * Util::sigmoid_derivative(Neuron::out);
+}
