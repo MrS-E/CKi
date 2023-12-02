@@ -7,7 +7,15 @@
 
 
 class Neuron {
+public:
+    Neuron();
+    double calc_out();
+    double calc_err();
+    double calc_delta();
 
+private:
+    double out;
+    double bias;
 };
 
 
