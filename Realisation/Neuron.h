@@ -6,6 +6,7 @@
 #define REALISATION_NEURON_H
 
 #include <vector>
+#include "Util.h"
 
 class Neuron {
 public:
