@@ -10,6 +10,7 @@
 class Util {
 public:
     static double sigmoid(double x);
+    static double sigmoid_derivative(double x);
 };
 
 
