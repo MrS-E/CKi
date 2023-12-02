@@ -12,3 +12,7 @@ double Neuron::calc_out(std::vector<double> &inputs, std::vector<double> &weight
     Neuron::out = Util::sigmoid(sum);
     return Neuron::out;
 }
+
+double Neuron::calc_err(double target) {
+    return target - Neuron::out;
+}
