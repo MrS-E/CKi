@@ -6,5 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(Realisation main.cpp
         Util.h
         Util.cpp
+        Neuron.cpp
+        Neuron.h
         Layer.cpp
         Layer.h)
