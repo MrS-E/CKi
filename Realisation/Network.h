@@ -17,11 +17,11 @@ public:
     double verify(std::vector<std::vector<double>>& inputs, std::vector<std::vector<double>>& labels);
     int predict(std::vector<double>& input);
     void save_weights(const std::string& filename);
-    void load_weights(const std::string& filename);
+    void load_weights(const std::string& filename, std::vector<std::vector<double>>& weights);
 
 private:
     Layer input_layer;
-    std::vector<Layer> hiddenLayers;
+    std::vector<Layer> hidden_layers;
     Layer output_layer;
 };
 
