@@ -7,4 +7,6 @@ add_executable(Realisation main.cpp
         Util.h
         Util.cpp
         Layer.cpp
-        Layer.h)
+        Layer.h
+        Network.cpp
+        Network.h)
