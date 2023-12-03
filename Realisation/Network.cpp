@@ -61,7 +61,23 @@ double Network::verify(std::vector<std::vector<double>> &inputs, std::vector<std
 }
 
 int Network::predict(std::vector<double> &input) {
-    return 0;
+    input_layer.calc_neuron_outputs(input);
+
+    for (auto& hidden_layer : hidden_layers) {
+        hidden_layer.calc_neuron_outputs(input_layer.get_neuron_outputs());
+        input_layer = hidden_layer;
+    }
+
+    output_layer.calc_neuron_outputs(input_layer.get_neuron_outputs());
+
+    int digit = 0;
+    for (int i = 1; i < out_size; ++i) {
+        if (output_layer.neurons[i].out > output_layer.neurons[digit].out) {
+            digit = i;
+        }
+    }
+
+    return digit;
 }
 
 void Network::save_weights(const std::string &filename) {
