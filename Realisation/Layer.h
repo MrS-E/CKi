@@ -11,11 +11,11 @@
 class Layer {
 public:
     Layer(int inputSize, int neuronCount);
-    void calc_neuron_outputs(std::vector<double>& inputs);
+    void calc_neuron_outputs(const std::vector<double>& inputs);
     std::vector<double> get_neuron_outputs();
-    std::vector<std::vector<double>> weights;
+    void update_weights(std::vector<double>& inputs, std::vector<double>& deltas, double learningRate);
 
-private:
+    std::vector<std::vector<double>> weights;
     std::vector<Neuron> neurons;
 };
 
