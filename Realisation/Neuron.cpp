@@ -4,7 +4,7 @@
 
 #include "Neuron.h"
 
-double Neuron::calc_out(std::vector<double> &inputs, std::vector<double> &weights) {
+double Neuron::calc_out(const std::vector<double> &inputs, const std::vector<double> &weights) {
     double sum = Neuron::bias;
     for (size_t i = 0; i < inputs.size(); ++i) {
         sum += inputs[i] * weights[i];

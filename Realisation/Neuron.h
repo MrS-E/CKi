@@ -11,7 +11,7 @@
 class Neuron {
 public:
     Neuron() {};
-    double calc_out(std::vector<double>& inputs, std::vector<double>& weights);
+    double calc_out(const std::vector<double>& inputs, const std::vector<double>& weights);
     double calc_err(double target);
     double calc_delta(double error);
     double out;
