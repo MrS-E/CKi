@@ -9,6 +9,11 @@
 #include"Neuron.h"
 
 class Layer {
+public:
+    Layer(int inputSize, int neuronCount);
+    void calc_neuron_outputs(std::vector<double>& inputs);
+    std::vector<double> get_neuron_outputs();
+
 
 private:
     std::vector<Neuron> neurons;
