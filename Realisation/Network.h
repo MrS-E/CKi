@@ -20,6 +20,7 @@ public:
     void load_weights(const std::string& filename, std::vector<std::vector<double>>& weights);
 
 private:
+    int in_size;
     Layer input_layer;
     std::vector<Layer> hidden_layers;
     Layer output_layer;
