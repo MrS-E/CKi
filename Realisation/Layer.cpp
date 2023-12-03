@@ -24,7 +24,7 @@ std::vector<double> Layer::get_neuron_outputs() {
     return outputs;
 }
 
-void Layer::update_weights(std::vector<double> &inputs, std::vector<double> &deltas, double learningRate) {
+void Layer::update_weights(const std::vector<double> &inputs, std::vector<double> &deltas, double learningRate) {
     for (size_t i = 0; i < neurons.size(); ++i) {
         for (size_t j = 0; j < weights[i].size(); ++j) {
             weights[i][j] += learningRate * deltas[i] * inputs[j];
