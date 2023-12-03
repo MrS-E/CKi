@@ -8,6 +8,7 @@
 
 class Network {
 
+private:
     Layer input_layer;
     std::vector<Layer> hiddenLayers;
     Layer output_layer;
