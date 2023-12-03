@@ -8,6 +8,9 @@
 
 class Network {
 
+    Layer input_layer;
+    std::vector<Layer> hiddenLayers;
+    Layer output_layer;
 };
 
 
