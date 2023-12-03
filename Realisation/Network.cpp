@@ -100,7 +100,36 @@ int Network::predict(std::vector<double> &input) {
 }
 
 void Network::save_weights(const std::string &filename) {
+    std::ofstream out_file(filename);
+    if (!out_file.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return;
+    }
 
+    for (auto & weight : input_layer.weights) {
+        for (double j : weight) {
+            out_file << j << " ";
+        }
+        out_file << std::endl;
+    }
+    
+    for (const auto& hidden_layer : hidden_layers) {
+        for (const auto & weight : hidden_layer.weights) {
+            for (double j : weight) {
+                out_file << j << " ";
+            }
+            out_file << std::endl;
+        }
+    }
+
+    for (auto & weight : output_layer.weights) {
+        for (double j : weight) {
+            out_file << j << " ";
+        }
+        out_file << std::endl;
+    }
+
+    out_file.close();
 }
 
 void Network::load_weights(const std::string &filename, std::vector<std::vector<double>>& weights) {
