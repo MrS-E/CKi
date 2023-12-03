@@ -7,10 +7,13 @@
 
 #include<vector>
 #include"Layer.h"
+#include<string>
 
 class Network {
 public:
     Network();
+    void save_weights(const std::string& filename);
+    void load_weights(const std::string& filename);
 
 private:
     Layer input_layer;
