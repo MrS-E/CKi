@@ -9,6 +9,8 @@
 #include"Layer.h"
 
 class Network {
+public:
+    Network();
 
 private:
     Layer input_layer;
