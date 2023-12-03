@@ -8,6 +8,8 @@
 #include<vector>
 #include"Layer.h"
 #include<string>
+#include<iostream>
+#include <algorithm>
 
 class Network {
 public:
