@@ -13,11 +13,10 @@ public:
     Layer(int inputSize, int neuronCount);
     void calc_neuron_outputs(std::vector<double>& inputs);
     std::vector<double> get_neuron_outputs();
-
+    std::vector<std::vector<double>> weights;
 
 private:
     std::vector<Neuron> neurons;
-    std::vector<std::vector<double>> weights;
 };
 
 
