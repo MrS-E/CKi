@@ -4,7 +4,7 @@
 
 #include "Network.h"
 
-Network::Network() {
+Network::Network(int in_size, int out_size) : input_layer(in_size, in_size), output_layer(in_size, out_size) {
     load_weights("weights_input.txt", input_layer.weights);
     for (size_t i = 0; i < hidden_layers.size(); ++i) {
         load_weights("weights_hidden_" + std::to_string(i) + ".txt", hidden_layers[i].weights);
