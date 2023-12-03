@@ -14,7 +14,7 @@ public:
     Network(int in_size, int out_size);
     void add_hidden_layer(int neuron_count);
     void train(std::vector<std::vector<double>>& inputs, std::vector<std::vector<double>>& labels, int epochs, double learningRate);
-    double verify(std::vector<std::vector<double>>& inputs, std::vector<std::vector<double>>& labels);
+    double verify(const std::vector<std::vector<double>>& inputs, const std::vector<std::vector<double>>& labels);
     int predict(std::vector<double>& input);
     void save_weights(const std::string& filename);
     void load_weights(const std::string& filename, std::vector<std::vector<double>>& weights);

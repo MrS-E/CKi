@@ -56,7 +56,7 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
     }
 }
 
-double Network::verify(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels) {
+double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<std::vector<double>> &labels) {
     return 0;
 }
 
