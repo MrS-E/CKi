@@ -12,6 +12,7 @@
 class Network {
 public:
     Network();
+    void add_hidden_layer(int neuron_count);
     void save_weights(const std::string& filename);
     void load_weights(const std::string& filename);
 
