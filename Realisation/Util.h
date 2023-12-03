@@ -5,9 +5,12 @@
 #ifndef CKI_UTIL_H
 #define CKI_UTIL_H
 
+#include <cmath>
 
 class Util {
-
+public:
+    static double sigmoid(double x);
+    static double sigmoid_derivative(double x);
 };
 
 
