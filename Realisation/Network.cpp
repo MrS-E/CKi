@@ -104,5 +104,17 @@ void Network::save_weights(const std::string &filename) {
 }
 
 void Network::load_weights(const std::string &filename, std::vector<std::vector<double>>& weights) {
+    std::ifstream in_file(filename);
+    if (!in_file.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return;
+    }
 
+    for (auto & weight : weights) {
+        for (double & j : weight) {
+            in_file >> j;
+        }
+    }
+
+    in_file.close();
 }
