@@ -14,3 +14,12 @@ void Layer::calc_neuron_outputs(std::vector<double> &inputs) {
         neurons[i].calc_out(inputs, weights[i]);
     }
 }
+
+std::vector<double> Layer::get_neuron_outputs() {
+    std::vector<double> outputs;
+    outputs.reserve(neurons.size());
+    for (const auto& neuron : neurons) {
+        outputs.push_back(neuron.out);
+    }
+    return outputs;
+}
