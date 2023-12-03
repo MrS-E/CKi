@@ -5,6 +5,8 @@
 #ifndef REALISATION_NETWORK_H
 #define REALISATION_NETWORK_H
 
+#include<vector>
+#include"Layer.h"
 
 class Network {
 
