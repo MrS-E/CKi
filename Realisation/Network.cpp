@@ -57,7 +57,26 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
 }
 
 double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<std::vector<double>> &labels) {
-    return 0;
+    if (inputs.size() != labels.size() || inputs.empty()) {
+        std::cerr << "Invalid test data." << std::endl;
+        return 0.0;
+    }
+
+    int corr_predictions = 0;
+
+    for (size_t i = 0; i < inputs.size(); ++i) {
+        int predictedDigit = predict(const_cast<std::vector<double> &>(inputs[i]));
+
+        int trueDigit = static_cast<int>(std::distance(labels[i].begin(), std::max_element(labels[i].begin(), labels[i].end())));
+        if (predictedDigit == trueDigit) {
+            corr_predictions++;
+        }
+    }
+
+    double accuracy = static_cast<double>(corr_predictions) / static_cast<double>(inputs.size());
+    std::cout << "Verification Accuracy: " << (accuracy * 100.0) << "%" << std::endl;
+
+    return accuracy;
 }
 
 int Network::predict(std::vector<double> &input) {
