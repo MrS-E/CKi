@@ -14,9 +14,9 @@ public:
     double calc_out(std::vector<double>& inputs, std::vector<double>& weights);
     double calc_err(double target);
     double calc_delta(double error);
+    double out;
 
 private:
-    double out;
     double bias = 1.0;
 };
 
