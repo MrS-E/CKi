@@ -21,6 +21,7 @@ public:
 
 private:
     int in_size;
+    int out_size;
     Layer input_layer;
     std::vector<Layer> hidden_layers;
     Layer output_layer;
