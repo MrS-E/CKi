@@ -31,7 +31,7 @@ double verif(Network nn){
 }
 
 int main() {
-    Network nn (28*28, 10);
+    Network nn (784, 10);
 
     nn.add_hidden_layer(64);
     nn.add_hidden_layer(32);
