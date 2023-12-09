@@ -19,10 +19,9 @@ void Layer::calc_neuron_outputs(const std::vector<double> &inputs) {
 }
 
 std::vector<double> Layer::get_neuron_outputs() {
-    std::vector<double> outputs;
-    outputs.resize(neurons.size());
-    for (const auto& neuron : neurons) {
-        outputs.push_back(neuron.out);
+    std::vector<double> outputs(neurons.size());  // Initializes elements to default value (0 for doubles)
+    for (std::size_t i = 0; i < neurons.size(); ++i) {
+        outputs[i] = neurons[i].out;
     }
     return outputs;
 }
