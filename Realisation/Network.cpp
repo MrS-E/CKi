@@ -19,6 +19,7 @@ void Network::add_hidden_layer(int neuron_count) {
 
 void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learningRate) {
     for (int epoch = 0; epoch < epochs; ++epoch) {
+        std::cout << "Epoch " << epoch + 1 << " of " << epochs << std::endl;
         for (size_t example = 0; example < inputs.size(); ++example) {
             // Forward pass
             input_layer.calc_neuron_outputs(inputs[example]);
@@ -37,17 +38,17 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
             }
 
             for (auto it = hidden_layers.rbegin(); it != hidden_layers.rend(); ++it) {
-                std::vector<double> hiddenDeltas(it->neurons.size());
+                std::vector<double> hidden_deltas(it->neurons.size());
                 for (size_t i = 0; i < it->neurons.size(); ++i) {
                     double error = 0.0;
                     for (size_t j = 0; j < out_size; ++j) {
                         error += output_deltas[j] * output_layer.weights[j][i];
                     }
-                    hiddenDeltas[i] = it->neurons[i].calc_delta(error);
+                    hidden_deltas[i] = it->neurons[i].calc_delta(error);
                 }
 
                 // Update weights
-                it->update_weights((it + 1)->get_neuron_outputs(), hiddenDeltas, learningRate);
+                it->update_weights((it + 1)->get_neuron_outputs(), hidden_deltas, learningRate);
             }
 
             // Update output layer weights
@@ -65,6 +66,7 @@ double Network::verify(const std::vector<std::vector<double>> &inputs, const std
     int corr_predictions = 0;
 
     for (size_t i = 0; i < inputs.size(); ++i) {
+        std::cout << "Predicting digit " << i+1 << " of " << inputs.size() << std::endl;
         int predictedDigit = predict(const_cast<std::vector<double> &>(inputs[i]));
 
         int trueDigit = static_cast<int>(std::distance(labels[i].begin(), std::max_element(labels[i].begin(), labels[i].end())));
