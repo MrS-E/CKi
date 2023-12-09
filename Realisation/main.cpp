@@ -3,30 +3,31 @@
 #include "Util.h"
 
 void train(Network nn){
-    std::string filename;
     std::cout << std::endl << "Training..." << std::endl;
-    std::cout << "Enter filename: ";
-    std::cin >> filename;
+    std::cout << "Reading MNIST data..." << std::endl;
+    std::vector<std::vector<double>> training_inputs = Util::read_mnist_training_images("../mnist");
+    std::vector<std::vector<double>> training_labels = Util::read_mnist_training_labels("../mnist");
 
-    std::vector<std::vector<double>> training_inputs = Util::read_mnist_images(filename);
-    std::vector<std::vector<double>> training_labels = Util::read_mnist_labels(filename);
-
+    std::cout << "Training..." << std::endl;
     nn.train(training_inputs, training_labels, 100, 0.1);
 
+    std::cout << "Saving weights..." << std::endl;
     nn.save_weights("weights.txt");
+    std::cout << "Done!" << std::endl;
 }
 
 double verif(Network nn){
-    std::string filename;
     std::cout << std::endl << "Testing..." << std::endl;
-    std::cout << "Enter filename: ";
-    std::cin >> filename;
 
-    std::vector<std::vector<double>> test_inputs = Util::read_mnist_images(filename);
-    std::vector<std::vector<double>> test_labels = Util::read_mnist_labels(filename);
+    /*std::cout << "Reading MNIST data..." << std::endl;
+    std::vector<std::vector<double>> test_inputs = Util::read_mnist_images("mnist/t10k-images.idx3-ubyte");
+    std::vector<std::vector<double>> test_labels = Util::read_mnist_labels("mnist/t10k-labels.idx1-ubyte");
 
+    std::cout << "Testing..." << std::endl;
     double acc = nn.verify(test_inputs, test_labels);
-    return acc;
+    std::cout << "Accuracy: " << acc << std::endl;*/
+    std::cout << "Done!" << std::endl;
+    return 0;
 }
 
 int main() {
@@ -38,9 +39,9 @@ int main() {
     std::string cmd;
     
     std::cout << "Welcome to CKi" << std::endl;
-    std::cout << "---------------------" << std::endl;
-    std::cout << "What do you want do: ";
     do {
+        std::cout << "---------------------" << std::endl;
+        std::cout << "What do you want do: ";
         std::cin >> cmd;
 
         if (cmd == "train") {
