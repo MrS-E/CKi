@@ -128,27 +128,31 @@ std::vector<double> Network::forward_pass(std::vector<double> &input) {
     return output;
 }
 
-void Network::backpropagation(std::vector<double> &input, std::vector<double> &label, double learningRate) {
-    std::vector<double> output_deltas(out_size);
-    for (int i = 0; i < out_size; ++i) {
-        output_deltas[i] = output_layer.neurons[i].calc_delta(output_layer.neurons[i].calc_err(label[i]));
+void Network::backpropagation(std::vector<double> &input, std::vector<double> &label, double learning_rate) {
+    /*std::vector<Layer> all_layers;
+    all_layers.push_back(input_layer);
+    for (auto& hidden_layer : hidden_layers) {
+        all_layers.push_back(hidden_layer);
+    }
+    all_layers.push_back(output_layer);*/
+
+    std::vector<double> outputDeltas(output_layer.neurons.size());
+    for (int i = 0; i < output_layer.neurons.size(); ++i) {
+        outputDeltas[i] = output_layer.neurons[i].calc_delta(output_layer.neurons[i].calc_err(label[i]));
     }
 
-    for (auto it = hidden_layers.rbegin(); it != hidden_layers.rend(); ++it) {
-        std::vector<double> hidden_deltas(it->neurons.size());
-        for (size_t i = 0; i < it->neurons.size(); ++i) {
-            double error = 0.0;
-            for (size_t j = 0; j < out_size; ++j) {
-                error += output_deltas[j] * output_layer.neurons[i].weights[j];
+    for(int i = hidden_layers.size()-1; i>=0; i--) {
+        double error = 0.0;
+        for(int j = 0; j<hidden_layers[i].neurons.size(); j++) {
+            for (int k = 0; k < hidden_layers[i].neurons[j].weights.size(); ++k) {
+                error += outputDeltas[j] * hidden_layers[i].neurons[j].weights[k];
             }
-            hidden_deltas[i] = it->neurons[i].calc_delta(error);
         }
 
-        // Update weights
-        it->update_weights((it + 1)->get_neuron_outputs(), hidden_deltas, learningRate);
     }
-    output_layer.update_weights(hidden_layers.empty() ? input_layer.get_neuron_outputs() : hidden_layers.front().get_neuron_outputs(), output_deltas, learningRate);
+
 }
+
 
 
 // NetworkBuilder
