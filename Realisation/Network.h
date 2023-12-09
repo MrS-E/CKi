@@ -25,12 +25,15 @@ public:
     void load_weights(const std::string& filename, std::vector<std::vector<double>>& weights);
 
 private:
+    std::vector<double> forward_pass(std::vector<double>& input);
+    void backpropagation(std::vector<double>& input, std::vector<double>& label, double learningRate);
     int in_size;
     int out_size;
     Layer input_layer;
     std::vector<Layer> hidden_layers;
     Layer output_layer;
 };
+
 
 class NetworkBuilder {
 public:
