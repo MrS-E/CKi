@@ -5,11 +5,11 @@
 #include "Network.h"
 
 Network::Network(int in_size, int out_size) : input_layer(in_size, in_size), output_layer(in_size, out_size), in_size(in_size), out_size(out_size) {
-    load_weights("weights_input.txt", input_layer.weights);
+    /*load_weights("weights_input.txt", input_layer.weights); todo: fix after moving weights to Neuron
     for (size_t i = 0; i < hidden_layers.size(); ++i) {
         load_weights("weights_hidden_" + std::to_string(i) + ".txt", hidden_layers[i].weights);
     }
-    load_weights("weights_output.txt", output_layer.weights);
+    load_weights("weights_output.txt", output_layer.weights);*/
 }
 
 void Network::add_hidden_layer(int neuron_count) {
@@ -42,7 +42,7 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
                 for (size_t i = 0; i < it->neurons.size(); ++i) {
                     double error = 0.0;
                     for (size_t j = 0; j < out_size; ++j) {
-                        error += output_deltas[j] * output_layer.weights[j][i];
+                        error += output_deltas[j] * output_layer.neurons[i].weights[j];
                     }
                     hidden_deltas[i] = it->neurons[i].calc_delta(error);
                 }
@@ -102,7 +102,7 @@ int Network::predict(std::vector<double> &input) {
 }
 
 void Network::save_weights(const std::string &filename) {
-    std::ofstream out_file(filename);
+    /*std::ofstream out_file(filename); todo:fix after moving weights to Neuron
     if (!out_file.is_open()) {
         std::cerr << "Error opening file: " << filename << std::endl;
         return;
@@ -131,7 +131,7 @@ void Network::save_weights(const std::string &filename) {
         out_file << std::endl;
     }
 
-    out_file.close();
+    out_file.close();*/
 }
 
 void Network::load_weights(const std::string &filename, std::vector<std::vector<double>>& weights) {
