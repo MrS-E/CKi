@@ -4,14 +4,6 @@
 
 #include "Network.h"
 
-Network::Network(int in_size, int out_size) : input_layer(in_size, in_size), output_layer(in_size, out_size), in_size(in_size), out_size(out_size) {
-    /*load_weights("weights_input.txt", input_layer.weights); todo: fix after moving weights to Neuron
-    for (size_t i = 0; i < hidden_layers.size(); ++i) {
-        load_weights("weights_hidden_" + std::to_string(i) + ".txt", hidden_layers[i].weights);
-    }
-    load_weights("weights_output.txt", output_layer.weights);*/
-}
-
 void Network::add_hidden_layer(int neuron_count) {
     hidden_layers.emplace_back(in_size, neuron_count);
     in_size = neuron_count;
@@ -148,4 +140,81 @@ void Network::load_weights(const std::string &filename, std::vector<std::vector<
     }
 
     in_file.close();
+}
+
+void Network::add_input_layer(int neuron_count) {
+    input_layer = Layer(neuron_count, neuron_count);
+    in_size = neuron_count;
+}
+
+void Network::add_output_layer(int neuron_count) {
+    output_layer = Layer(in_size, neuron_count);
+}
+
+
+// NetworkBuilder
+void NetworkBuilder::add_input_layer(int neuron_count) {
+    NetworkBuilder::in_size = neuron_count;
+}
+void NetworkBuilder::add_hidden_layer(int neuron_count) {
+NetworkBuilder::hidden_sizes.push_back(neuron_count);
+}
+void NetworkBuilder::add_output_layer(int neuron_count) {
+    NetworkBuilder::out_size = neuron_count;
+}
+std::vector<int> NetworkBuilder::lookup_sizes() {
+    if(NetworkBuilder::in_size==0 || NetworkBuilder::out_size==0 || NetworkBuilder::hidden_sizes.empty()) {
+        return {};
+    }
+    std::vector<int> sizes;
+    sizes.push_back(NetworkBuilder::in_size);
+    for(int hidden_size : NetworkBuilder::hidden_sizes) {
+        sizes.push_back(hidden_size);
+    }
+    sizes.push_back(NetworkBuilder::out_size);
+    return sizes;
+}
+void NetworkBuilder::printout() {
+    std::vector<int> sizes = NetworkBuilder::lookup_sizes();
+
+    if(sizes.empty()) {
+        std::cout << "Network Build: " << std::endl;
+        std::cout << "No layers added" << std::endl;
+        return;
+    }
+    if(sizes.size()<3){
+        std::cout << "Network Build: " << std::endl;
+        std::cout << "Not enough layers added" << std::endl;
+        return;
+    }
+
+    int ins = sizes[0];
+    std::cout << "Input layer: (" << ins << "," << ins << ")" << std::endl;
+    for(int i=1; i<sizes.size()-1; i++) {
+        std::cout << "Hidden layer " << i - 1 << ": (" <<  ins << "," << sizes[i] << ")" << std::endl;
+        ins = sizes[i];
+    }
+    std::cout << "Output layer: (" << ins << "," << sizes[sizes.size()-1] << ")" << std::endl;
+}
+Network NetworkBuilder::build() {
+    std::vector<int> sizes = NetworkBuilder::lookup_sizes();
+
+    if(sizes.empty()) {
+        std::cout << "Network Build: " << std::endl;
+        std::cout << "No layers added" << std::endl;
+        return {};
+    }
+    if(sizes.size()<3){
+        std::cout << "Network Build: " << std::endl;
+        std::cout << "Not enough layers added" << std::endl;
+        return {};
+    }
+
+    Network nn;
+    nn.add_input_layer(in_size);
+    for(int hidden_size : hidden_sizes) {
+        nn.add_hidden_layer(hidden_size);
+    }
+    nn.add_output_layer(out_size);
+    return nn;
 }

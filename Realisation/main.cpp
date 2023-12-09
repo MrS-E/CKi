@@ -31,10 +31,13 @@ double verif(Network nn){
 }
 
 int main() {
-    Network nn (784, 10);
-
-    nn.add_hidden_layer(64);
-    nn.add_hidden_layer(32);
+    NetworkBuilder builder;
+    builder.add_input_layer(784);
+    builder.add_hidden_layer(32);
+    builder.add_hidden_layer(16);
+    builder.add_output_layer(10);
+    builder.printout();
+    Network nn = builder.build();
     
     std::string cmd;
     
