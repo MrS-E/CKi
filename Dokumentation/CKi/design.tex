@@ -73,10 +73,11 @@ Für eine genaue Anleitung für das Einlesen und Interpretieren in Python ist di
 \label{sec:DesignCode}
 \subsection{Klassendiagramm}
 \label{sec:DesignKlassendiagramm}
-Es gibt vier Klassen im Projekt CKi. Dabei handelt es sich um auf sich selbst aufbauende Strukturen. Als Code-Einstieg fungiert die Main-Klasse, welche die Main-Funktion bereitstellt. In dieser wird die Klasse "Network" aufgesetzt. Es werden mehrere Hidden-Layer erstellt, die Datensätze der MINT-Datenkollektion eingelesen und die Funktionen "Train" und "Predict" sowie "Save Weights" ausgeführt.\
+Es gibt vier Klassen im Projekt CKi. Dabei handelt es sich um auf sich selbst aufbauende Strukturen. Als Code-Einstieg fungiert die Main-Klasse, welche die Main-Funktion bereitstellt. In dieser wird die Klasse „Network“ aufgesetzt. Es werden mehrere Hidden-Layer erstellt, die Datensätze der MINT-Datenkollektion eingelesen und die Funktionen „Train“ und „Predict“ sowie „Save Weights“ ausgeführt.\
 In der Network-Klasse werden mehrere Layer initialisiert und verwendet. Diese Layer sind in der Layer-Klasse definiert und besitzen wiederum multiple Neuronen.\
-Die Neuronen sind die Knotenpunkte, welche mit der mathematischen Sigmoid-Funktion einen Output-Wert berechnen. Zusätzlich ermitteln diese auch die Fehler-Abweichung bei der Backpropagation, um die einzelnen Werte anzupassen. \
-Um Sigmoid und die Ableitung von Sigmoid zu berechnen, gibt es noch eine Utility-Klasse "Util". Diese besteht nur aus statischen Funktionen, welche an anderen Orten benötigt werden. 
+Die Neuronen sind die Knotenpunkte, welche mit der mathematischen Sigmoid-Funktion einen Output-Wert berechnen. Zusätzlich ermitteln diese auch die Fehler-Abweichung bei der Backpropagation, um die einzelnen Werte anzupassen.\
+Um Sigmoid und die Ableitung von Sigmoid zu berechnen, gibt es noch eine Utility-Klasse „Util“. Diese besteht nur aus statischen Funktionen, welche an anderen Orten benötigt werden.
+
 
 \begin{figure}[H]
 \centering
