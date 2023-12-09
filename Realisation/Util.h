@@ -6,11 +6,17 @@
 #define CKI_UTIL_H
 
 #include <cmath>
+#include <vector>
+#include <fstream>
+#include <iostream>
+#include <string>
 
 class Util {
 public:
     static double sigmoid(double x);
     static double sigmoid_derivative(double x);
+    static std::vector<std::vector<double>> read_mnist_images(const std::string& filename);
+    static std::vector<std::vector<double>> read_mnist_labels(const std::string& filename);
 };
 
 
