@@ -73,7 +73,10 @@ Für eine genaue Anleitung für das Einlesen und Interpretieren in Python ist di
 \label{sec:DesignCode}
 \subsection{Klassendiagramm}
 \label{sec:DesignKlassendiagramm}
- Es gibt drei Klassen in CKi (Convolutional Layer, Pooling Layer, Dense Layers). Ein Convolutional Layer ist eine Art von Filter, welcher auf das Bild gelegt wird, um eine vereinfachte Erkennung zu ermöglichen. Die Pooling Layers sind verantwortlich das Bild zu verkleinern und so eine schnellere Verarbeitung zu ermöglichen. Die Dense Layers oder auch Fully Connected Layers sind das eigentlich das Gehirn der KI. Zusätzlich gibt es die Main-Klasse, diese ist zuständig die oben genannten Klassen miteinander zu verbinden und so das Netzwerk aufzubauen. Zusätzlich handhabt es die Nutzereingaben und die Auslese der Trainings-/Testdaten. 
+Es gibt vier Klassen im Projekt CKi. Dabei handelt es sich um auf sich selbst aufbauende Strukturen. Als Code-Einstieg fungiert die Main-Klasse, welche die Main-Funktion bereitstellt. In dieser wird die Klasse "Network" aufgesetzt. Es werden mehrere Hidden-Layer erstellt, die Datensätze der MINT-Datenkollektion eingelesen und die Funktionen "Train" und "Predict" sowie "Save Weights" ausgeführt.\
+In der Network-Klasse werden mehrere Layer initialisiert und verwendet. Diese Layer sind in der Layer-Klasse definiert und besitzen wiederum multiple Neuronen.\
+Die Neuronen sind die Knotenpunkte, welche mit der mathematischen Sigmoid-Funktion einen Output-Wert berechnen. Zusätzlich ermitteln diese auch die Fehler-Abweichung bei der Backpropagation, um die einzelnen Werte anzupassen. \
+Um Sigmoid und die Ableitung von Sigmoid zu berechnen, gibt es noch eine Utility-Klasse "Util". Diese besteht nur aus statischen Funktionen, welche an anderen Orten benötigt werden. 
 
 \begin{figure}[H]
 \centering
