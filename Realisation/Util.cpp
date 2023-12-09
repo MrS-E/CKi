@@ -45,3 +45,31 @@ std::vector<std::vector<double>> Util::read_mnist_images(const std::string &file
     file.close();
     return images;
 }
+
+std::vector<std::vector<double>> Util::read_mnist_labels(const std::string &filename) {
+    std::ifstream file(filename, std::ios::binary);
+
+    if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return {};
+    }
+
+    uint32_t magic_number, num_labels;
+    file.read(reinterpret_cast<char*>(&magic_number), sizeof(magic_number));
+    file.read(reinterpret_cast<char*>(&num_labels), sizeof(num_labels));
+
+    if (magic_number != 0x01080000) {
+        std::cerr << "Invalid magic number for MNIST label file: " << magic_number << std::endl;
+        return {};
+    }
+
+    std::vector<std::vector<double>> labels(num_labels, std::vector<double>(10, 0.0));
+    for (size_t i = 0; i < num_labels; ++i) {
+        uint8_t labelValue;
+        file.read(reinterpret_cast<char*>(&labelValue), sizeof(labelValue));
+        labels[i][labelValue] = 1.0;
+    }
+
+    file.close();
+    return labels;
+}
