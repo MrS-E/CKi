@@ -10,16 +10,15 @@
 
 class Neuron {
 public:
-    Neuron() {};
+    Neuron() = default;
     double calc_out(const std::vector<double>& inputs);
     double calc_err(double target);
     double calc_delta(double error);
-    double out;
-    std::vector<double> weights;
 
+    std::vector<double> weights;
+    double out{};
 private:
     double bias = 1.0;
 };
-
 
 #endif //REALISATION_NEURON_H
