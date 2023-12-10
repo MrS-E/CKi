@@ -16,8 +16,6 @@ public:
     void init_weights();
     void set_weights(const std::vector<std::vector<double>>& weights);
     std::vector<double> forward_propagation(const std::vector<double>& inputs);
-    std::vector<double> backward_propagation(std::vector<double> inputs, std::vector<double> deltas, double learningRate);
-    std::vector<double> get_deltas(const std::vector<double>& anticipated);
 
     std::vector<Neuron> neurons;
 };

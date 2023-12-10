@@ -12,12 +12,11 @@ class Neuron {
 public:
     Neuron() = default;
     double calc_out(const std::vector<double>& inputs);
-    double calc_err(double target);
-    double calc_delta(double error);
+    double calc_err(double target) const;
+    double calc_delta(double error) const;
 
     std::vector<double> weights;
     double out{};
-private:
     double bias = 1.0;
 };
 

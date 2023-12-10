@@ -13,10 +13,10 @@ double Neuron::calc_out(const std::vector<double> &inputs) {
     return Neuron::out;
 }
 
-double Neuron::calc_err(double target) {
+double Neuron::calc_err(double target) const {
     return target - Neuron::out;
 }
 
-double Neuron::calc_delta(double error) {
+double Neuron::calc_delta(double error) const {
     return error * Util::sigmoid_derivative(Neuron::out);
 }

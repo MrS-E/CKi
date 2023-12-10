@@ -19,7 +19,7 @@ public:
     void train(std::vector<std::vector<double>>& inputs, std::vector<std::vector<double>>& labels, int epochs, double learningRate);
     double verify(const std::vector<std::vector<double>>& inputs, const std::vector<std::vector<double>>& labels);
     int predict(const std::vector<double>& input);
-
+    void backpropagation(const std::vector<double> &expected_output, double learning_rate);
     void save_weights();
     void load_weights();
 

@@ -35,7 +35,7 @@ void Layer::calc_neuron_outputs(const std::vector<double> &inputs) {
 
 std::vector<double> Layer::get_neuron_outputs() {
     std::vector<double> outputs(Layer::neurons.size());
-    for (std::size_t i = 0; i < Layer::neurons.size(); ++i) {
+    for (std::size_t i = 0; i < Layer::neurons.size(); ++i)  {
         outputs[i] = Layer::neurons[i].out;
     }
     return outputs;
@@ -45,25 +45,4 @@ std::vector<double> Layer::forward_propagation(const std::vector<double>& inputs
     Layer::calc_neuron_outputs(inputs);
     return Layer::get_neuron_outputs();
 }
-
-std::vector<double> Layer::backward_propagation(std::vector<double> inputs, std::vector<double> deltas, double learningRate) {
-    for (std::size_t i = 0; i < Layer::neurons.size(); ++i) {
-        for (std::size_t j = 0; j < Layer::neurons[i].weights.size(); ++j) {
-            Layer::neurons[i].weights[j] += learningRate * deltas[i] * inputs[j];
-        }
-    }
-    return Layer::get_neuron_outputs();
-}
-
-std::vector<double> Layer::get_deltas(const std::vector<double> &anticipated) {
-    std::vector<double> deltas(Layer::neurons.size());
-    for (std::size_t i = 0; i < Layer::neurons.size(); ++i) {
-        double error = Layer::neurons[i].calc_err(anticipated[i]);
-        deltas[i] = Layer::neurons[i].calc_delta(error);
-    }
-    return deltas;
-}
-
-
-
 
