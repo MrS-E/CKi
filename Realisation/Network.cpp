@@ -42,8 +42,11 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
 
 std::vector<double> Network::forward_propagation(const std::vector<double> &inputs) {
     std::vector<double> outputs = inputs;
-    for(auto& layer : Network::layers) {
-        outputs = layer.forward_propagation(outputs);
+    for(std::size_t i = 0; i< outputs.size(); ++i) {
+        outputs[i] = Network::layers[0].neurons[i].calc_out({outputs[i]});
+    }
+    for(std::size_t i = 1; i < Network::layers.size(); ++i) {
+        outputs = Network::layers[i].forward_propagation(outputs);
     }
     return outputs;
 }
@@ -121,7 +124,7 @@ void Network::backpropagation(const std::vector<double> &expected_output, double
 
     // Calculate the overall network error (cost)
     double total_error = 0.0;
-    Layer output_layer = Network::layers[layers.size() - 1];
+    Layer& output_layer = Network::layers[layers.size() - 1];
 
     std::vector<double> next_layer_deltas(output_layer.neurons.size());
 
@@ -147,8 +150,8 @@ void Network::backpropagation(const std::vector<double> &expected_output, double
 
     // Calculate deltas and update weights and biases for hidden layers
     for (int i = Network::layers.size() - 2; i > 0; --i) {
-        Layer current_layer = Network::layers[i];
-        Layer next_layer = Network::layers[i + 1];
+        Layer& current_layer = Network::layers[i];
+        Layer& next_layer = Network::layers[i + 1];
 
         std::vector<double> current_layer_deltas(current_layer.neurons.size(), 0.0);
 
