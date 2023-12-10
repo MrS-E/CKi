@@ -2,42 +2,37 @@
 #include "Network.h"
 #include "Util.h"
 
-void train(Network nn){
+void train(Network& nn){
+    nn.load_weights();
     std::cout << std::endl << "Training..." << std::endl;
     std::cout << "Reading MNIST data..." << std::endl;
     std::vector<std::vector<double>> training_inputs = Util::read_mnist_training_images("../mnist");
     std::vector<std::vector<double>> training_labels = Util::read_mnist_training_labels("../mnist");
 
     std::cout << "Training..." << std::endl;
-    nn.train(training_inputs, training_labels, 100, 0.1);
+    nn.train(training_inputs, training_labels, 100, 1, 100, 0.1);
 
     std::cout << "Saving weights..." << std::endl;
-    nn.save_weights("weights.txt");
+    nn.save_weights();
     std::cout << "Done!" << std::endl;
 }
 
-double verif(Network nn){
+double verif(Network& nn){
     std::cout << std::endl << "Testing..." << std::endl;
-
-    /*std::cout << "Reading MNIST data..." << std::endl;
-    std::vector<std::vector<double>> test_inputs = Util::read_mnist_images("mnist/t10k-images.idx3-ubyte");
-    std::vector<std::vector<double>> test_labels = Util::read_mnist_labels("mnist/t10k-labels.idx1-ubyte");
+    nn.load_weights();
+    std::cout << "Reading MNIST data..." << std::endl;
+    std::vector<std::vector<double>> test_inputs = Util::read_mnist_test_images("../mnist");
+    std::vector<std::vector<double>> test_labels = Util::read_mnist_test_labels("../mnist");
 
     std::cout << "Testing..." << std::endl;
     double acc = nn.verify(test_inputs, test_labels);
-    std::cout << "Accuracy: " << acc << std::endl;*/
+    std::cout << "Accuracy: " << acc << std::endl;
     std::cout << "Done!" << std::endl;
-    return 0;
+    return acc;
 }
 
 int main() {
-    NetworkBuilder builder;
-    builder.add_input_layer(784);
-    builder.add_hidden_layer(32);
-    builder.add_hidden_layer(16);
-    builder.add_output_layer(10);
-    builder.printout();
-    Network nn = builder.build();
+    Network nn(784, 10, {32, 16});
     
     std::string cmd;
     
