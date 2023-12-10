@@ -13,14 +13,29 @@ Network::Network(int in_size, int out_size, std::vector<int> hidden_layers_sizes
     Network::layers.emplace_back(in_size, out_size);
 }
 
-void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learning_rate) {
+void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs,  int from, int where, double learning_rate) {
+    if(inputs.size() != labels.size()) {
+        throw std::invalid_argument("inputs.size() != labels.size()");
+    }
+    if (inputs.size() < where) {
+        where = inputs.size();
+        //throw std::invalid_argument("inputs.size() < where");
+    }
+    if(from < 1) {
+        from = 1;
+        //throw std::invalid_argument("from < 1");
+    }
+    if(from > where) {
+        from = where;
+        //throw std::invalid_argument("from > where");
+    }
     for(int epoch = 0; epoch<epochs; epoch++ ){
         std::cout << "Epoch: " << epoch + 1 << " of " << epochs << std::endl;
-        for(std::size_t i = 0; i < inputs.size(); ++i) {
+        for(std::size_t i = from-1; i < where; ++i) {
+            std::cout << "Training sample: " << i + 1 << " of " << where << std::endl;
             std::vector<double> outputs = Network::forward_propagation(inputs[i]);
 
             Network::backpropagation(labels[i], learning_rate);
-
         }
     }
 }
@@ -63,19 +78,39 @@ void Network::save_weights() {
 }
 
 void Network::load_weights() {
-    for(std::size_t i = 0; i < Network::layers.size(); ++i) {
-        std::ifstream file("weights" + std::to_string(i) + ".txt");
-        std::vector<std::vector<double>> weights(Network::layers[i].neurons.size());
-        for(auto& neuron : weights) {
-            neuron.resize(Network::layers[i].neurons[0].weights.size());
-        }
-        for(std::size_t j = 0; j < Network::layers[i].neurons.size(); ++j) {
-            for(std::size_t k = 0; k < Network::layers[i].neurons[j].weights.size(); ++k) {
-                file >> weights[j][k];
+    try {
+        for (std::size_t i = 0; i < Network::layers.size(); ++i) {
+            std::ifstream file("weights" + std::to_string(i) + ".txt");
+
+            if (!file.is_open()) {
+                std::cerr << "Error opening weights file: " << i << std::endl;
+                continue; // Skip to the next layer if file cannot be opened
             }
+
+            file.seekg(0, std::ios::end);
+            if (file.tellg() == 0) {
+                std::cerr << "Warning: Weights file is empty for layer " << i << std::endl;
+                file.close();
+                continue; // Skip to the next layer if file is empty
+            }
+
+            file.seekg(0, std::ios::beg);
+
+            std::vector<std::vector<double>> weights(Network::layers[i].neurons.size());
+            for (auto &neuron: weights) {
+                neuron.resize(Network::layers[i].neurons[0].weights.size());
+            }
+            for (std::size_t j = 0; j < Network::layers[i].neurons.size(); ++j) {
+                for (std::size_t k = 0; k < Network::layers[i].neurons[j].weights.size(); ++k) {
+                    file >> weights[j][k];
+                }
+            }
+            Network::layers[i].set_weights(weights);
+            file.close();
         }
-        Network::layers[i].set_weights(weights);
-        file.close();
+    } catch (std::exception& e) {
+        std::cerr << "Weights where not readable" << std::endl;
+        std::cout << e.what() << std::endl;
     }
 }
 
@@ -97,7 +132,7 @@ void Network::backpropagation(const std::vector<double> &expected_output, double
     }
 
     // Print or store the cost for monitoring
-    std::cout << "Total Error: " << total_error << std::endl;
+    std::cout << "Total Error: " << std::to_string(total_error) << std::endl;
 
     // propagate deltas backward through the layers
     // Update weights and biases for the output layer
