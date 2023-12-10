@@ -1,224 +1,63 @@
 //
-// Created by simeo on 03.12.2023.
+// Created by MrS-E on 03.12.2023.
 //
 
 #include "Network.h"
 
-void Network::add_hidden_layer(int neuron_count) {
-    hidden_layers.emplace_back(in_size, neuron_count);
-    in_size = neuron_count;
-}
-void Network::add_input_layer(int neuron_count) {
-    input_layer = Layer(neuron_count, neuron_count);
-    in_size = neuron_count;
-}
-void Network::add_output_layer(int neuron_count) {
-    output_layer = Layer(in_size, neuron_count);
-    out_size = neuron_count;
+Network::Network(int in_size, int out_size, std::vector<int> hidden_layers_sizes) {
+    for(auto& layer_size : hidden_layers_sizes) {
+        Network::layers.emplace_back(in_size, layer_size);
+        in_size = layer_size;
+    }
+    Network::layers.emplace_back(in_size, out_size);
 }
 
-void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learningRate) {
-    for (int epoch = 0; epoch < epochs; ++epoch) {
-        std::cout << "Epoch " << epoch + 1 << " of " << epochs << std::endl;
-        for (size_t example = 0; example < inputs.size(); ++example) {
-            Network::forward_pass(inputs[example]);
+void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learning_rate) {
+    for(int epoch = 0; epoch<epochs; epoch++ ){
+        for(std::size_t i = 0; i < inputs.size(); ++i) {
+            std::vector<double> outputs = Network::forward_propagation(inputs[i]);
 
-            backpropagation(inputs[example], labels[example], learningRate);
+            std::vector<double> deltas_out = Network::layers.back().get_deltas(labels[i]);
+
+            for(int j = Network::layers.size() - 2; j >= 0; --j) {
+                deltas_out = Network::layers[j].backward_propagation(Network::layers[j+1].get_neuron_outputs(), deltas_out, learning_rate);
+            }
+
         }
     }
+
+}
+
+std::vector<double> Network::forward_propagation(const std::vector<double> &inputs) {
+    std::vector<double> outputs = inputs;
+    for(auto& layer : Network::layers) {
+        outputs = layer.forward_propagation(outputs);
+    }
+    return outputs;
+}
+
+int Network::predict(const std::vector<double> &input) {
+    std::vector<double> outputs = Network::forward_propagation(input);
+    return static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end())));
 }
 
 double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<std::vector<double>> &labels) {
-    if (inputs.size() != labels.size() || inputs.empty()) {
-        std::cerr << "Invalid test data." << std::endl;
-        return 0.0;
-    }
-
-    int corr_predictions = 0;
-
-    for (size_t i = 0; i < inputs.size(); ++i) {
-        std::cout << "Predicting digit " << i+1 << " of " << inputs.size() << std::endl;
-        int predictedDigit = predict(const_cast<std::vector<double> &>(inputs[i]));
-
-        int trueDigit = static_cast<int>(std::distance(labels[i].begin(), std::max_element(labels[i].begin(), labels[i].end())));
-        if (predictedDigit == trueDigit) {
-            corr_predictions++;
+    int correct = 0;
+    for (std::size_t i = 0; i < inputs.size(); ++i) {
+        if (Network::predict(std::vector<double>(inputs[i])) == std::distance(labels[i].begin(), std::max_element(labels[i].begin(), labels[i].end()))) {
+            correct++;
         }
     }
-
-    double accuracy = static_cast<double>(corr_predictions) / static_cast<double>(inputs.size());
-    std::cout << "Verification Accuracy: " << (accuracy * 100.0) << "%" << std::endl;
-
-    return accuracy;
-}
-
-int Network::predict(std::vector<double> &input) {
-    std::vector<double> output = forward_pass(input);
-    int digit = 0;
-    for (int i = 1; i < out_size; ++i) {
-        if (output[i] > output[digit]) {
-            digit = i;
-        }
-    }
-
-    return digit;
+    return static_cast<double>(correct) / inputs.size();
 }
 
 void Network::save_weights(const std::string &filename) {
-    /*std::ofstream out_file(filename); todo:fix after moving weights to Neuron
-    if (!out_file.is_open()) {
-        std::cerr << "Error opening file: " << filename << std::endl;
-        return;
-    }
 
-    for (auto & weight : input_layer.weights) {
-        for (double j : weight) {
-            out_file << j << " ";
-        }
-        out_file << std::endl;
-    }
-    
-    for (const auto& hidden_layer : hidden_layers) {
-        for (const auto & weight : hidden_layer.weights) {
-            for (double j : weight) {
-                out_file << j << " ";
-            }
-            out_file << std::endl;
-        }
-    }
-
-    for (auto & weight : output_layer.weights) {
-        for (double j : weight) {
-            out_file << j << " ";
-        }
-        out_file << std::endl;
-    }
-
-    out_file.close();*/
-}
-void Network::load_weights(const std::string &filename, std::vector<std::vector<double>>& weights) {
-    std::ifstream in_file(filename);
-    if (!in_file.is_open()) {
-        std::cerr << "Error opening file: " << filename << std::endl;
-        return;
-    }
-
-    for (auto & weight : weights) {
-        for (double & j : weight) {
-            in_file >> j;
-        }
-    }
-
-    in_file.close();
 }
 
-std::vector<double> Network::forward_pass(std::vector<double> &input) {
-    std::vector<double> output;
-    input_layer.calc_neuron_outputs(input);
-
-    for (auto& hidden_layer : hidden_layers) {
-        hidden_layer.calc_neuron_outputs(input_layer.get_neuron_outputs());
-        input_layer = hidden_layer;
-    }
-
-    output_layer.calc_neuron_outputs(input_layer.get_neuron_outputs());
-    for(auto& neuron : output_layer.neurons) {
-        output.push_back(neuron.out);
-    }
-    return output;
-}
-
-void Network::backpropagation(std::vector<double> &input, std::vector<double> &label, double learning_rate) {
-    /*std::vector<Layer> all_layers;
-    all_layers.push_back(input_layer);
-    for (auto& hidden_layer : hidden_layers) {
-        all_layers.push_back(hidden_layer);
-    }
-    all_layers.push_back(output_layer);*/
-
-    std::vector<double> outputDeltas(output_layer.neurons.size());
-    for (int i = 0; i < output_layer.neurons.size(); ++i) {
-        outputDeltas[i] = output_layer.neurons[i].calc_delta(output_layer.neurons[i].calc_err(label[i]));
-    }
-
-    for(int i = hidden_layers.size()-1; i>=0; i--) {
-        double error = 0.0;
-        for(int j = 0; j<hidden_layers[i].neurons.size(); j++) {
-            for (int k = 0; k < hidden_layers[i].neurons[j].weights.size(); ++k) {
-                error += outputDeltas[j] * hidden_layers[i].neurons[j].weights[k];
-            }
-        }
-
-    }
+void Network::load_weights(const std::string &filename, std::vector<std::vector<double>> &weights) {
 
 }
 
 
 
-// NetworkBuilder
-void NetworkBuilder::add_input_layer(int neuron_count) {
-    NetworkBuilder::in_size = neuron_count;
-}
-void NetworkBuilder::add_hidden_layer(int neuron_count) {
-NetworkBuilder::hidden_sizes.push_back(neuron_count);
-}
-void NetworkBuilder::add_output_layer(int neuron_count) {
-    NetworkBuilder::out_size = neuron_count;
-}
-std::vector<int> NetworkBuilder::lookup_sizes() {
-    if(NetworkBuilder::in_size==0 || NetworkBuilder::out_size==0 || NetworkBuilder::hidden_sizes.empty()) {
-        return {};
-    }
-    std::vector<int> sizes;
-    sizes.push_back(NetworkBuilder::in_size);
-    for(int hidden_size : NetworkBuilder::hidden_sizes) {
-        sizes.push_back(hidden_size);
-    }
-    sizes.push_back(NetworkBuilder::out_size);
-    return sizes;
-}
-void NetworkBuilder::printout() {
-    std::vector<int> sizes = NetworkBuilder::lookup_sizes();
-
-    if(sizes.empty()) {
-        std::cout << "Network Build: " << std::endl;
-        std::cout << "No layers added" << std::endl;
-        return;
-    }
-    if(sizes.size()<3){
-        std::cout << "Network Build: " << std::endl;
-        std::cout << "Not enough layers added" << std::endl;
-        return;
-    }
-
-    int ins = sizes[0];
-    std::cout << "Input layer: (" << ins << "," << ins << ")" << std::endl;
-    for(int i=1; i<sizes.size()-1; i++) {
-        std::cout << "Hidden layer " << i - 1 << ": (" <<  ins << "," << sizes[i] << ")" << std::endl;
-        ins = sizes[i];
-    }
-    std::cout << "Output layer: (" << ins << "," << sizes[sizes.size()-1] << ")" << std::endl;
-}
-Network NetworkBuilder::build() {
-    std::vector<int> sizes = NetworkBuilder::lookup_sizes();
-
-    if(sizes.empty()) {
-        std::cout << "Network Build: " << std::endl;
-        std::cout << "No layers added" << std::endl;
-        return {};
-    }
-    if(sizes.size()<3){
-        std::cout << "Network Build: " << std::endl;
-        std::cout << "Not enough layers added" << std::endl;
-        return {};
-    }
-
-    Network nn;
-    std::cout << in_size << std::endl;
-    nn.add_input_layer(in_size);
-    for(int hidden_size : hidden_sizes) {
-        nn.add_hidden_layer(hidden_size);
-    }
-    nn.add_output_layer(out_size);
-    return nn;
-}
