@@ -17,6 +17,8 @@ public:
     static double sigmoid_derivative(double x);
     static std::vector<std::vector<double>> read_mnist_training_images(const std::string& folder);
     static std::vector<std::vector<double>> read_mnist_training_labels(const std::string& folder);
+    static std::vector<std::vector<double>> read_mnist_test_images(const std::string& folder);
+    static std::vector<std::vector<double>> read_mnist_test_labels(const std::string& folder);
 };
 
 

@@ -43,3 +43,32 @@ std::vector<std::vector<double>> Util::read_mnist_training_labels(const std::str
 
     return labels;
 }
+
+std::vector<std::vector<double>> Util::read_mnist_test_images(const std::string &folder) { //todo simplify (combine with read_mnist_training_images)
+    auto dataset = mnist::read_dataset<std::vector, std::vector, double, uint8_t>(folder);
+
+    std::vector<std::vector<double>> images;
+    images.reserve(dataset.test_images.size());
+    for ( auto image : dataset.test_images) {
+        for(double & p : image) {
+            p = p / 255.0;
+        }
+        images.push_back(image);
+    }
+
+    return images;
+}
+
+std::vector<std::vector<double>> Util::read_mnist_test_labels(const std::string &folder) { //todo simplify (combine with read_mnist_training_labels)
+    auto dataset = mnist::read_dataset<std::vector, std::vector, double, uint8_t>(folder);
+
+    std::vector<std::vector<double>> labels;
+    labels.reserve(dataset.test_labels.size());
+    for (const auto& label : dataset.test_labels) {
+        std::vector<double> label_vec(10, 0.0);
+        label_vec[label] = 1.0;
+        labels.push_back(label_vec);
+    }
+
+    return labels;
+}
