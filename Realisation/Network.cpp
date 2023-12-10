@@ -51,12 +51,35 @@ double Network::verify(const std::vector<std::vector<double>> &inputs, const std
     return static_cast<double>(correct) / inputs.size();
 }
 
-void Network::save_weights(const std::string &filename) {
+void Network::save_weights() {
+    for(std::size_t i = 0; i < Network::layers.size(); ++i) {
+        std::ofstream file("weights" + std::to_string(i) + ".txt");
+        for(auto& neuron : Network::layers[i].neurons) {
+            for(auto& weight : neuron.weights) {
+                file << weight << " ";
+            }
+            file << std::endl;
+        }
+        file.close();
+    }
 
 }
 
-void Network::load_weights(const std::string &filename, std::vector<std::vector<double>> &weights) {
-
+void Network::load_weights() {
+    for(std::size_t i = 0; i < Network::layers.size(); ++i) {
+        std::ifstream file("weights" + std::to_string(i) + ".txt");
+        std::vector<std::vector<double>> weights(Network::layers[i].neurons.size());
+        for(auto& neuron : weights) {
+            neuron.resize(Network::layers[i].neurons[0].weights.size());
+        }
+        for(std::size_t j = 0; j < Network::layers[i].neurons.size(); ++j) {
+            for(std::size_t k = 0; k < Network::layers[i].neurons[j].weights.size(); ++k) {
+                file >> weights[j][k];
+            }
+        }
+        Network::layers[i].set_weights(weights);
+        file.close();
+    }
 }
 
 

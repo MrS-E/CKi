@@ -20,8 +20,8 @@ public:
     double verify(const std::vector<std::vector<double>>& inputs, const std::vector<std::vector<double>>& labels);
     int predict(const std::vector<double>& input);
 
-    void save_weights(const std::string& filename);
-    void load_weights(const std::string& filename, std::vector<std::vector<double>>& weights);
+    void save_weights();
+    void load_weights();
 
     std::vector<double> forward_propagation(const std::vector<double>& inputs);
 
