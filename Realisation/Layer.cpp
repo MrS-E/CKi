@@ -13,10 +13,10 @@ Layer::Layer(int input_size, int neuron_count) {
 }
 
 void Layer::init_weights() {
-    srand(static_cast<unsigned>(time(0)));
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
     for(auto& neuron : Layer::neurons) {
         for (double & j : neuron.weights) {
-            j = (rand() % 2000 - 1000) / 1000.0;
+            j = static_cast<double>((std::rand() % 2000 - 1000) / 1000.0);
         }
     }
 }

@@ -6,6 +6,8 @@
 #define REALISATION_LAYER_H
 
 #include<vector>
+#include <cstdlib>
+#include <ctime>
 #include"Neuron.h"
 
 class Layer {
