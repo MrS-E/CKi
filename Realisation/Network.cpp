@@ -1,149 +1,180 @@
 //
-// Created by simeo on 03.12.2023.
+// Created by MrS-E on 03.12.2023.
 //
 
 #include "Network.h"
 
-Network::Network(int in_size, int out_size) : input_layer(in_size, in_size), output_layer(in_size, out_size), in_size(in_size), out_size(out_size) {
-    load_weights("weights_input.txt", input_layer.weights);
-    for (size_t i = 0; i < hidden_layers.size(); ++i) {
-        load_weights("weights_hidden_" + std::to_string(i) + ".txt", hidden_layers[i].weights);
+Network::Network(int in_size, int out_size, std::vector<int> hidden_layers_sizes) {
+    Network::layers.emplace_back(1, in_size);
+    for(auto& layer_size : hidden_layers_sizes) {
+        Network::layers.emplace_back(in_size, layer_size);
+        in_size = layer_size;
     }
-    load_weights("weights_output.txt", output_layer.weights);
+    Network::layers.emplace_back(in_size, out_size);
 }
 
-void Network::add_hidden_layer(int neuron_count) {
-    hidden_layers.emplace_back(in_size, neuron_count);
-    in_size = neuron_count;
-}
+void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs,  int from, int where, double learning_rate) {
+    if(inputs.size() != labels.size()) {
+        throw std::invalid_argument("inputs.size() != labels.size()");
+    }
+    if (inputs.size() < where) {
+        where = inputs.size();
+        //throw std::invalid_argument("inputs.size() < where");
+    }
+    if(from < 1) {
+        from = 1;
+        //throw std::invalid_argument("from < 1");
+    }
+    if(from > where) {
+        from = where;
+        //throw std::invalid_argument("from > where");
+    }
+    for(int epoch = 0; epoch<epochs; epoch++ ){
+        std::cout << "Epoch: " << epoch + 1 << " of " << epochs << std::endl;
+        for(std::size_t i = from-1; i < where; ++i) {
+            std::cout << "Training sample: " << (i + 1)*(epoch + 1) << " of " << where*epochs << std::endl;
+            std::vector<double> outputs = Network::forward_propagation(inputs[i]);
 
-void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learningRate) {
-    for (int epoch = 0; epoch < epochs; ++epoch) {
-        for (size_t example = 0; example < inputs.size(); ++example) {
-            // Forward pass
-            input_layer.calc_neuron_outputs(inputs[example]);
-
-            for (auto& hidden_layer : hidden_layers) {
-                hidden_layer.calc_neuron_outputs(input_layer.get_neuron_outputs());
-                input_layer = hidden_layer;
-            }
-
-            output_layer.calc_neuron_outputs(input_layer.get_neuron_outputs());
-
-            // Backpropagation
-            std::vector<double> output_deltas(out_size);
-            for (int i = 0; i < out_size; ++i) {
-                output_deltas[i] = output_layer.neurons[i].calc_delta(output_layer.neurons[i].calc_err(labels[example][i]));
-            }
-
-            for (auto it = hidden_layers.rbegin(); it != hidden_layers.rend(); ++it) {
-                std::vector<double> hiddenDeltas(it->neurons.size());
-                for (size_t i = 0; i < it->neurons.size(); ++i) {
-                    double error = 0.0;
-                    for (size_t j = 0; j < out_size; ++j) {
-                        error += output_deltas[j] * output_layer.weights[j][i];
-                    }
-                    hiddenDeltas[i] = it->neurons[i].calc_delta(error);
-                }
-
-                // Update weights
-                it->update_weights((it + 1)->get_neuron_outputs(), hiddenDeltas, learningRate);
-            }
-
-            // Update output layer weights
-            output_layer.update_weights(hidden_layers.empty() ? input_layer.get_neuron_outputs() : hidden_layers.front().get_neuron_outputs(), output_deltas, learningRate);
+            Network::backpropagation(labels[i], learning_rate);
         }
     }
+}
+
+std::vector<double> Network::forward_propagation(const std::vector<double> &inputs) {
+    std::vector<double> outputs = inputs;
+    for(std::size_t i = 0; i< outputs.size(); ++i) {
+        outputs[i] = Network::layers[0].neurons[i].calc_out({outputs[i]});
+    }
+    for(std::size_t i = 1; i < Network::layers.size(); ++i) {
+        outputs = Network::layers[i].forward_propagation(outputs);
+    }
+    return outputs;
+}
+
+int Network::predict(const std::vector<double> &input) {
+    std::vector<double> outputs = Network::forward_propagation(input);
+    return static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end())));
 }
 
 double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<std::vector<double>> &labels) {
-    if (inputs.size() != labels.size() || inputs.empty()) {
-        std::cerr << "Invalid test data." << std::endl;
-        return 0.0;
-    }
-
-    int corr_predictions = 0;
-
-    for (size_t i = 0; i < inputs.size(); ++i) {
-        int predictedDigit = predict(const_cast<std::vector<double> &>(inputs[i]));
-
-        int trueDigit = static_cast<int>(std::distance(labels[i].begin(), std::max_element(labels[i].begin(), labels[i].end())));
-        if (predictedDigit == trueDigit) {
-            corr_predictions++;
+    int correct = 0;
+    for (std::size_t i = 0; i < inputs.size(); ++i) {
+        if (Network::predict(std::vector<double>(inputs[i])) == std::distance(labels[i].begin(), std::max_element(labels[i].begin(), labels[i].end()))) {
+            correct++;
         }
     }
-
-    double accuracy = static_cast<double>(corr_predictions) / static_cast<double>(inputs.size());
-    std::cout << "Verification Accuracy: " << (accuracy * 100.0) << "%" << std::endl;
-
-    return accuracy;
+    return static_cast<double>(correct) / inputs.size();
 }
 
-int Network::predict(std::vector<double> &input) {
-    input_layer.calc_neuron_outputs(input);
-
-    for (auto& hidden_layer : hidden_layers) {
-        hidden_layer.calc_neuron_outputs(input_layer.get_neuron_outputs());
-        input_layer = hidden_layer;
-    }
-
-    output_layer.calc_neuron_outputs(input_layer.get_neuron_outputs());
-
-    int digit = 0;
-    for (int i = 1; i < out_size; ++i) {
-        if (output_layer.neurons[i].out > output_layer.neurons[digit].out) {
-            digit = i;
-        }
-    }
-
-    return digit;
-}
-
-void Network::save_weights(const std::string &filename) {
-    std::ofstream out_file(filename);
-    if (!out_file.is_open()) {
-        std::cerr << "Error opening file: " << filename << std::endl;
-        return;
-    }
-
-    for (auto & weight : input_layer.weights) {
-        for (double j : weight) {
-            out_file << j << " ";
-        }
-        out_file << std::endl;
-    }
-    
-    for (const auto& hidden_layer : hidden_layers) {
-        for (const auto & weight : hidden_layer.weights) {
-            for (double j : weight) {
-                out_file << j << " ";
+void Network::save_weights() {
+    for(std::size_t i = 0; i < Network::layers.size(); ++i) {
+        std::ofstream file("weights" + std::to_string(i) + ".txt");
+        for(auto& neuron : Network::layers[i].neurons) {
+            for(auto& weight : neuron.weights) {
+                file << weight << " ";
             }
-            out_file << std::endl;
+            file << std::endl;
         }
+        file.close();
     }
 
-    for (auto & weight : output_layer.weights) {
-        for (double j : weight) {
-            out_file << j << " ";
-        }
-        out_file << std::endl;
-    }
-
-    out_file.close();
 }
 
-void Network::load_weights(const std::string &filename, std::vector<std::vector<double>>& weights) {
-    std::ifstream in_file(filename);
-    if (!in_file.is_open()) {
-        std::cerr << "Error opening file: " << filename << std::endl;
-        return;
-    }
+void Network::load_weights() {
+    try {
+        for (std::size_t i = 0; i < Network::layers.size(); ++i) {
+            std::ifstream file("weights" + std::to_string(i) + ".txt");
 
-    for (auto & weight : weights) {
-        for (double & j : weight) {
-            in_file >> j;
+            if (!file.is_open()) {
+                std::cerr << "Error opening weights file: " << i << std::endl;
+                continue; // Skip to the next layer if file cannot be opened
+            }
+
+            file.seekg(0, std::ios::end);
+            if (file.tellg() == 0) {
+                std::cerr << "Warning: Weights file is empty for layer " << i << std::endl;
+                file.close();
+                continue; // Skip to the next layer if file is empty
+            }
+
+            file.seekg(0, std::ios::beg);
+
+            std::vector<std::vector<double>> weights(Network::layers[i].neurons.size());
+            for (auto &neuron: weights) {
+                neuron.resize(Network::layers[i].neurons[0].weights.size());
+            }
+            for (std::size_t j = 0; j < Network::layers[i].neurons.size(); ++j) {
+                for (std::size_t k = 0; k < Network::layers[i].neurons[j].weights.size(); ++k) {
+                    file >> weights[j][k];
+                }
+            }
+            Network::layers[i].set_weights(weights);
+            file.close();
         }
+    } catch (std::exception& e) {
+        std::cerr << "Weights where not readable" << std::endl;
+        std::cout << e.what() << std::endl;
+    }
+}
+
+
+void Network::backpropagation(const std::vector<double> &expected_output, double learning_rate) {
+    //implementation after math basics of https://youtu.be/tIeHLnjs5U8?si=rLwae8-ODyXVPCsa
+    //todo simplify (split code to functions for layer)
+
+    // Calculate the overall network error (cost)
+    double total_error = 0.0;
+    Layer& output_layer = Network::layers[layers.size() - 1];
+
+    std::vector<double> next_layer_deltas(output_layer.neurons.size());
+
+    for (std::size_t i = 0; i < expected_output.size(); ++i) {
+        double error = output_layer.neurons[i].calc_err(expected_output[i]);
+        next_layer_deltas[i] = output_layer.neurons[i].calc_delta(error);
+        total_error += error;
     }
 
-    in_file.close();
+    // Print or store the cost for monitoring
+    std::cout << "Total Error: " << std::to_string(total_error) << std::endl;
+
+    // propagate deltas backward through the layers
+    // Update weights and biases for the output layer
+    for (std::size_t i = 0; i < output_layer.neurons.size(); ++i) {
+        for (std::size_t j = 0; j < output_layer.neurons[i].weights.size(); ++j) {
+            output_layer.neurons[i].weights[j] +=
+                    learning_rate * next_layer_deltas[i] * layers[layers.size() - 2].neurons[j].out;
+        }
+
+        output_layer.neurons[i].bias += learning_rate * next_layer_deltas[i];
+    }
+
+    // Calculate deltas and update weights and biases for hidden layers
+    for (int i = Network::layers.size() - 2; i > 0; --i) {
+        Layer& current_layer = Network::layers[i];
+        Layer& next_layer = Network::layers[i + 1];
+
+        std::vector<double> current_layer_deltas(current_layer.neurons.size(), 0.0);
+
+        for (std::size_t j = 0; j < current_layer.neurons.size(); ++j) {
+            double sum_weights_deltas = 0.0;
+
+            for (std::size_t k = 0; k < next_layer.neurons.size(); ++k) {
+                sum_weights_deltas += next_layer.neurons[k].weights[j] * next_layer_deltas[k];
+            }
+
+            current_layer_deltas[j] = current_layer.neurons[j].calc_delta(sum_weights_deltas);
+
+            // Update weights and biases for the current layer
+            for (std::size_t k = 0; k < current_layer.neurons[j].weights.size(); ++k) {
+                current_layer.neurons[j].weights[k] +=
+                        learning_rate * current_layer_deltas[j] * Network::layers[i - 1].neurons[k].out;
+            }
+
+            current_layer.neurons[j].bias += learning_rate * current_layer_deltas[j];
+        }
+
+        next_layer_deltas = current_layer_deltas;
+    }
 }
+
+

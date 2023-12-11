@@ -1,5 +1,5 @@
 //
-// Created by simeo on 03.12.2023.
+// Created by MrS-E on 03.12.2023.
 //
 
 #ifndef REALISATION_NETWORK_H
@@ -14,21 +14,19 @@
 
 class Network {
 public:
-    Network(int in_size, int out_size);
-    void add_hidden_layer(int neuron_count);
-    void train(std::vector<std::vector<double>>& inputs, std::vector<std::vector<double>>& labels, int epochs, double learningRate);
+    Network(int in_size, int out_size, std::vector<int> layers_sizes);
+
+    void train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs,  int from, int where, double learning_rate);
     double verify(const std::vector<std::vector<double>>& inputs, const std::vector<std::vector<double>>& labels);
-    int predict(std::vector<double>& input);
-    void save_weights(const std::string& filename);
-    void load_weights(const std::string& filename, std::vector<std::vector<double>>& weights);
+    int predict(const std::vector<double>& input);
+    void backpropagation(const std::vector<double> &expected_output, double learning_rate);
+    void save_weights();
+    void load_weights();
+
+    std::vector<double> forward_propagation(const std::vector<double>& inputs);
 
 private:
-    int in_size;
-    int out_size;
-    Layer input_layer;
-    std::vector<Layer> hidden_layers;
-    Layer output_layer;
+    std::vector<Layer> layers;
 };
-
 
 #endif //REALISATION_NETWORK_H

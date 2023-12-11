@@ -1,33 +1,48 @@
 //
-// Created by simeo on 02.12.2023.
+// Created by MrS-E on 02.12.2023.
 //
 
 #include "Layer.h"
 
-Layer::Layer(int inputSize, int neuronCount) {
-    neurons.resize(neuronCount);
-    weights.resize(neuronCount, std::vector<double>(inputSize));
+Layer::Layer(int input_size, int neuron_count) {
+    Layer::neurons.resize(neuron_count);
+    for(auto& neuron : Layer::neurons) {
+        neuron.weights.resize(input_size);
+    }
+    Layer::init_weights();
+}
+
+void Layer::init_weights() {
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    for(auto& neuron : Layer::neurons) {
+        for (double & j : neuron.weights) {
+            j = static_cast<double>((std::rand() % 2000 - 1000) / 1000.0);
+        }
+    }
+}
+
+void Layer::set_weights(const std::vector<std::vector<double>> &weights) {
+    for (std::size_t i = 0; i < Layer::neurons.size(); ++i) {
+        Layer::neurons[i].weights = weights[i];
+    }
 }
 
 void Layer::calc_neuron_outputs(const std::vector<double> &inputs) {
-    for (size_t i = 0; i < neurons.size(); ++i) {
-        neurons[i].calc_out(inputs, weights[i]);
+    for (auto & neuron : Layer::neurons) {
+        neuron.calc_out(inputs);
     }
 }
 
 std::vector<double> Layer::get_neuron_outputs() {
-    std::vector<double> outputs;
-    outputs.reserve(neurons.size());
-    for (const auto& neuron : neurons) {
-        outputs.push_back(neuron.out);
+    std::vector<double> outputs(Layer::neurons.size());
+    for (std::size_t i = 0; i < Layer::neurons.size(); ++i)  {
+        outputs[i] = Layer::neurons[i].out;
     }
     return outputs;
 }
 
-void Layer::update_weights(const std::vector<double> &inputs, std::vector<double> &deltas, double learningRate) {
-    for (size_t i = 0; i < neurons.size(); ++i) {
-        for (size_t j = 0; j < weights[i].size(); ++j) {
-            weights[i][j] += learningRate * deltas[i] * inputs[j];
-        }
-    }
+std::vector<double> Layer::forward_propagation(const std::vector<double>& inputs) {
+    Layer::calc_neuron_outputs(inputs);
+    return Layer::get_neuron_outputs();
 }
+
