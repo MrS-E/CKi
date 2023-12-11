@@ -32,7 +32,7 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
     for(int epoch = 0; epoch<epochs; epoch++ ){
         std::cout << "Epoch: " << epoch + 1 << " of " << epochs << std::endl;
         for(std::size_t i = from-1; i < where; ++i) {
-            std::cout << "Training sample: " << i + 1 << " of " << where << std::endl;
+            std::cout << "Training sample: " << (i + 1)*(epoch + 1) << " of " << where*epochs << std::endl;
             std::vector<double> outputs = Network::forward_propagation(inputs[i]);
 
             Network::backpropagation(labels[i], learning_rate);

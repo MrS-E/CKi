@@ -3,14 +3,13 @@
 #include "Util.h"
 
 void train(Network& nn){
-    nn.load_weights();
     std::cout << std::endl << "Training..." << std::endl;
     std::cout << "Reading MNIST data..." << std::endl;
     std::vector<std::vector<double>> training_inputs = Util::read_mnist_training_images("../mnist");
     std::vector<std::vector<double>> training_labels = Util::read_mnist_training_labels("../mnist");
 
     std::cout << "Training..." << std::endl;
-    nn.train(training_inputs, training_labels, 100, 1, 100, 0.1);
+    nn.train(training_inputs, training_labels, 100, 1, 1000000, 0.01);
 
     std::cout << "Saving weights..." << std::endl;
     nn.save_weights();
@@ -33,7 +32,8 @@ double verif(Network& nn){
 
 int main() {
     Network nn(784, 10, {32, 16});
-    
+    nn.load_weights();
+    //train(nn);
     std::string cmd;
     
     std::cout << "Welcome to CKi" << std::endl;
@@ -48,6 +48,7 @@ int main() {
             verif(nn);
         } else if (cmd == "exit") {
             std::cout << "Exiting..." << std::endl;
+            nn.save_weights();
             break;
         } else {
             std::cout << "Unknown command" << std::endl;
