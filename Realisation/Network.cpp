@@ -36,3 +36,22 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
         }
     }
 }
+
+ std::vector<double> Network::forward_propagation(const std::vector<double>& input) {
+    layers[0].calc_neuron_outputs(input);
+
+    for (int i = 1; i < layers.size(); ++i) {
+        std::vector<double> inputs = layers[i - 1].get_neuron_outputs();
+        layers[i].calc_neuron_outputs(inputs);
+    }
+
+    return layers[layers.size()-1].get_neuron_outputs();
+}
+
+void Network::backward_propagation(const std::vector<double>& target, double learning_rate) {
+    std::vector<double> error = layers.back().calculate_error(layers.back().get_neuron_outputs(), target);
+
+    for (int i = layers.size() - 1; i >= 0; --i) {
+        error = layers[i].update_weights_and_biases(error, learning_rate);
+    }
+}

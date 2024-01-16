@@ -42,12 +42,31 @@ std::vector<double> Layer::get_neuron_outputs()
     return outputs;
 }
 
-void backward_propagation(const std::vector<double> &expected_output, const std::vector<double> &input, double learning_rate)
-{
-
+std::vector<double> Layer::calculate_error(const std::vector<double>& output, const std::vector<double>& target) {
+    std::vector<double> layer_error;
+    for (size_t i = 0; i < output.size(); ++i) {
+        double error = output[i] - target[i];
+        layer_error.push_back(error);
+    }
+    return layer_error;
 }
 
-std::vector<double> forward_propagation(const std::vector<double>& inputs)
-{
-    return {};
+std::vector<double> Layer::update_weights_and_biases(const std::vector<double>& error, double learning_rate) {
+    std::vector<double> prev_layer_error(neurons[0].weights.size(), 0.0);
+
+    for (size_t i = 0; i < neurons.size(); ++i) {
+        Neuron &neuron = neurons[i];
+        double neuron_error = error[i];
+        double activation_derivative = neuron.activation_derivative();
+
+        for (size_t j = 0; j < neuron.weights.size(); ++j) {
+            prev_layer_error[j] += neuron.weights[j] * neuron_error;
+
+            double delta_weight = neuron_error * activation_derivative * neuron.inputs[j];
+            neuron.weights[j] -= learning_rate * delta_weight;
+        }
+        neuron.bias -= learning_rate * neuron_error * activation_derivative;
+    }
+
+    return prev_layer_error;
 }
