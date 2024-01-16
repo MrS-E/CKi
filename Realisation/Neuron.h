@@ -11,13 +11,14 @@
 class Neuron {
 public:
     Neuron() = default;
-    double calc_out(const std::vector<double>& inputs);
-    double calc_err(double target) const;
-    double calc_delta(double error) const;
+    double calc_activation(const std::vector<double>& inputs);
+    [[nodiscard]] double calc_differential_error_divition_differential_activition(double target) const;
+    [[nodiscard]] double calc_differential_activation_divition_differential_sum() const;
 
     std::vector<double> weights;
-    double out{};
+    double activation{};
     double bias = 1.0;
+    double sum{};
 };
 
 #endif //REALISATION_NEURON_H
