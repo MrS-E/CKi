@@ -36,14 +36,3 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
         }
     }
 }
-
-std::vector<double> Network::forward_propagation(const std::vector<double> &inputs) {
-    std::vector<double> outputs = inputs;
-    for(std::size_t i = 0; i< outputs.size(); ++i) {
-        outputs[i] = Network::layers[0].neurons[i].activation({outputs[i]});
-    }
-    for(std::size_t i = 1; i < Network::layers.size(); ++i) {
-        outputs = Network::layers[i].forward_propagation(outputs);
-    }
-    return outputs;
-}

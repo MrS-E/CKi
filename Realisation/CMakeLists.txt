@@ -3,7 +3,7 @@ project(Realisation)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Realisation main.cpp
+add_executable(Realisation
         Util.h
         Util.cpp
         Neuron.cpp

@@ -42,15 +42,12 @@ std::vector<double> Layer::get_neuron_outputs()
     return outputs;
 }
 
-std::vector<double> Layer::forward_propagation(const std::vector<double>& inputs){
-    Layer::calc_neuron_outputs(inputs);
-    return Layer::get_neuron_outputs();
+void backward_propagation(const std::vector<double> &expected_output, const std::vector<double> &input, double learning_rate)
+{
+
 }
 
-void Layer::backward_propagation(const std::vector<double>& inputs)
+std::vector<double> forward_propagation(const std::vector<double>& inputs)
 {
-    for(std::size_t i = 0; i<Layer::neurons.size(); i++)
-    {
-
-    }
+    return {};
 }
