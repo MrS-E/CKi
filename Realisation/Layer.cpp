@@ -27,21 +27,22 @@ void Layer::set_weights(const std::vector<std::vector<double>> &weights) {
     }
 }
 
-void Layer::calc_neuron_outputs(const std::vector<double> &inputs) {
+void Layer::calc_neuron_outputs(const std::vector<double> &inputs){
     for (auto & neuron : Layer::neurons) {
-        neuron.calc_out(inputs);
+        neuron.calc_activation(inputs);
     }
 }
 
-std::vector<double> Layer::get_neuron_outputs() {
+std::vector<double> Layer::get_neuron_outputs()
+{
     std::vector<double> outputs(Layer::neurons.size());
     for (std::size_t i = 0; i < Layer::neurons.size(); ++i)  {
-        outputs[i] = Layer::neurons[i].out;
+        outputs[i] = Layer::neurons[i].activition;
     }
     return outputs;
 }
 
-std::vector<double> Layer::forward_propagation(const std::vector<double>& inputs) {
+std::vector<double> Layer::forward_propagation(const std::vector<double>& inputs){
     Layer::calc_neuron_outputs(inputs);
     return Layer::get_neuron_outputs();
 }
