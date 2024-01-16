@@ -37,7 +37,7 @@ std::vector<double> Layer::get_neuron_outputs()
 {
     std::vector<double> outputs(Layer::neurons.size());
     for (std::size_t i = 0; i < Layer::neurons.size(); ++i)  {
-        outputs[i] = Layer::neurons[i].activition;
+        outputs[i] = Layer::neurons[i].activation;
     }
     return outputs;
 }
@@ -47,3 +47,10 @@ std::vector<double> Layer::forward_propagation(const std::vector<double>& inputs
     return Layer::get_neuron_outputs();
 }
 
+void Layer::backward_propagation(const std::vector<double>& inputs)
+{
+    for(std::size_t i = 0; i<Layer::neurons.size(); i++)
+    {
+
+    }
+}
