@@ -10,14 +10,14 @@ double Neuron::calc_activation(const std::vector<double> &inputs)
     for (size_t i = 0; i < inputs.size(); ++i) {
         sum += inputs[i] * Neuron::weights[i];
     }
-    Neuron::activition = Util::sigmoid(sum);
+    Neuron::activation = Util::sigmoid(sum);
     Neuron::sum = sum;
-    return Neuron::activition;
+    return Neuron::activation;
 }
 
 double Neuron::calc_differential_error_divition_differential_activition(double target) const
 {
-    return Neuron::activition - target;
+    return Neuron::activation - target;
 }
 
 double Neuron::calc_differential_activation_divition_differential_sum() const
