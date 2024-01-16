@@ -30,9 +30,9 @@ double Network::verify(const std::vector<std::vector<double>> &inputs, const std
 
 void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learning_rate) {
     for(int epoch = 0; epoch<epochs; epoch++ ){
-        for(std::size_t i = 0; i < inputs.size(); ++i) {
+        for(std::size_t i = 0; i < 10000; i++) {
             std::vector<double> outputs = Network::forward_propagation(inputs[i]);
-            //add backpropagation
+            Network::backward_propagation(labels[i], learning_rate);
         }
     }
 }
@@ -49,7 +49,15 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
 }
 
 void Network::backward_propagation(const std::vector<double>& target, double learning_rate) {
-    std::vector<double> error = layers.back().calculate_error(layers.back().get_neuron_outputs(), target);
+    std::vector<double> error = layers[layers.size()-1].calculate_error(target);
+    double total_error = 0;
+    for(double e : error){
+        total_error+=e;
+    }
+
+    total_error/=error.size();
+
+    std::cout << total_error << std::endl;
 
     for (int i = layers.size() - 1; i >= 0; --i) {
         error = layers[i].update_weights_and_biases(error, learning_rate);

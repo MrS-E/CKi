@@ -18,7 +18,7 @@ public:
     void init_weights();
     void set_weights(const std::vector<std::vector<double>>& weights);
     std::vector<double> update_weights_and_biases(const std::vector<double>& error, double learning_rate);
-    static std::vector<double> calculate_error(const std::vector<double>& output, const std::vector<double>& target);
+    std::vector<double> calculate_error(const std::vector<double>& target);
 
     std::vector<Neuron> neurons;
 };

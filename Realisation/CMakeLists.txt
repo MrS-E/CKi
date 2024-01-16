@@ -11,4 +11,5 @@ add_executable(Realisation
         Layer.cpp
         Layer.h
         Network.cpp
-        Network.h)
+        Network.h
+        main.cpp)

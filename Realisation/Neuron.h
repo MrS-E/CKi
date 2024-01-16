@@ -13,6 +13,7 @@ public:
     Neuron() = default;
     double calc_activation(const std::vector<double>& inputs);
     [[nodiscard]] double activation_derivative() const;
+    [[nodiscard]] double calc_error(const double &target) const;
 
     std::vector<double> weights;
     std::vector<double> inputs;

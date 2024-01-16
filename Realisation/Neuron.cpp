@@ -20,3 +20,8 @@ double Neuron::activation_derivative() const
 {
     return Util::sigmoid_derivative(Neuron::activation);
 }
+
+double Neuron::calc_error(const double &target) const
+{
+    return Neuron::activation - target;
+}
