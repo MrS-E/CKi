@@ -30,7 +30,7 @@ double Network::verify(const std::vector<std::vector<double>> &inputs, const std
 
 void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learning_rate) {
     for(int epoch = 0; epoch<epochs; epoch++ ){
-        for(std::size_t i = 0; i < 10000; i++) {
+        for(std::size_t i = 0; i < inputs.size(); i++) {
             std::vector<double> outputs = Network::forward_propagation(inputs[i]);
             Network::backward_propagation(labels[i], learning_rate);
         }
