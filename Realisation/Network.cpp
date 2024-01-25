@@ -5,7 +5,7 @@
 #include "Network.h"
 
 Network::Network(int in_size, int out_size, std::vector<int> hidden_layers_sizes) {
-    Network::layers.emplace_back(1, in_size);
+    Network::layers.emplace_back(in_size, in_size);
     for(auto& layer_size : hidden_layers_sizes) {
         Network::layers.emplace_back(in_size, layer_size);
         in_size = layer_size;
@@ -51,8 +51,8 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
 void Network::backward_propagation(const std::vector<double>& target, double learning_rate) {
     std::vector<double> error = layers[layers.size()-1].calculate_error(target);
     double total_error = 0;
-    for(double e : error){
-        total_error+=e;
+    for(double& e : error) {
+        total_error += e;
     }
 
     total_error/=error.size();
