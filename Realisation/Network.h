@@ -16,7 +16,7 @@ class Network {
 public:
     Network(int in_size, int out_size, std::vector<int> layers_sizes);
 
-    void train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs,  int from, int where, double learning_rate);
+    void train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learning_rate);
     double verify(const std::vector<std::vector<double>>& inputs, const std::vector<std::vector<double>>& labels);
     int predict(const std::vector<double>& input);
     void backpropagation(const std::vector<double> &expected_output, double learning_rate);

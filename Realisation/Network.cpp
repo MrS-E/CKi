@@ -13,8 +13,8 @@ Network::Network(int in_size, int out_size, std::vector<int> hidden_layers_sizes
     Network::layers.emplace_back(in_size, out_size);
 }
 
-void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs,  int from, int where, double learning_rate) {
-    if(inputs.size() != labels.size()) {
+void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs,  double learning_rate) {
+    /*if(inputs.size() != labels.size()) {
         throw std::invalid_argument("inputs.size() != labels.size()");
     }
     if (inputs.size() < where) {
@@ -28,11 +28,12 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
     if(from > where) {
         from = where;
         //throw std::invalid_argument("from > where");
-    }
+    }*/
+    double const size = inputs.size();
     for(int epoch = 0; epoch<epochs; epoch++ ){
         std::cout << "Epoch: " << epoch + 1 << " of " << epochs << std::endl;
-        for(std::size_t i = from-1; i < where; ++i) {
-            std::cout << "Training sample: " << (i + 1)*(epoch + 1) << " of " << where*epochs << std::endl;
+        for(std::size_t i = 0; i < size; ++i) {
+            std::cout << "Training sample: " << (i + 1)*(epoch + 1) << " of " << size*epochs << std::endl;
             std::vector<double> outputs = Network::forward_propagation(inputs[i]);
 
             Network::backpropagation(labels[i], learning_rate);
@@ -166,7 +167,7 @@ void Network::backpropagation(const std::vector<double> &expected_output, double
 
             // Update weights and biases for the current layer
             for (std::size_t k = 0; k < current_layer.neurons[j].weights.size(); ++k) {
-                current_layer.neurons[j].weights[k] +=
+                current_layer.neurons[j].weights[k] -=
                         learning_rate * current_layer_deltas[j] * Network::layers[i - 1].neurons[k].out;
             }
 

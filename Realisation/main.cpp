@@ -9,7 +9,7 @@ void train(Network& nn){
     std::vector<std::vector<double>> training_labels = Util::read_mnist_training_labels("../mnist");
 
     std::cout << "Training..." << std::endl;
-    nn.train(training_inputs, training_labels, 100, 1, 1000000, 0.01);
+    nn.train(training_inputs, training_labels, 1, 0.01);
 
     std::cout << "Saving weights..." << std::endl;
     nn.save_weights();
@@ -32,9 +32,10 @@ double verif(Network& nn){
 
 int main() {
     Network nn(784, 10, {32, 16});
-    nn.load_weights();
-    //train(nn);
-    std::string cmd;
+    //nn.load_weights();
+    train(nn);
+    verif(nn);
+    /*std::string cmd;
     
     std::cout << "Welcome to CKi" << std::endl;
     do {
@@ -53,7 +54,7 @@ int main() {
         } else {
             std::cout << "Unknown command" << std::endl;
         }
-    }while(!cmd.empty());
+    }while(!cmd.empty());*/
 
     return 0;
 }
