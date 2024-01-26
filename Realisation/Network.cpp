@@ -18,21 +18,24 @@ int Network::predict(const std::vector<double> &input) {
     return static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end())));
 }
 
-double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<std::vector<double>> &labels) {
+double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<std::vector<double>> &labels, std::function <void (int, int)> cb_progress) {
     int correct = 0;
     for (std::size_t i = 0; i < inputs.size(); ++i) {
         if (Network::predict(std::vector<double>(inputs[i])) == std::distance(labels[i].begin(), std::max_element(labels[i].begin(), labels[i].end()))) {
             correct++;
         }
+        cb_progress((int) i+1, inputs.size());
     }
     return static_cast<double>(correct) / static_cast<double>(inputs.size());
 }
 
-void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learning_rate) {
+void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learning_rate, std::function <void (int, int)> cb_progress, std::function <void (double)> cb_error) {
     for(int epoch = 0; epoch<epochs; epoch++ ){
         for(std::size_t i = 0; i < inputs.size(); i++) {
             std::vector<double> outputs = Network::forward_propagation(inputs[i]);
-            Network::backward_propagation(labels[i], learning_rate);
+            //double error = Network::backward_propagation(labels[i], learning_rate);
+            cb_error(Network::backward_propagation(labels[i], learning_rate));
+            cb_progress((int) (i+1)*(epoch+1), inputs.size()*epochs);
         }
     }
 }
@@ -48,7 +51,7 @@ void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::v
     return layers[layers.size()-1].get_neuron_outputs();
 }
 
-void Network::backward_propagation(const std::vector<double>& target, double learning_rate) {
+double Network::backward_propagation(const std::vector<double>& target, double learning_rate) {
     std::vector<double> error = layers[layers.size()-1].calculate_error(target);
     double total_error = 0;
     for(double& e : error) {
@@ -57,9 +60,10 @@ void Network::backward_propagation(const std::vector<double>& target, double lea
 
     total_error/=error.size();
 
-    std::cout << total_error << std::endl;
+    //std::cout << total_error << std::endl;
 
     for (int i = layers.size() - 1; i >= 0; --i) {
         error = layers[i].update_weights_and_biases(error, learning_rate);
     }
+    return total_error;
 }
