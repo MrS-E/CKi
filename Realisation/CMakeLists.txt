@@ -3,6 +3,8 @@ project(Realisation)
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_subdirectory(FTXUI)
+
 add_executable(Realisation
         Util.h
         Util.cpp
@@ -13,3 +15,5 @@ add_executable(Realisation
         Network.cpp
         Network.h
         main.cpp)
+
+target_link_libraries(Realisation PRIVATE ftxui::dom ftxui::screen ftxui::component)
