@@ -4,7 +4,6 @@
 
 #include <cstdint>
 #include "Util.h"
-#include "mnist/include/mnist_reader.hpp"
 
 double Util::sigmoid(double x) {
     return 1.0 / (1.0 + exp(-x));

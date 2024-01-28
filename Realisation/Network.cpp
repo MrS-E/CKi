@@ -63,3 +63,34 @@ void Network::backward_propagation(const std::vector<double>& target, double lea
         error = layers[i].update_weights_and_biases(error, learning_rate);
     }
 }
+
+void Network::save_network(const std::string &filename) {
+    nlohmann::json j;
+
+    for (size_t i = 0; i < layers.size(); ++i) {
+        for (const auto& neuron : layers[i].neurons) {
+            j["layers"][i]["neurons"].push_back({
+                                                        {"weights", neuron.weights},
+                                                        {"bias", neuron.bias}
+                                                });
+        }
+    }
+
+    std::ofstream file(filename);
+    file << j.dump(4);
+}
+
+void Network::load_network(const std::string &filename) {
+    std::ifstream file(filename);
+    nlohmann::json j;
+    file >> j;
+
+    for (size_t i = 0; i < layers.size(); ++i) {
+        size_t neuronIndex = 0;
+        for (auto& neuron : layers[i].neurons) {
+            neuron.weights = j["layers"][i]["neurons"][neuronIndex]["weights"].get<std::vector<double>>();
+            neuron.bias = j["layers"][i]["neurons"][neuronIndex]["bias"].get<double>();
+            neuronIndex++;
+        }
+    }
+}

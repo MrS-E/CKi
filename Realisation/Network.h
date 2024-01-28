@@ -9,8 +9,9 @@
 #include"Layer.h"
 #include<string>
 #include<iostream>
-#include <algorithm>
+#include<algorithm>
 #include<fstream>
+#include "nlohmann/json.hpp"
 
 class Network {
 public:
@@ -21,6 +22,8 @@ public:
     int predict(const std::vector<double>& input);
     std::vector<double> forward_propagation(const std::vector<double>& input);
     void backward_propagation(const std::vector<double>& target, double learning_rate);
+    void save_network(const std::string& filename);
+    void load_network(const std::string& filename);
 
 private:
     std::vector<Layer> layers;
