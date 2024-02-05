@@ -12,9 +12,9 @@ void train(Network& nn){
     std::vector<std::vector<double>> training_labels = Util::read_mnist_training_labels("../mnist");
 
     std::cout << "Training..." << std::endl;
-    nn.train(training_inputs, training_labels, 1, 0.01);
+    double error = nn.train(training_inputs, training_labels, 100, 0.1);
+    std::cout << "Error " << error << std::endl;
 
-    std::cout << "Saving weights..." << std::endl;
     std::cout << "Done!" << std::endl;
 }
 
