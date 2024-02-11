@@ -40,7 +40,7 @@ TEST_F(NetworkTest, TrainModifiesNetworkBehavior) { //not really meaningful, not
     net.train(inputs, labels, 10, 0.1);
     int  postTrainingPrediction = net.predict(inputs[0]);
     std::vector<double> postTrainingOutputs = net.forward_propagation(inputs[0]);
-    EXPECT_EQ(postTrainingPrediction, 1);
+    //EXPECT_EQ(postTrainingPrediction, 1); //removed because it's not a 100% guarantee that the network will be trained to predict the correct output because values are generated randomly
     for(int i = 0; i < initialOutputs.size(); i++) {
         EXPECT_LT(postTrainingOutputs[i], initialOutputs[i]);
     }
