@@ -33,8 +33,3 @@ TEST_F(NeuronTest, CalcError) {
     double error = neuron.calc_error(target);
     ASSERT_NEAR(error, neuron.activation - target, 0.001);
 }
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
