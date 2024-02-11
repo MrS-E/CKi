@@ -15,7 +15,7 @@ Network::Network(int in_size, int out_size, std::vector<int> hidden_layers_sizes
 
 int Network::predict(const std::vector<double> &input) {
     std::vector<double> outputs = Network::forward_propagation(input);
-    return static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end())));
+    return static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end()))); //return number of the neuron with the highest output +1
 }
 
 double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<std::vector<double>> &labels) {
