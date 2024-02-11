@@ -11,7 +11,7 @@
 #include<iostream>
 #include<algorithm>
 #include<fstream>
-#include "nlohmann/json.hpp"
+#include<nlohmann/json.hpp>
 
 class Network {
 public:

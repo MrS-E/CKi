@@ -12,13 +12,31 @@ FetchContent_Declare(
         GIT_TAG v1.14.0)
 
 FetchContent_GetProperties(googletest)
-
+FetchContent_MakeAvailable(googletest)
 if (NOT googletest_POPULATED)
     FetchContent_Populate(googletest)
-    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
     add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 endif ()
 
+#nlohmann_json
+FetchContent_Declare(
+        nlohmannjson
+        GIT_REPOSITORY https://github.com/nlohmann/json
+        GIT_TAG v3.11.3)
+
+FetchContent_GetProperties(nlohmannjson)
+FetchContent_MakeAvailable(nlohmannjson)
+if (NOT nlohmannjson_POPULATED)
+    FetchContent_Populate(nlohmannjson)
+    add_subdirectory(${nlohmannjson_SOURCE_DIR} ${nlohmannjson_BINARY_DIR})
+endif ()
+
+get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+foreach(dir ${dirs})
+    message(STATUS "dir='${dir}'")
+endforeach()
+
+#CKI
 add_library(CKI_lib STATIC
         Util.h
         Util.cpp
@@ -28,10 +46,12 @@ add_library(CKI_lib STATIC
         Layer.h
         Network.cpp
         Network.h)
+target_link_libraries(CKI_lib nlohmann_json::nlohmann_json)
 
-add_executable(CKI main.cpp)
-target_link_libraries(CKI CKI_lib)
+add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME} CKI_lib)
 
+#Tests
 add_executable(testRunner
         test/main.cpp
         test/NeuronTest.cpp
