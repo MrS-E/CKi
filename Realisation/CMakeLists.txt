@@ -33,5 +33,7 @@ add_executable(CKI main.cpp)
 target_link_libraries(CKI CKI_lib)
 
 add_executable(testRunner
-        )
+        test/neuron.test.cpp
+
+)
 target_link_libraries(testRunner CKI_lib gtest_main gmock_main)
