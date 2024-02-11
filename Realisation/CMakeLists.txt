@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 include(FetchContent)
 
-#googletests
+#googletest
 FetchContent_Declare(
         googletest
         GIT_REPOSITORY https://github.com/google/googletest
