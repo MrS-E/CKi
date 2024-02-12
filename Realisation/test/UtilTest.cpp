@@ -43,7 +43,7 @@ TEST_F(UtilTest, ReadIntReadsCorrectValue) {
     file.close();
 }
 
-TEST_F(UtilTest, FileNotExists) {
+TEST_F(UtilTest, FileNotExistsImages) {
     std::string filename = "non_existing_file";
     ASSERT_THROW(Util::read_mnist_images(filename), std::runtime_error);
 }
@@ -51,8 +51,8 @@ TEST_F(UtilTest, FileNotExists) {
 TEST_F(UtilTest, CorrectNumberOfImages) {
     std::string filename = "../test/dummy_mnist"; //correct path to the file if built doesn't find file
     auto images = Util::read_mnist_images(filename);
-    int expectedNumberOfImages = 10;
-    ASSERT_EQ(images.size(), expectedNumberOfImages);
+    int expected_number_of_images = 10;
+    ASSERT_EQ(images.size(), expected_number_of_images);
 }
 
 TEST_F(UtilTest, CorrectNormalization) {
@@ -63,5 +63,26 @@ TEST_F(UtilTest, CorrectNormalization) {
             ASSERT_GE(pixel, 0.0);
             ASSERT_LE(pixel, 1.0);
         }
+    }
+}
+
+TEST_F(UtilTest, FileNotExistsLabels) {
+    std::string filename = "non_existing_file";
+    ASSERT_THROW(Util::read_mnist_labels(filename), std::runtime_error);
+}
+
+TEST_F(UtilTest, CorrectNumberOfLabels) {
+    std::string filename = "../test/dummy_labels"; //correct path to the file if built doesn't find file
+    auto images = Util::read_mnist_labels(filename);
+    int expected_number_of_labels = 10;
+    ASSERT_EQ(images.size(), expected_number_of_labels);
+}
+
+TEST_F(UtilTest, CorrectLabels) {
+    std::string filename = "../test/dummy_labels"; //correct path to the file if built doesn't find file
+    auto labels = Util::read_mnist_labels(filename);
+    for (double label : labels) {
+        ASSERT_GE(label, 0.0);
+        ASSERT_LE(label, 9.0);
     }
 }

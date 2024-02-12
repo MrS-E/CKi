@@ -60,10 +60,3 @@ std::vector<double> Util::read_mnist_labels(const std::string &filename) {
         throw std::runtime_error("Cannot open file: " + filename);
     }
 }
-
-int read_int(std::ifstream &file) {
-    unsigned char bytes[4];
-    file.read(reinterpret_cast<char*>(bytes), sizeof(bytes));
-    return (int)((bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3]);
-}
-
