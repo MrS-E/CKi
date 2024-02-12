@@ -104,4 +104,64 @@ Zusätzlich zu diesen zwei Testmöglichkeiten gibt es noch die Unit-Tests. Diese
 Zusätzlich gegenüber diesen drei Tests wäre es überaus interessant zu begutachten und zu vergleichen, wie hoch die Leistungsunterschiede zwischen CKi und einem in Python mit TensorFlow gebauten Programm mit vergleichbarer Grundstruktur sind. Diesbezüglich wird neben CKi auch ein kleines vergleichbares Modell in Python realisiert, um diese Daten zu sammeln.
 
 
+\subsubsection{Unit-Testing}
+\label{sec:DesignUnitTesting}
+Beim Unit-Testing wird Code durch Code überprüft. So kann die Integrität des Projektes von einer einzelnen Funktion zu ganzen Klassen vom Grund auf überprüft werden.
+\\
+In CKI werden die Klassen für das Neuron, den Layer und das Netzwerk getestet. Zusätzlich gibt es Tests zu den meisten Funktionen der Utility-Klasse.
+\\
+Dabei werden Unit-Tests in CKI mit der „Google-Tests“ Bibliothek von Google implementiert.
 
+\paragraph{Util (Utility-Klasse)}
+\label{sec:DesignUtilUtilityKlasse}
+\subparagraph{Sigmoid-Funktionstests}
+\label{sec:DesignSigmoidFunktionstests}
+Prüfen, ob die Sigmoid- und ihre Ableitungsfunktion die erwarteten Werte zurückgeben.
+\subparagraph{Dateilese-Tests}
+\label{sec:DesignDateileseTests}
+Überprüfen das korrekte Lesen eines Integers aus einer Binärdatei und das korrekte Verhalten beim Versuch, nicht vorhandene Dateien zu lesen. 
+\subparagraph{MNIST-Daten-Tests}
+\label{sec:DesignMNISTDatenTests}
+Überprüfen das Einlesen von MNIST-Bild- und Label-Daten, einschliesslich der Überprüfung der Anzahl und der Normalisierung von Bildern sowie der Überprüfung der Gültigkeit von Labels.  
+
+\paragraph{Network}
+\label{sec:DesignNetwork}
+\subparagraph{Index in akzeptiertem Bereich}
+\label{sec:DesignIndexInAkzeptiertemBereich}
+Überprüft, ob die predict-Methode einen gültigen Index innerhalb des erwarteten Bereichs zurückgibt. 
+\subparagraph{Training beeinflusst das Verhalten.}
+\label{sec:DesignTrainingBeeinflusstDasVerhalten}
+Testet, ob das Training des Netzwerks dessen Verhalten ändert, indem es die Ausgaben vor und nach dem Training vergleicht. Es wird festgestellt, dass sich die Ausgaben verändern sollten, was auf eine Modifikation des Netzwerks hinweist.
+\subparagraph{Netzwerkspeicher}
+\label{sec:DesignNetzwerkspeicher}
+Überprüft die Funktionalität zum Speichern und Laden des Netzwerks. Nach dem Speichern und Laden wird erwartet, dass das Netzwerk wie vorgesehen funktioniert.
+
+\paragraph{Layer}
+\label{sec:DesignLayer}
+\subparagraph{Initialisierung}
+\label{sec:DesignInitialisierung}
+Überprüft die korrekte Initialisierung der Neuronen in der Schicht mit der richtigen Anzahl von Gewichten. 
+\subparagraph{Gewichtungen setzen}
+\label{sec:DesignGewichtungenSetzen}
+Testet das Setzen und Abrufen der Gewichte eines Neurons. 
+\subparagraph{Output kalkulieren}
+\label{sec:DesignOutputKalkulieren}
+Überprüft die Berechnung der Ausgänge der Neuronen basierend auf gegebenen Eingaben und gesetzten Gewichten.
+\subparagraph{Fehler kalkulieren}
+\label{sec:DesignFehlerKalkulieren}
+Testet die Fehlerberechnung der Schicht basierend auf den Ausgängen und den erwarteten Werten. 
+\paragraph{Änderung der Gewichtungen und Biases}
+\label{sec:DesignÄnderungDerGewichtungenUndBiases}
+Überprüft das Aktualisieren der Gewichte und Biases der Neuronen basierend auf einem berechneten Fehler. 
+
+\paragraph{Neuron}
+\label{sec:DesignNeuron}
+\subparagraph{Aktivierungsfunktion}
+\label{sec:DesignAktivierungsfunktion}
+Überprüft, ob das Neuron die richtige Ausgabe liefert, wenn eine bestimmte Eingabe gegeben wird. 
+\subparagraph{Ableitung der Aktivierungsfunktion}
+\label{sec:DesignAbleitungDerAktivierungsfunktion}
+Untersucht, ob die Ableitung der Aktivierungsfunktion korrekt berechnet wird. 
+\subparagraph{Fehlerberechnung  }
+\label{sec:DesignFehlerberechnung}
+Der Fehler wird durch den Unterschied zwischen dem erwarteten und dem tatsächlichen Ausgang des Neurons bewertet.
