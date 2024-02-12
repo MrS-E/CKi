@@ -34,7 +34,7 @@ TEST_F(NetworkTest, PredictReturnsValidIndex) {
 TEST_F(NetworkTest, TrainModifiesNetworkBehavior) { //not really meaningful, not a good test
     Network net(2, 2, {4});
     std::vector<std::vector<double>> inputs = {{1.0, 0.0}, {0.0, 1.0}};
-    std::vector<std::vector<double>> labels = {{1.0,0.0}, {0.0, 1.0}};
+    std::vector<double> labels = {0, 1};
     int initialPrediction = net.predict(inputs[0]);
     std::vector<double> initialOutputs = net.forward_propagation(inputs[0]);
     net.train(inputs, labels, 10, 0.1);

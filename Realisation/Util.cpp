@@ -60,4 +60,3 @@ std::vector<double> Util::read_mnist_labels(const std::string &filename) {
         throw std::runtime_error("Cannot open file: " + filename);
     }
 }
-
