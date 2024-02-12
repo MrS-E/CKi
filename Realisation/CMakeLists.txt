@@ -31,11 +31,6 @@ if (NOT nlohmannjson_POPULATED)
     add_subdirectory(${nlohmannjson_SOURCE_DIR} ${nlohmannjson_BINARY_DIR})
 endif ()
 
-get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
-foreach(dir ${dirs})
-    message(STATUS "dir='${dir}'")
-endforeach()
-
 #CKI
 add_library(CKI_lib STATIC
         Util.h
