@@ -18,17 +18,17 @@ int Network::predict(const std::vector<double> &input) {
     return static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end()))); //return number of the neuron with the highest output +1
 }
 
-double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<std::vector<double>> &labels) {
+double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<double> &labels) {
     int correct = 0;
     for (std::size_t i = 0; i < inputs.size(); ++i) {
-        if (Network::predict(std::vector<double>(inputs[i])) == std::distance(labels[i].begin(), std::max_element(labels[i].begin(), labels[i].end()))) {
+        if (Network::predict(std::vector<double>(inputs[i])) == static_cast<int>(labels[i])) {
             correct++;
         }
     }
     return static_cast<double>(correct) / static_cast<double>(inputs.size());
 }
 
-double Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learning_rate) {
+double Network::train(std::vector<std::vector<double>> &inputs, std::vector<double> &labels, int epochs, double learning_rate) {
     double total_error = 0;
     for(int epoch = 0; epoch<epochs; epoch++ ){
         for(std::size_t i = 0; i < inputs.size(); i++) {
@@ -51,8 +51,10 @@ double Network::train(std::vector<std::vector<double>> &inputs, std::vector<std:
     return layers[layers.size()-1].get_neuron_outputs();
 }
 
-double Network::backward_propagation(const std::vector<double>& target, double learning_rate) {
-    std::vector<double> error = layers[layers.size()-1].calculate_error(target);
+double Network::backward_propagation(const int& target, double learning_rate) {
+    std::vector<double> inputs (10, 0);
+    inputs[target] = 1;
+    std::vector<double> error = layers[layers.size()-1].calculate_error(inputs);
     double total_error = 0;
     for(double& e : error) {
         total_error += e;
