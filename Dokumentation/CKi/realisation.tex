@@ -1,29 +1,29 @@
 \section{Allgemein}
 \label{sec:RealAllgemein}
-Die Realisation des Projekts CKI zeichnet sich durch die Implementierung eines modularen neuronalen Netzwerks aus, das für Aufgaben wie die Erkennung handschriftlicher Ziffern konzipiert wurde. Zum Einsatz kamen dabei Standard-C++-Technologien sowie eine CMake-basierte Projektstruktur für das Build-Management. Die Kernstruktur besteht aus Klassen für Neuron, Layer, und Network, die die Basis des Netzwerks bilden, ergänzt durch eine Util-Klasse für Hilfsfunktionen, wie Aktivierungsfunktionen und Datenverarbeitung.
-Zusätzlich gibt es im Ordner „Test“, welche Unit-Tests mit den entsprechenden Attrappen für die Datensätze. Die Unit-Tests sind mit Google-Tests implementiert.
+Die Realisation des Projekts CKI zeichnet sich durch die Implementierung eines modularen neuronalen Netzwerks aus, das fÃ¼r Aufgaben wie die Erkennung handschriftlicher Ziffern konzipiert wurde. Zum Einsatz kamen dabei Standard-C++-Technologien sowie eine CMake-basierte Projektstruktur fÃ¼r das Build-Management. Die Kernstruktur besteht aus Klassen fÃ¼r Neuron, Layer, und Network, die die Basis des Netzwerks bilden, ergÃ¤nzt durch eine Util-Klasse fÃ¼r Hilfsfunktionen, wie Aktivierungsfunktionen und Datenverarbeitung.
+ZusÃ¤tzlich gibt es im Ordner â€Testâ€œ, welche Unit-Tests mit den entsprechenden Attrappen fÃ¼r die DatensÃ¤tze. Die Unit-Tests sind mit Google-Tests implementiert.
 \\
-Die klare Trennung zwischen den Komponenten des Netzwerks und die Nutzung von CMake unterstreichen einen modernen Ansatz in der Softwareentwicklung, der Flexibilität und Erweiterbarkeit des Projekts fördert. 
+Die klare Trennung zwischen den Komponenten des Netzwerks und die Nutzung von CMake unterstreichen einen modernen Ansatz in der Softwareentwicklung, der FlexibilitÃ¤t und Erweiterbarkeit des Projekts fÃ¶rdert. 
 
-\section{Abhängigkeiten}
-\label{sec:RealAbhängigkeiten}
-Das Projekt CKI kommt mit nur wenigen Abhängigkeiten aus.
-Die dies es dennoch gibt, sind umso wichtiger für das erfolgreiche Ausführen der Applikation.
+\section{AbhÃ¤ngigkeiten}
+\label{sec:RealAbhÃ¤ngigkeiten}
+Das Projekt CKI kommt mit nur wenigen AbhÃ¤ngigkeiten aus.
+Die dies es dennoch gibt, sind umso wichtiger fÃ¼r das erfolgreiche AusfÃ¼hren der Applikation.
 \\
-Abhängigkeiten:
+AbhÃ¤ngigkeiten:
 \begin{enumerate}
 	\item \textbf{googletest:} \\
 	\textbf{Version (Tag):} v1.14.0 \\
 	\textbf{Git:} \url{https://github.com/google/googletest} \\
-	\textbf{Beschreibung:} GoogleTest ist ein C++-Framework für Unit-Tests, das Assertions für die Überprüfung von Code und Funktionen für die Organisation und Ausführung von Tests bietet.
+	\textbf{Beschreibung:} GoogleTest ist ein C++-Framework fÃ¼r Unit-Tests, das Assertions fÃ¼r die ÃœberprÃ¼fung von Code und Funktionen fÃ¼r die Organisation und AusfÃ¼hrung von Tests bietet.
 	\item \textbf{nlohmann/json:} \\
 	\textbf{Version (Tag):} v3.11.3 \\
 	\textbf{Git:} \url{https://github.com/nlohmann/json} \\
-	\textbf{Beschreibung:} Nlohmann/json ist eine moderne, header-only C++ Bibliothek für die Verarbeitung von JSON-Daten, die einfache Integration und intuitive Nutzung bietet.
+	\textbf{Beschreibung:} Nlohmann/json ist eine moderne, header-only C++ Bibliothek fÃ¼r die Verarbeitung von JSON-Daten, die einfache Integration und intuitive Nutzung bietet.
 	\item \textbf{wichtounet/mnist:} (nicht mehr in Verwendung)\\
 	\textbf{Version (Commit):} 3b65c35 \\
 	\textbf{Git:} \url{https://github.com/wichtounet/mnist} \\
-	\textbf{Beschreibung:} Wichtounet/mnist ist ein einfacher C++-Reader für den MNIST-Datensatz, der es ermöglicht, Trainings- und Testbilder sowie Labels zu lesen und zu verwenden.
+	\textbf{Beschreibung:} Wichtounet/mnist ist ein einfacher C++-Reader fÃ¼r den MNIST-Datensatz, der es ermÃ¶glicht, Trainings- und Testbilder sowie Labels zu lesen und zu verwenden.
 \end{enumerate}
 
 \section{Architektur}
@@ -32,33 +32,33 @@ Abhängigkeiten:
 \label{sec:RealKlassen}
 \subsubsection{Netzwerk}
 \label{sec:RealNetzwerk}
-Die Network-Klasse repräsentiert das neuronale Netzwerk. Es unterstützt die Initialisierung des Netzwerks mit einer bestimmten Anzahl von Eingabe- und Ausgabeneuronen sowie eine variable Anzahl von versteckten Schichten und deren Grössen. Die Klasse bietet Funktionen für das Training des Netzwerks mit gegebenen Eingaben und Zielwerten, die Überprüfung der Netzwerkleistung, Vorhersagen für neue Eingaben, die Durchführung von Vorwärts- und Rückwärtspropagation, sowie das Speichern und Laden des Netzwerks in bzw. aus einer Datei. 
+Die Network-Klasse reprÃ¤sentiert das neuronale Netzwerk. Es unterstÃ¼tzt die Initialisierung des Netzwerks mit einer bestimmten Anzahl von Eingabe- und Ausgabeneuronen sowie eine variable Anzahl von versteckten Schichten und deren GrÃ¶ssen. Die Klasse bietet Funktionen fÃ¼r das Training des Netzwerks mit gegebenen Eingaben und Zielwerten, die ÃœberprÃ¼fung der Netzwerkleistung, Vorhersagen fÃ¼r neue Eingaben, die DurchfÃ¼hrung von VorwÃ¤rts- und RÃ¼ckwÃ¤rtspropagation, sowie das Speichern und Laden des Netzwerks in bzw. aus einer Datei. 
 \subsubsection{Layer}
 \label{sec:RealLayer}
-Die Layer-Klasse definiert einen Layer im neuronalen Netzwerk, bestehend aus mehreren Neuronen. Sie bietet Funktionen zum Berechnen der Ausgaben der Neuronen basierend auf Eingaben, Initialisieren und Setzen von Gewichten, Aktualisieren von Gewichten und Biases auf Basis von Fehlern und Lernrate, sowie zur Fehlerberechnung im Vergleich zu Zielwerten. Jedes Layer-Objekt enthält eine Liste von Neuron-Objekten, die die Neuronen in diesem Layer repräsentieren. 
+Die Layer-Klasse definiert einen Layer im neuronalen Netzwerk, bestehend aus mehreren Neuronen. Sie bietet Funktionen zum Berechnen der Ausgaben der Neuronen basierend auf Eingaben, Initialisieren und Setzen von Gewichten, Aktualisieren von Gewichten und Biases auf Basis von Fehlern und Lernrate, sowie zur Fehlerberechnung im Vergleich zu Zielwerten. Jedes Layer-Objekt enthÃ¤lt eine Liste von Neuron-Objekten, die die Neuronen in diesem Layer reprÃ¤sentieren. 
 \subsubsection{Neuron}
 \label{sec:RealNeuron}
 Die Neuron-Klasse stellt ein einzelnes Neuron dar, inklusive seiner Gewichte, Eingaben, Aktivierungsfunktion, Bias und Summe der gewichteten Eingaben. Sie bietet Funktionen zur Berechnung der Aktivierung basierend auf den Eingaben, der Ableitung der Aktivierungsfunktion, der Fehlerberechnung im Vergleich zu einem Zielwert, sowie zur Speicherung der Gewichte und des Biases. 
 \subsubsection{Utility}
 \label{sec:RealUtility}
-Die Util-Klasse bietet statische Hilfsfunktionen für das neuronale Netzwerk, darunter die Sigmoid-Aktivierungsfunktion und ihre Ableitung sowie Funktionen zum Lesen von MNIST-Bilddaten und Labels aus Dateien. Diese Hilfsfunktionen sind essenziell für die Vorverarbeitung von Eingabedaten und die Implementierung der Lernmechanismen im Netzwerk. 
+Die Util-Klasse bietet statische Hilfsfunktionen fÃ¼r das neuronale Netzwerk, darunter die Sigmoid-Aktivierungsfunktion und ihre Ableitung sowie Funktionen zum Lesen von MNIST-Bilddaten und Labels aus Dateien. Diese Hilfsfunktionen sind essenziell fÃ¼r die Vorverarbeitung von Eingabedaten und die Implementierung der Lernmechanismen im Netzwerk. 
 \subsection{Ordnerstruktur}
 \label{sec:RealOrdnerstruktur}
-Im Kern des Projekts stehen die Hauptdateien, welche die essenziellen Klassen wie Neuron, Layer, Network und Util enthalten. Diese sind grundlegend für die Funktionalität des neuronalen Netzwerks. Die CMakeLists.txt unterstützt das Build-Management, vereinfacht die Kompilierung und Konfiguration. Der .gitignore sorgt dafür, dass unnötige Dateien und Ordner nicht in die Versionskontrolle einfliessen. Ein speziell dafür vorgesehener Test-Ordner beinhaltet Tests zur Überprüfung der Funktionalität, was die Zuverlässigkeit des Systems sicherstellt. Zusätzlich runden Dummy-Files und ein eigener Ordner für die MNIST-Datasets das Projekt ab, indem sie die Datenhaltung für Training und Tests des Netzwerks erleichtern. 
+Im Kern des Projekts stehen die Hauptdateien, welche die essenziellen Klassen wie Neuron, Layer, Network und Util enthalten. Diese sind grundlegend fÃ¼r die FunktionalitÃ¤t des neuronalen Netzwerks. Die CMakeLists.txt unterstÃ¼tzt das Build-Management, vereinfacht die Kompilierung und Konfiguration. Der .gitignore sorgt dafÃ¼r, dass unnÃ¶tige Dateien und Ordner nicht in die Versionskontrolle einfliessen. Ein speziell dafÃ¼r vorgesehener Test-Ordner beinhaltet Tests zur ÃœberprÃ¼fung der FunktionalitÃ¤t, was die ZuverlÃ¤ssigkeit des Systems sicherstellt. ZusÃ¤tzlich runden Dummy-Files und ein eigener Ordner fÃ¼r die MNIST-Datasets das Projekt ab, indem sie die Datenhaltung fÃ¼r Training und Tests des Netzwerks erleichtern. 
 \\
 Das CKI-Projekt ist strukturiert in:
 \begin{itemize}
 	\item \textbf{Hauptdateien:} 
-	Enthalten die Klassen Neuron, Layer, Network, und Util für die Kernlogik des neuronalen Netzwerks.
+	Enthalten die Klassen Neuron, Layer, Network, und Util fÃ¼r die Kernlogik des neuronalen Netzwerks.
   \item \textbf{CMakeLists.txt:} 
-	Für das Build-Management erleichtert das Kompilieren und die Konfiguration des Projekts.
+	FÃ¼r das Build-Management erleichtert das Kompilieren und die Konfiguration des Projekts.
   \item \textbf{.gitignore:} 
 	Definiert Dateien und Ordner, die von Git-Versionierung ausgeschlossen sind, wie Build-Artefakte und IDE-spezifische Dateien.
   \item \textbf{Test-Ordner:} 
-	Beinhaltet Testfälle zur Überprüfung der Funktionalität einzelner Komponenten und des Gesamtsystems.
+	Beinhaltet TestfÃ¤lle zur ÃœberprÃ¼fung der FunktionalitÃ¤t einzelner Komponenten und des Gesamtsystems.
 	\item \textbf{Dummy-Files:} 
-	Zusätzliche Dateien für Testzwecke.
+	ZusÃ¤tzliche Dateien fÃ¼r Testzwecke.
 	\item \textbf{MNIST-Datasets Ordner:} 
-	Speichert die Datensätze für das Training und Testen des Netzwerks, insbesondere für die Erkennung handschriftlicher Ziffern.
+	Speichert die DatensÃ¤tze fÃ¼r das Training und Testen des Netzwerks, insbesondere fÃ¼r die Erkennung handschriftlicher Ziffern.
 \end{itemize}
 
