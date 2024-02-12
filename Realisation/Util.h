@@ -18,7 +18,6 @@ public:
     static std::vector<std::vector<double>> read_mnist_images(const std::string& filename);
     static std::vector<double> read_mnist_labels(const std::string& filename);
 
-private:
     static int read_int(std::ifstream &file);
 };
 

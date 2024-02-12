@@ -52,5 +52,6 @@ add_executable(testRunner
         test/NeuronTest.cpp
         test/LayerTest.cpp
         test/NetworkTest.cpp
+        test/UtilTest.cpp
 )
 target_link_libraries(testRunner CKI_lib gtest_main gmock_main)
