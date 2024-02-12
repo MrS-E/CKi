@@ -9,13 +9,19 @@
 \label{tab:IdentifikationTable}
 
 \section{Beschrieb des Ablaufs der Arbeit}
-<Wer hat ihnen was gegeben?>
-<Welche Information wurde wo gesucht?>
-<Was für Designs haben sie wieso erstellt
-(Programmabläufe, Klassendiagramme, Sequenzdiagramme, ERM, usw.) >
-<Was wurde wie (Sprache, OS, DIE) implementiert?>
-<Was wurde wie getestet?>
-<Was wurde wie, an wen abgeliefert?>
+Für mein Projekt, das sich auf die Erforschung und Implementierung von Convolutional Neural Networks (CNN) und allgemeinen neuronalen Netzwerken konzentrierte, habe ich mich eigenständig auf eine umfassende Recherche eingelassen. Die Frist war die einzige Vorgabe, was mir die Freiheit liess, meine Interessen vollständig zu verfolgen. Grundlagenwissen zu CNNs und neuronalen Netzwerken sammelte ich durch sorgfältige Recherche auf renommierten Plattformen wie Medium, IBM, Geekflare, der Stanford University, und Database Camp. Bei der Lösung spezifischer Softwareprobleme erwiesen sich Stack Overflow, GitHub Copilot und ChatGPT, sowie die Dokumentationen der verwendeten Abhängigkeiten und Cppreference als unverzichtbare Ressourcen. Der Datensatz, der für das Training des Netzwerks verwendet wurde, stammt von Yann LeCun’s MNIST-Datenbank, einem Standardbenchmark in der Branche.
+\\
+Die Visualisierung des Projekts erfolgte durch die Erstellung von Ablaufdiagrammen, die sowohl den Prozess als auch die Struktur der Architektur eines neuronalen Netzwerks darstellen, sowie einem Klassendiagramm, das die objektorientierte Struktur der Implementierung verdeutlicht. Da keine Datenbank beteiligt war, wurde kein Entity-Relationship-Modell (ERM) benötigt.
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=\linewidth]{visualisierungKI.png}
+		\caption{Meine Visualisierung eines neuronalen Netzwerkes in Excel.}
+	\label{fig:visualisierungKI}
+\end{figure}
+\\
+Die Entscheidung, das Projekt in C++ zu entwickeln, war nicht zufällig, sondern eine bewusste Wahl, die von mehreren Schlüsselfaktoren beeinflusst wurde. Zunächst ist C++ bekannt für seine aussergewöhnliche Leistungsfähigkeit und Effizienz, was es zur idealen Sprache für rechenintensive Anwendungen wie neuronale Netzwerke macht. Meine persönliche Vorliebe für C++ spielte ebenfalls eine Rolle. Überdies eröffnete die Wahl von C++ die Möglichkeit, in Zukunft die Verarbeitungsgeschwindigkeit durch die Einbindung von GPU-Berechnungen zu steigern. Dies wäre ein entscheidender Vorteil für die Skalierung und Effizienz des Projekts. Entwickelt wurde das Ganze unter Windows 11 und Manjaro Linux, einem Arsch-basierten Betriebssystem, mit CLion, einer IDE von JetBrains. Diese Entwicklungsumgebung wurde speziell wegen ihrer Benutzerfreundlichkeit und Cross-Plattform-Unterstützung ausgewählt, was einen nahtlosen Entwicklungsprozess auf verschiedenen Systemen ermöglichte. 
+\\
+Die Durchführung der Softwaretests erfolgte mittels des Google Test Frameworks, wodurch eine gründliche Prüfung jeder Klasse gewährleistet wurde. Dieser Ansatz trug entscheidend zur Stabilität und Funktionsfähigkeit des entwickelten Systems bei. Obwohl es keinen direkten Kunden für das Projekt gab, entschied ich mich dafür, den Quellcode auf Plattformen wie GitHub und GitLab zu teilen. Dieser Schritt diente nur der Demonstration meiner Arbeit und nicht dem Anstossen von Diskussionen, da dieses Projekt schon vielfach implementiert wurde. Es ist schliesslich das Einsteigerprojekt für Maschine Learning.
 
 \section{Gemachte Erfahrungen}
 \subsection{Im Bezug auf dieausgeführte Arbeit}
