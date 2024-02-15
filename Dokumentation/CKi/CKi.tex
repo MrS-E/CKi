@@ -56,10 +56,30 @@
 \usepackage{import}
 \usepackage{pdfpages}
 
+\usepackage{color}
 \usepackage{xcolor}
 \usepackage{soul}
 
 \usepackage{titling}
+
+%https://tex.stackexchange.com/questions/137055/lstlisting-syntax-highlighting-for-c-like-in-editor
+\definecolor{mygray}{rgb}{0.4,0.4,0.4}
+\definecolor{mygreen}{rgb}{0,0.8,0.6}
+\definecolor{myorange}{rgb}{1.0,0.4,0}
+
+\lstset{
+basicstyle=\footnotesize\sffamily\color{black},
+commentstyle=\color{mygray},
+frame=single,
+numbers=left,
+numbersep=5pt,
+numberstyle=\tiny\color{mygray},
+keywordstyle=\color{mygreen},
+showspaces=false,
+showstringspaces=false,
+stringstyle=\color{myorange},
+tabsize=2
+}
 
  %%Keine Kopf-/Fusszeilen auf den ersten Seiten.
 \pagestyle{empty}
@@ -103,7 +123,7 @@
 
 %% Inhaltsverzeichnis 
 \tableofcontents %Inhaltsverzeichnis
-\cleardoublepage %Das erste Kapitel soll auf einer ungeraden Seite beginnen.
+%\cleardoublepage %Das erste Kapitel soll auf einer ungeraden Seite beginnen.
 
 \pagestyle{plain} %%Ab hier die Kopf-/Fusszeilen: headings / fancy / ...
 
