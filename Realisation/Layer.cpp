@@ -65,7 +65,7 @@ std::vector<double> Layer::update_weights_and_biases(const std::vector<double>& 
             const double delta_weight = neuron_error * activation_derivative * neuron.inputs[j];
             neuron.weights[j] -= learning_rate * delta_weight;
         }
-        neuron.bias -= learning_rate * neuron_error * activation_derivative;
+        neuron.bias -= learning_rate * neuron_error * activation_derivative; //FIXME is it + or -? test with + =  42.31% and - = 61.85%
     }
 
     return prev_layer_error;
