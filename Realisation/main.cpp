@@ -14,11 +14,11 @@
 #include "Network.h"
 #include "Util.h"
 
-void train(Network& nn, const std::string &filename){
+void train(Network& nn, const std::string &images, const std::string &labels){
     std::cout << std::endl << "Training..." << std::endl;
     std::cout << "Reading MNIST data..." << std::endl;
-    std::vector<std::vector<double>> training_inputs = Util::read_mnist_images(filename);
-    std::vector<double> training_labels = Util::read_mnist_labels(filename);
+    std::vector<std::vector<double>> training_inputs = Util::read_mnist_images(images);
+    std::vector<double> training_labels = Util::read_mnist_labels(labels);
 
    std::cout << "Training..." << std::endl;
     double error = nn.train(training_inputs, training_labels, 1, 0.1);
@@ -26,11 +26,11 @@ void train(Network& nn, const std::string &filename){
 
     std::cout << "Done!" << std::endl;
 }
-double verif(Network& nn, const std::string &filename){
+double verif(Network& nn, const std::string &images, const std::string &labels){
     std::cout << std::endl << "Testing..." << std::endl;
     std::cout << "Reading MNIST data..." << std::endl;
-    std::vector<std::vector<double>> test_inputs = Util::read_mnist_images(filename);
-    std::vector<double> test_labels = Util::read_mnist_labels(filename);
+    std::vector<std::vector<double>> test_inputs = Util::read_mnist_images(images);
+    std::vector<double> test_labels = Util::read_mnist_labels(labels);
 
     std::cout << "Testing..." << std::endl;
     double acc = nn.verify(test_inputs, test_labels);
@@ -92,15 +92,21 @@ int main(int argc, char * argv[]) {
     Network nn(784, 10, {32, 16});
     InputParser input(argc, argv);
     std::string filename = input.tokens[input.tokens.size()-1];
+    try{
+        std::cout << "Loading network..." << std::endl;
+        nn.load_network("network.json");
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
 
     try {
-        if(input.cmdOptionExists("-h"))
+        if(input.cmdOptionExists("--help"))
         {
             std::cout << "CKi Application Help\n\n"
              << "Usage:\n"
              << "  ki -h\t\tShow this help message.\n"
-             << "  ki -t [file]\tTrain the CNN with a dataset in ubyte format.\n"
-             << "  ki -v [file]\tVerify the trained model accuracy with a dataset in ubyte format.\n"
+             << "  ki --train -l [label] -i [images]\tTrain the CNN with a dataset in ubyte format.\n"
+             << "  ki --verify -l [label] -i [images]\tVerify the trained model accuracy with a dataset in ubyte format.\n"
              << "  ki [file]\t\tPredict the digit in a jpg image file.\n\n"
              << "Options:\n"
              << "  --help\t\tShow help information.\n"
@@ -117,13 +123,33 @@ int main(int argc, char * argv[]) {
         {
             if (input.tokens.size() > 0 && std::filesystem::exists(filename))
             {
-                if(input.cmdOptionExists("-v"))
+                if(input.cmdOptionExists("--verify"))
                 {
-                    verif(nn, filename);
+                    if(input.cmdOptionExists("-l") && input.cmdOptionExists("-i"))
+                    {
+                        std::string images = input.getCmdOption("-i");
+                        std::string labels = input.getCmdOption("-l");
+                        verif(nn, images, labels);
+                    }
+                    else
+                    {
+                        std::cout << "Dataset needed, type --help for more information." << std::endl;
+                    };
                 }
-                else if(input.cmdOptionExists("-t"))
+                else if(input.cmdOptionExists("--train"))
                 {
-                    train(nn, filename);
+                    if(input.cmdOptionExists("-l") && input.cmdOptionExists("-i"))
+                    {
+                        std::string images = input.getCmdOption("-i");
+                        std::string labels = input.getCmdOption("-l");
+                        train(nn, images, labels);
+                        std::cout << "Saving network..." << std::endl;
+                        nn.save_network("network.json");
+                    }
+                    else
+                    {
+                        std::cout << "Dataset needed, type --help for more information." << std::endl;
+                    };
                 }
                 else
                 {
@@ -135,7 +161,7 @@ int main(int argc, char * argv[]) {
             }
             else
             {
-                //file needed
+                std::cout << "File needed, type --help for more information." << std::endl;
             }
         }
     } catch (const std::exception& e) {
