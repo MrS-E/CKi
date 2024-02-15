@@ -115,7 +115,7 @@ int main(int argc, char * argv[]) {
              << "  [file]\t\tThe path to the input file for training, verification, or prediction.\n\n"
              << "Example:\n"
              << "  ki --train -i data/train-images-idx3-ubyte -l data/train-labels-idx3-ubyte\n"
-             << "  ki --verify data/t10k-images-idx3-ubyte -l data/t10k-labels-idx3-ubyte\n"
+             << "  ki --verify -i data/t10k-images-idx3-ubyte -l data/t10k-labels-idx3-ubyte\n"
              << "  ki image.jpg\n\n"
              << "For more information, visit github.com/MrS-E/CKi.\n" << std::endl;
         }
