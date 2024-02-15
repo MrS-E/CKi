@@ -83,5 +83,228 @@ Backpropagation nutzt die Kettenregel der Differenzialrechnung, um die Fehlergra
 \\
 Insgesamt ermöglicht Backpropagation das effiziente Training tiefer neuronaler Netzwerke, indem es systematisch die Netzwerkgewichte anpasst, um den Fehler zwischen den Vorhersagen des Netzwerks und den tatsächlichen Werten zu minimieren, was zu einer verbesserten Modellleistung führt.\footnote{Nüesch 2023}
 
+\subsection{Schlüsselpassagen \& Snippets} %stolpersteine
+Die wichtigsten Funktionen in einem neuronalen Netzwerk sind die beiden Propagation, vorwärts als auch rückwärts. Wobei diese das Grundgerüst für die drei Hauptfunktionen, Train, Verify \& Predict bilden.
 
-\subsection{Schlüsselpassagen & Snippets} %stolpersteine
+\subsubsection{Train}
+\label{sec:RealTrainCode}
+\begin{lstlisting}[language=c++]
+double Network::train(
+vector<vector<double>> &inputs, 
+vector<double> &labels, 
+int epochs, 
+double learning_rate
+) 
+{
+	double total_error = 0;
+	for(int epoch = 0; epoch<epochs; epoch++ )
+	{
+		for(std::size_t i = 0; i < inputs.size(); i++) 
+		{
+			std::vector<double> outputs = Network::forward_propagation(inputs[i]);
+			total_error += Network::backward_propagation(labels[i], learning_rate);
+			total_error /= 2;
+		}
+	}
+	return total_error;
+}
+\end{lstlisting}
+Die Funktion, welche für das Lernen des neuronalen Netzwerks verantwortlich ist, ist simpel aufgebaut. Sie erhält primär zwei Listen: eine Liste aus Bildern und eine Liste aus Beschriftungen für die Bilder. Danach nutzt es die Funktionen der Forward- und Back-Propagation, um zuerst das Bild durch das Netzwerk bewerten zulassen und dann diese Bewertung mithilfe der Beschriftungen zu korrigieren. Dies tut sie für den gesamten Datensatz und der Anzahl Epochen entsprechend.
+
+\subsubsection{Verify}
+\label{sec:RealVerifyCode}
+\begin{lstlisting}[language=c++]
+double Network::verify
+(
+const std::vector<std::vector<double>> &inputs, 
+const std::vector<double> &labels
+) 
+{
+	int correct = 0;
+	for (std::size_t i = 0; i < inputs.size(); ++i) 
+	{
+		if (Network::predict(std::vector<double>(inputs[i])) == 
+		static_cast<int>(labels[i])) 
+		{
+				correct++;
+		}
+	}
+	return static_cast<double>(correct) / static_cast<double>(inputs.size());
+}
+\end{lstlisting}
+Die Funktion ist eigentlich gleich aufgebaut wie „Train“, jedoch mit dem markanten Unterschied, dass keine Back-Propagation zum Einsatz kommt. So werden die Bewertungen des neuronalen Netzwerks nur als richtig oder falsch bewertet und nicht korrigiert.
+
+\subsubsection{Predict}
+\label{sec:RealPredictCode}
+\begin{lstlisting}[language=c++]
+int Network::predict(const std::vector<double> &input) 
+{
+	std::vector<double> outputs = Network::forward_propagation(input);
+	return static_cast<int>(std::distance(outputs.begin(), 
+		std::max_element(outputs.begin(), outputs.end()))); 
+}
+\end{lstlisting}
+Diese Funktion erhält nur ein einziges Bild als Attribut. Dieses Bild wird durch die Forward-Propagation bewertet. Die Bewertung wiederum besteht nur aus einer Liste von zehn Prozentzahlen (für die Ziffern von 0 bis 9) und damit diese besser für einen Menschen lesbar wird, muss die höchste Prozentzahl aus der Liste gesucht werden. Deren Index wird dann als errechnete Zahl zurückgegeben.
+
+\subsubsection{Forward-Propagation}
+\label{sec:RealForwardPropagationCode}
+\begin{lstlisting}[language=c++]
+std::vector<double> forward_propagation(const std::vector<double>& input) 
+{
+	layers[0].calc_neuron_outputs(input);
+
+	for (int i = 1; i < layers.size(); ++i) 
+	{
+		std::vector<double> inputs = layers[i - 1].get_neuron_outputs();
+		layers[i].calc_neuron_outputs(inputs);
+	}
+
+	return layers[layers.size()-1].get_neuron_outputs();
+}
+\end{lstlisting}
+In dieser Funktion wird eine Liste von grossen Fliesskommazahlen übernommen. Diese sind die einzelnen Pixel, in dem zu bearbeiteten Bild, welche nur einen Helligkeitswert beinhalten. Diese Pixel werden an den ersten Layer im Netzwerk übergeben. Dieser kalkuliert durch die Sigmoid-Funktion neue Ausgabewerte. Die Ausgabewerte werden mit der For-Schleife durch alle Schichten des Netzwerks weitergereicht, bis diese am Ende ausgelesen und als Rückgabewert dieser Funktion genutzt werden. Die Ausgabewerte haben zwar das gleiche Datenformat, unterscheiden sich jedoch anhand ihrer Grösse (Länge der Liste) und den tatsächlichen Werten.
+
+\subsubsection{Back-Propagation}
+\label{sec:RealBackPropagationCode}
+\begin{lstlisting}[language=c++]
+double Network::backward_propagation(const int& target, double learning_rate) 
+{
+	std::vector<double> inputs (10, 0);
+	inputs[target] = 1;
+	std::vector<double>error = layers[layers.size()-1].calculate_error(inputs);
+	double total_error = 0;
+	for(double& e : error) 
+	{
+		total_error += e;
+	}
+
+	total_error/=error.size();
+
+	std::cout << total_error << std::endl;
+
+	for (int i = layers.size() - 1; i >= 0; --i) 
+	{
+		error = layers[i].update_weights_and_biases(error, learning_rate);
+	}
+	return total_error;
+}
+\end{lstlisting}
+Im Gegensatz zur Forward-Propagation wird in der Back-Propagation ein Wert nicht von der ersten Schicht zur letzten übergeben, sondern Rückwerts von dem letzten Layer bis zur Eingabe zurück.
+\\ 
+Dabei muss zuerst die Abweichung von der erhaltenen Ausgabe (aus der Forward-Propagation) mit der erwarteten Ausgabe abgeglichen und der Fehler berechnet werden. Nun wird ähnlich zur Forward-Propagation dieser Fehler durch die einzelnen Schichten geschickt und dort verwendet, um die Gewichtungen und Biases für jedes Neuron anzupassen. Dies passiert in einer eigenen Funktion im Layer.
+
+\subsubsection{Anpassung von Gewichtungen und Biases}
+\label{sec:RealAnpassungVonGewichtungenUndBiasesCode}
+\begin{lstlisting}[language=c++]
+std::vector<double> Layer::update_weights_and_biases(
+const std::vector<double>& error, 
+double learning_rate
+) {
+	std::vector<double>prev_layer_error(Layer::neurons[0].weights.size(), 0.0);
+
+	for (size_t i = 0; i < Layer::neurons.size(); ++i) 
+	{
+		Neuron &neuron = Layer::neurons[i];
+		const double neuron_error = error[i];
+		const double activation_derivative = neuron.activation_derivative();
+
+		for (size_t j = 0; j < neuron.weights.size(); ++j) 
+		{
+			prev_layer_error[j] += neuron.weights[j] * neuron_error;
+
+			const double delta_weight = neuron_error * 
+				activation_derivative * 
+				neuron.inputs[j];
+			neuron.weights[j] -= learning_rate * delta_weight;
+		}
+		neuron.bias += learning_rate * neuron_error * activation_derivative;
+	}
+
+	return prev_layer_error;
+}
+
+\end{lstlisting}
+Dies ist die Funktion, die in der Back-Propagation aufgerufen wird.
+\\
+Dabei wird für jedes Neuron für jede Gewichtung eine eigene Anpassung gesucht. Um dies zu erreichen, werden mehrere Werte benötigt: der Fehler, der das Neuron geliefert hat, die Ableitung der Sigmoid-Funktion (die Aktivierungsfunktion in diesem Netzwerk). Jetzt können mehrere Sachen errechnet werden. 
+\\
+Der Fehler für den nächst oberen Layer, dieser setzt sich auseinander aus dem Fehler und dem entsprechenden Gewicht für das Neuron. Dabei wird der Fehler neu gewichtet und zusammen summiert mit allen anderen neu-gewichteten Fehlern für dieses eine Neuron auf der nächsten Ebene.
+Die Abweichung der Gewichtung ist ein Produkt des Inputs in diesem Neuron, dem Fehler, der Ableitung der Sigmoid-Funktion und der Learningrate.
+\\
+Die Korrektion für das Bias ist fast identisch zur Abweichung der Gewichtung. Es ist ebenfalls ein Produkt der gleichen Faktoren, abgesehen von der Learningrate und dem Input.
+
+\subsubsection{Sigmoid \& Ableitung}
+\label{sec:RealSigmoidAbleitungCode}
+\begin{lstlisting}[language=c++]
+double Util::sigmoid(double x) 
+{
+	return 1.0 / (1.0 + exp(-x));
+}
+
+double Util::sigmoid_derivative(double x)
+{
+	double s = sigmoid(x);
+	return s * (1.0 - s);
+}
+\end{lstlisting}
+Das sind die mathematischen Implementierungen der Sigmoid-Funktion und deren mathematischen Abweichungen. Diese Funktionen sind zuständig für die einzelnen Aktivierungen der Neuronen und verschieben eine Zahl in den Wertebereich zwischen 0 und 1.
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.75\linewidth]{sigmoid.png}
+	\label{fig:sigmoid}
+\end{figure}
+
+
+\subsubsection{MNIST-Reader}
+\label{sec:RealMNISTReaderCode}
+\begin{lstlisting}[language=c++]
+std::vector<std::vector<double>> Util::read_mnist_images(
+const std::string &filename
+) {
+	std::ifstream file(filename, std::ios::binary);
+	if (file.is_open()) 
+	{
+		int magic_number = read_int(file);
+		int number_of_images = read_int(file);
+		int number_of_rows = read_int(file);
+		int number_of_columns = read_int(file);
+
+		std::vector<std::vector<double>> images(number_of_images, 
+			std::vector<double>(number_of_rows * number_of_columns));
+
+		for (int i = 0; i < number_of_images; ++i) 
+		{
+			for (int r = 0; r < number_of_rows * number_of_columns; ++r) 
+			{
+				unsigned char temp = 0;
+				file.read(reinterpret_cast<char*>(&temp), sizeof(temp));
+				images[i][r] = (double)temp / 255.0;
+			}
+		}
+		return images;
+	} 
+	else 
+	{
+		throw std::runtime_error("Cannot open file: " + filename);
+	}
+}
+\end{lstlisting}
+Um die Daten aus den von \url{http://yann.lecun.com/exdb/mnist/} stammenden UByte-Dateien auszulesen, müssen gewisse Byte-Werte aus den Dateien ausgelesen werden. Die hier aufgeführte Funktion dient dazu, Bilder aus diesen Dateien auszulesen und ist beispielhaft auch für die Beschreibungen.
+\\
+Die Implementierung ist nach dem Muster von \url{http://yann.lecun.com/exdb/mnist/} implementiert. So sind in den ersten vier Byte gespeichert, wie viele Bilder/Beschriftungen im Datensatz zu finden sind. Um dies auszulesen, ist in einer eigenen Funktion implementiert (read\_int). Nach den ersten vier Byte müssen bestimmt viele Bytes in eine Liste eingetragen und auf den Wert zwischen 0 und 1 gebracht werden. Man spricht auch von der Normalisierung der Pixel-Werte.
+\subsubsection{Ersten 4 Bytes}
+\label{sec:RealErsten4BytesCode}
+Dies ist die oben angesprochene „read\_int“-Funktion.
+\begin{lstlisting}[language=c++]
+int Util::read_int(std::ifstream &file) 
+{
+	unsigned char bytes[4];
+	file.read(reinterpret_cast<char*>(bytes), sizeof(bytes));
+	return (int)((bytes[0] << 24) | 
+							 (bytes[1] << 16) | 
+								(bytes[2] << 8) | bytes[3]);
+}
+\end{lstlisting}
+Die Funktion wurde mit der Hilfe von Stack Overflow unter dem Link \url{https://stackoverflow.com/questions/604431/c-reading-unsigned-char-from-file-stream} erstellt.
+\\
+Zuerst wird ein Array in der Grösse von vier Bytes erstellt und vier Bytes aus einer Datei eingelesen. Danach werden die vier Bytes zu einer einzigen ganzen Zahl zusammengesetzt. Dies geschieht, indem die Bytes um jeweils 8 Bits nach Links verschoben werden und somit das erste Byte die acht höchsten Stellen der ganzen Zahl symbolisiert, danach das zweite Byte und so folgend die restlichen Bytes.
