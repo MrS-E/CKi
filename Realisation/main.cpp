@@ -14,15 +14,15 @@
 #include "Network.h"
 #include "Util.h"
 
-void train(Network& nn, const std::string &images, const std::string &labels){
+void train(Network& nn, const std::string &images, const std::string &labels, int epochs = 1, double learning_rate = 0.1){
     std::cout << std::endl << "Training..." << std::endl;
     std::cout << "Reading MNIST data..." << std::endl;
     std::vector<std::vector<double>> training_inputs = Util::read_mnist_images(images);
     std::vector<double> training_labels = Util::read_mnist_labels(labels);
 
-   std::cout << "Training..." << std::endl;
-    double error = nn.train(training_inputs, training_labels, 1, 0.1);
-    std::cout << "Error " << error << std::endl;
+    std::cout << "Training..." << std::endl;
+    double error = nn.train(training_inputs, training_labels, epochs, learning_rate);
+    std::cout << "Error: " << error << std::endl;
 
     std::cout << "Done!" << std::endl;
 }
@@ -104,8 +104,8 @@ int main(int argc, char * argv[]) {
         {
             std::cout << "CKi Application Help\n\n"
              << "Usage:\n"
-             << "  ki -h\t\tShow this help message.\n"
-             << "  ki --train -l [label] -i [images]\tTrain the CNN with a dataset in ubyte format.\n"
+             << "  ki --help\t\tShow this help message.\n"
+             << "  ki --train -l [label] -i [images] < -e [epoch] > < -lr [learningrate] > ]\tTrain the CNN with a dataset in ubyte format.\n"
              << "  ki --verify -l [label] -i [images]\tVerify the trained model accuracy with a dataset in ubyte format.\n"
              << "  ki [file]\t\tPredict the digit in a jpg image file.\n\n"
              << "Options:\n"
@@ -114,8 +114,8 @@ int main(int argc, char * argv[]) {
              << "  --verify\t\tVerify model with specified dataset.\n"
              << "  [file]\t\tThe path to the input file for training, verification, or prediction.\n\n"
              << "Example:\n"
-             << "  ki --training data/train-images-idx3-ubyte\n"
-             << "  ki --verify data/t10k-images-idx3-ubyte\n"
+             << "  ki --train -i data/train-images-idx3-ubyte -l data/train-labels-idx3-ubyte\n"
+             << "  ki --verify data/t10k-images-idx3-ubyte -l data/t10k-labels-idx3-ubyte\n"
              << "  ki image.jpg\n\n"
              << "For more information, visit github.com/MrS-E/CKi.\n" << std::endl;
         }
@@ -142,7 +142,9 @@ int main(int argc, char * argv[]) {
                     {
                         std::string images = input.getCmdOption("-i");
                         std::string labels = input.getCmdOption("-l");
-                        train(nn, images, labels);
+                        int epochs = input.cmdOptionExists("-e") ? std::stoi(input.getCmdOption("-e")) : 1;
+                        double learning_rate = input.cmdOptionExists("-lr") ? std::stod(input.getCmdOption("-lr")) : 0.1;
+                        train(nn, images, labels, epochs, learning_rate);
                         std::cout << "Saving network..." << std::endl;
                         nn.save_network("network.json");
                     }
