@@ -3,6 +3,14 @@
 //
 #include <iostream>
 #include <algorithm>
+#include <vector>
+#include <filesystem>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+#define STB_IMAGE_RESIZE_IMPLEMENTATION
+#include "stb_image_resize.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
 #include "Network.h"
 #include "Util.h"
 
@@ -31,6 +39,30 @@ double verif(Network& nn, const std::string &filename){
     return acc;
 }
 
+std::vector<double> process_image(const char* filename) {
+    int width, height, channels;
+    unsigned char* img = stbi_load(filename, &width, &height, &channels, 0);
+    if (img == nullptr) {
+        std::cerr << "Error in loading the image\n";
+        exit(1);
+    }
+
+    unsigned char* resized_img = new unsigned char[28 * 28 * channels];
+    stbir_resize_uint8(img, width, height, 0, resized_img, 28, 28, 0, channels);
+
+    std::vector<double> image_data(28 * 28);
+    for (int i = 0; i < 28 * 28; ++i) {
+        int j = i * channels;
+        double gray = 0.299 * resized_img[j] + 0.587 * resized_img[j + 1] + 0.114 * resized_img[j + 2];
+        image_data[i] = gray / 255.0; // Normalize to [0, 1]
+    }
+
+    stbi_image_free(img);
+    delete[] resized_img;
+
+    return image_data;
+}
+
 class InputParser{ //from: https://stackoverflow.com/questions/865668/parsing-command-line-arguments-in-c
 public:
     InputParser (int &argc, char **argv){
@@ -52,14 +84,14 @@ public:
         return std::find(this->tokens.begin(), this->tokens.end(), option)
                != this->tokens.end();
     }
-private:
+
     std::vector <std::string> tokens;
 };
 
 int main(int argc, char * argv[]) {
     Network nn(784, 10, {32, 16});
     InputParser input(argc, argv);
-    const std::string &filename = input.getCmdOption("-f");
+    std::string filename = input.tokens[input.tokens.size()-1];
 
     try {
         if(input.cmdOptionExists("-h"))
@@ -83,7 +115,8 @@ int main(int argc, char * argv[]) {
         }
         else
         {
-            if (!filename.empty()){
+            if (input.tokens.size() > 0 && std::filesystem::exists(filename))
+            {
                 if(input.cmdOptionExists("-v"))
                 {
                     verif(nn, filename);
@@ -94,7 +127,10 @@ int main(int argc, char * argv[]) {
                 }
                 else
                 {
-                    //predict
+                    //predic
+                    std::vector<double> image = process_image(filename.c_str());
+                    int result = nn.predict(image);
+                    std::cout << "Predicted digit: " << result << std::endl;
                 }
             }
             else
