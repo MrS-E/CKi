@@ -56,7 +56,7 @@ double Network::backward_propagation(const int& target, double learning_rate) {
     inputs[target] = 1;
     std::vector<double> error = layers[layers.size()-1].calculate_error(inputs);
     double total_error = 0;
-    for(double& e : error) {
+    for(double& e : error) { //remove for better performance
         total_error += e;
     }
 
