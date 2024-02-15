@@ -11,8 +11,9 @@ Dabei gibt es drei Ausführungen von diesem Befehl.
 \subsubsection{Input}
 \label{sec:DesignTraiInput}
 \begin{lstlisting}[language=bash]
-	$ ki --training [file]
+	$ ki --train -l [labels] -i [images] -e [epochs] -lr [learningrate]
 	$ #Dieser Befehl nimmt ubyte-Dateien.
+	$ #Die Optionen -e und -lr sind optional.
 \end{lstlisting}
 
 \subsubsection{Output}
@@ -24,7 +25,7 @@ Nach jedem Datensatz wird angezeigt, wie viele der zum Training gegebenen Daten 
 \subsubsection{Input}
 \label{sec:DesignTestInput}
 \begin{lstlisting}[language=bash]
-	$ ki --verify [file]
+	$ ki --verify -l [labels] -i [images]
 	$ #Dieser Befehl nimmt ubyte-Dateien.
 \end{lstlisting}
 
@@ -40,12 +41,25 @@ Eine interessante Erweiterung wäre es, bei diesem Befehl (oder in einer leicht 
 \label{sec:DesignUseInput}
 \begin{lstlisting}[language=bash]
 	$ ki [file]
-	$ #Dieser Befehl nimmt jpg-Dateien.
+	$ #Dieser Befehl nimmt jpg-Dateien & png-Dateien.
 \end{lstlisting}
 
 \subsubsection{Output}
 \label{sec:DesignUseOutput}
 Als Output werden alle Ziffern von 0 bis 9 mit den entsprechenden Prozentwerten zurückgegeben (Dies kommt daher, dass die KI die Wahrscheinlichkeit der Übereinstimmung für jede Ziffer berechnet.). Zudem wird auch angezeigt, welche Ziffer die höchste Übereinstimmung hat. Da diese die erkannte Ziffer darstellt.
+
+\subsection{Help}
+\label{sec:DesignHelp}
+\subsubsection{Input}
+\label{sec:DesignHelpInput}
+\begin{lstlisting}[language=bash]
+	$ ki --help
+	$ #Dieser Befehl liefert eine Liste an Befehlen.
+\end{lstlisting}
+
+\subsubsection{Output}
+\label{sec:DesignUseOutput}
+Dieser Befehl liefert eine Liste an Befehlen, die in der Konsole verwendet werden können.
 
 \section{Datenbank}
 \label{sec:DesignDatenbank}
