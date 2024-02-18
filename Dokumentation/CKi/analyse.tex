@@ -71,7 +71,7 @@ Die hier aufgelisteten Use Cases entsprechen den Use Cases nach den Must-haves u
 	\item Interpretation
 		\begin{itemize}
 			\item \textbf{Akteur:} Nutzer, CNN
-			\item \textbf{Ablauf:} Siehe Ablaufdiagramm „Interpretation“
+			\item \textbf{Ablauf:} Siehe Ablaufdiagramm „Interpretation“ (\ref{sec:AnalyseInterpretation}).
 			\item \textbf{Nachbedingungen:} Der Nutzer sollte in der Konsole eine Auflistung aller möglichen Ziffern (0–9) und deren entsprechende Wahrscheinlichkeit sehen. Zudem kann der Nutzer auch die kongruierende Zahl zur höchsten Möglichkeit auf einer speziellen Zeile in der Konsole ablesen.
 			\item \textbf{Ausnahmen:} Bei der Interpretation von benutzereigenen Abbildungen kann es zu multiplexen Fehlern kommen. Diese reichen von falscher Dateikodierung zu falscher Auflösung. Aufgrund dieser mannigfaltigen Möglichkeiten zu Fehlern können diese nicht alle hier erläutert werden. Eine Auflistung aller Fehler ist in der Dokumentation unter „\textit{Fehler}“ zu finden.
 			\item \textbf{Anmerkungen:} Offiziell ist zwar „Training“ keine Vorbedingung von „Testen“, jedoch macht die Anwendung der Applikation keinen Sinn, wenn man nicht erwarten kann, dass man ein realistisches oder sinnvolles Ergebnis erhält.
@@ -79,7 +79,7 @@ Die hier aufgelisteten Use Cases entsprechen den Use Cases nach den Must-haves u
 	\item Training
 	\begin{itemize}
 		\item \textbf{Akteur:} Nutzer, CNN
-		\item \textbf{Ablauf:} Siehe Ablaufdiagramm „Training“
+		\item \textbf{Ablauf:} Siehe Ablaufdiagramm „Training“ (\ref{sec:AnalyseTraining}).
 		\item \textbf{Nachbedingungen:} Der Nutzer erhält nach der Beendigung der Schulung des CNN-Models eine kurze Benachrichtigung, dass das Training abgeschlossen ist. Zudem erhält der Nutzer nach jedem einzelnen Datensatz den Output, dass nun x von y Datensätzen bearbeitet wurden.
 		\item \textbf{Ausnahmen:} Hierbei kann es zu zwei Fehlern kommen. Dabei handelt es sich beides um Fehler bei der Datenbank. Der erste ist ein Fehler, wenn die benötigten „Tabellen“ in der Datenbank nicht stimmig mit den Erwartungen sind und der andere, wenn keine Daten in der Datenbank zu finden sind. Für die genauen Fehlercodes ist die Dokumentation unter „\textit{Fehler}“ zu kontaktieren.
 		\item \textbf{Anmerkungen:}
@@ -87,7 +87,7 @@ Die hier aufgelisteten Use Cases entsprechen den Use Cases nach den Must-haves u
 	\item Testen
 	\begin{itemize}
 		\item \textbf{Akteur:} Nutzer, CNN
-		\item \textbf{Ablauf:} Siehe Ablaufdiagramm „Testen“
+		\item \textbf{Ablauf:} Siehe Ablaufdiagramm „Testen“ (\ref{sec:AnalyseTesten}).
 		\item \textbf{Nachbedingungen:} Der Nutzer findet nach jedem Datensatz in der Test-Datenbank eine simple Gegenüberstellung der richtigen und der falschen interpretierten Ziffern. Diese weiterzuverarbeiten, ist dem Nutzer überlassen. Neben der Gegenüberstellung erhält der Nutzer auch die Benachrichtigung, dass nun x von y Datensätzen bearbeitet wurden.
 		\item \textbf{Ausnahmen:} Hier kann es zu zwei Fehlern kommen. Dabei handelt es sich beides um Fehler bei der Datenbank. Der erste ist ein Fehler, wenn die benötigten „Tabellen“ in der Datenbank nicht stimmig mit den Erwartungen sind und der andere, wenn keine Daten in der Datenbank zu finden sind. Für die genauen Fehlercodes ist die Dokumentation unter „\textit{Fehler}“ zu kontaktieren.
 		\item \textbf{Anmerkungen:} Bei den Testdaten würde es evtl. Sinn ergeben, die einzelnen Konsolen Outputs auch in einer CSV-Datei festzuhalten, wobei dies mit Pipes in der Konsole dem Nutzer bereits offensteht. Offiziell ist zwar „Training“ keine Vorbedingung von „Testen“, jedoch ergibt das Testen nur begrenzt Sinn, wenn es noch nichts gibt, was sich zu testen lohnt.
