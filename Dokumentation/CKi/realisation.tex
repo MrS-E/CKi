@@ -71,8 +71,13 @@ Das CKI-Projekt ist strukturiert in:
 
 \section{Code}
 \subsection{Konzept}
+ Das Projekt CKI nutzt grundlegende Konzepte des maschinellen Lernens wie Vorwärts- und Rückwärts-Propagierung, Aktivierungsfunktionen (hier Sigmoid) und die Anpassung von Gewichten während des Trainingsprozesses. Die modulare Struktur, unterteilt in Schichten, Neuronen und Hilfsfunktionen, sowie die Verwendung von modernem C++ und externen Bibliotheken für Tests und Datenhandling, zeichnen die Architektur der Applikation aus.
+\\
+Um mehr über die hier erwähnten Funktionen zu erfahren, ist der Abschnitt \ref{sec:RealAlgorithmen} zu konsultieren.
+
 
 \subsection{Algorithmen}
+\label{sec:RealAlgorithmen}
 \subsubsection{ Forward-Propagation}
 \label{sec:RealForwardPropagation}
 Die Forward-Propagation ist ein grundlegender Prozess in neuronalen Netzwerken, der es ermöglicht, Vorhersagen auf Basis von Eingabedaten zu treffen. Dabei werden die Eingabedaten durch das Netzwerk von der Eingabeschicht über eine oder mehrere versteckte Schichten bis zur Ausgabeschicht vorwärts geleitet. Jede Schicht besteht aus Neuronen, die über Gewichte mit den Neuronen der vorherigen Schicht verbunden sind. Die Daten werden in jedem Neuron durch eine Summationsfunktion verarbeitet, die die gewichteten Eingaben aufsummiert und einen Bias-Wert hinzufügt. Das Ergebnis dieser Summation wird dann durch eine Aktivierungsfunktion geleitet, um die Ausgabe des Neurons zu bestimmen.
