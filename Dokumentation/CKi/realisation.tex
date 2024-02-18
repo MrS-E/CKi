@@ -111,49 +111,34 @@ Die wichtigsten Funktionen in einem neuronalen Netzwerk sind die beiden Propagat
 
 \subsubsection{Train}
 \label{sec:RealTrainCode}
-\begin{lstlisting}[language=c++]
-double Network::train(
-vector<vector<double>> &inputs, 
-vector<double> &labels, 
-int epochs, 
-double learning_rate
-) 
-{
-	double total_error = 0;
-	for(int epoch = 0; epoch<epochs; epoch++ )
-	{
-		for(std::size_t i = 0; i < inputs.size(); i++) 
-		{
-			std::vector<double> outputs = Network::forward_propagation(inputs[i]);
-			total_error += Network::backward_propagation(labels[i], learning_rate);
-			total_error /= 2;
-		}
-	}
-	return total_error;
+\begin{lstlisting}[language=C++]
+double Network::train(std::vector<std::vector<double>> &inputs, std::vector<double> &labels, int epochs, double learning_rate){
+    double total_error = 0;
+    for(int epoch = 0; epoch<epochs; epoch++ ){
+        for(std::size_t i = 0; i < inputs.size(); i++){
+            std::vector<double> outputs = Network::forward_propagation(inputs[i]);
+            total_error += Network::backward_propagation(labels[i], learning_rate);
+            total_error /= 2;
+        }
+    }
+    return total_error;
 }
+
 \end{lstlisting}
 \addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Train Funktion aus der Netzwerk-Klasse}
 Die Funktion, welche für das Lernen des neuronalen Netzwerks verantwortlich ist, ist simpel aufgebaut. Sie erhält primär zwei Listen: eine Liste aus Bildern und eine Liste aus Beschriftungen für die Bilder. Danach nutzt es die Funktionen der Forward- und Back-Propagation, um zuerst das Bild durch das Netzwerk bewerten zulassen und dann diese Bewertung mithilfe der Beschriftungen zu korrigieren. Dies tut sie für den gesamten Datensatz und der Anzahl Epochen entsprechend.
 
 \subsubsection{Verify}
 \label{sec:RealVerifyCode}
-\begin{lstlisting}[language=c++]
-double Network::verify
-(
-const std::vector<std::vector<double>> &inputs, 
-const std::vector<double> &labels
-) 
-{
-	int correct = 0;
-	for (std::size_t i = 0; i < inputs.size(); ++i) 
-	{
-		if (Network::predict(std::vector<double>(inputs[i])) == 
-		static_cast<int>(labels[i])) 
-		{
-				correct++;
-		}
-	}
-	return static_cast<double>(correct) / static_cast<double>(inputs.size());
+\begin{lstlisting}[language=C++]
+double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<double> &labels){
+    int correct = 0;
+    for (std::size_t i = 0; i < inputs.size(); ++i){
+        if (Network::predict(std::vector<double>(inputs[i])) == static_cast<int>(labels[i])){
+            correct++;
+        }
+    }
+    return static_cast<double>(correct) / static_cast<double>(inputs.size());
 }
 \end{lstlisting}
 \addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Verify Funktion aus der Netzwerk-Klasse}
@@ -161,12 +146,10 @@ Die Funktion ist eigentlich gleich aufgebaut wie „Train“, jedoch mit dem mar
 
 \subsubsection{Predict}
 \label{sec:RealPredictCode}
-\begin{lstlisting}[language=c++]
-int Network::predict(const std::vector<double> &input) 
-{
-	std::vector<double> outputs = Network::forward_propagation(input);
-	return static_cast<int>(std::distance(outputs.begin(), 
-		std::max_element(outputs.begin(), outputs.end()))); 
+\begin{lstlisting}[language=C++]
+int Network::predict(const std::vector<double> &input){
+    std::vector<double> outputs = Network::forward_propagation(input);
+    return static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end())));
 }
 \end{lstlisting}
 \addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Predict Funktion aus der Netzwerk-Klasse}
@@ -174,18 +157,16 @@ Diese Funktion erhält nur ein einziges Bild als Attribut. Dieses Bild wird durc
 
 \subsubsection{Forward-Propagation}
 \label{sec:RealForwardPropagationCode}
-\begin{lstlisting}[language=c++]
-std::vector<double> forward_propagation(const std::vector<double>& input) 
-{
-	layers[0].calc_neuron_outputs(input);
+\begin{lstlisting}[language=C++]
+std::vector<double> Network::forward_propagation(const std::vector<double>& input){
+    layers[0].calc_neuron_outputs(input);
 
-	for (int i = 1; i < layers.size(); ++i) 
-	{
-		std::vector<double> inputs = layers[i - 1].get_neuron_outputs();
-		layers[i].calc_neuron_outputs(inputs);
-	}
+    for (int i = 1; i < layers.size(); ++i){
+        std::vector<double> inputs = layers[i - 1].get_neuron_outputs();
+        layers[i].calc_neuron_outputs(inputs);
+    }
 
-	return layers[layers.size()-1].get_neuron_outputs();
+    return layers[layers.size()-1].get_neuron_outputs();
 }
 \end{lstlisting}
 \addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Forward-Propagation Funktion aus der Netzwerk-Klasse}
@@ -193,27 +174,25 @@ In dieser Funktion wird eine Liste von grossen Fliesskommazahlen übernommen. Di
 
 \subsubsection{Back-Propagation}
 \label{sec:RealBackPropagationCode}
-\begin{lstlisting}[language=c++]
-double Network::backward_propagation(const int& target, double learning_rate) 
-{
-	std::vector<double> inputs (10, 0);
-	inputs[target] = 1;
-	std::vector<double>error = layers[layers.size()-1].calculate_error(inputs);
-	double total_error = 0;
-	for(double& e : error) 
-	{
-		total_error += e;
-	}
+\begin{lstlisting}[language=C++]
+double Network::backward_propagation(const int& target, double learning_rate){
+    std::vector<double> inputs (10, 0);
+    inputs[target] = 1;
+    std::vector<double> error = layers[layers.size()-1].calculate_error(inputs);
 
-	total_error/=error.size();
+    double total_error = 0;
+    for(double& e : error) { //remove for better performance
+        total_error += e;
+    }
 
-	std::cout << total_error << std::endl;
+    total_error/=error.size();
 
-	for (int i = layers.size() - 1; i >= 0; --i) 
-	{
-		error = layers[i].update_weights_and_biases(error, learning_rate);
-	}
-	return total_error;
+    //std::cout << total_error << std::endl;
+
+    for (int i = layers.size() - 1; i >= 0; --i){
+        error = layers[i].update_weights_and_biases(error, learning_rate);
+    }
+    return total_error;
 }
 \end{lstlisting}
 \addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Backward-Propagation Funktion aus der Netzwerk-Klasse}
@@ -223,34 +202,25 @@ Dabei muss zuerst die Abweichung von der erhaltenen Ausgabe (aus der Forward-Pro
 
 \subsubsection{Anpassung von Gewichtungen und Biases}
 \label{sec:RealAnpassungVonGewichtungenUndBiasesCode}
-\begin{lstlisting}[language=c++]
-std::vector<double> Layer::update_weights_and_biases(
-const std::vector<double>& error, 
-double learning_rate
-) {
-	std::vector<double>prev_layer_error(Layer::neurons[0].weights.size(), 0.0);
+\begin{lstlisting}[language=C++]
+std::vector<double> Layer::update_weights_and_biases(const std::vector<double>& error, double learning_rate){
+    std::vector<double> prev_layer_error(Layer::neurons[0].weights.size(), 0.0);
 
-	for (size_t i = 0; i < Layer::neurons.size(); ++i) 
-	{
-		Neuron &neuron = Layer::neurons[i];
-		const double neuron_error = error[i];
-		const double activation_derivative = neuron.activation_derivative();
+    for (size_t i = 0; i < Layer::neurons.size(); ++i){
+        Neuron &neuron = Layer::neurons[i];
+        const double neuron_error = error[i];
+        const double activation_derivative = neuron.activation_derivative();
 
-		for (size_t j = 0; j < neuron.weights.size(); ++j) 
-		{
-			prev_layer_error[j] += neuron.weights[j] * neuron_error;
+        for (size_t j = 0; j < neuron.weights.size(); ++j){
+            prev_layer_error[j] += neuron.weights[j] * neuron_error;
 
-			const double delta_weight = neuron_error * 
-				activation_derivative * 
-				neuron.inputs[j];
-			neuron.weights[j] -= learning_rate * delta_weight;
-		}
-		neuron.bias += learning_rate * neuron_error * activation_derivative;
-	}
-
-	return prev_layer_error;
+            const double delta_weight = neuron_error * activation_derivative * neuron.inputs[j];
+            neuron.weights[j] -= learning_rate * delta_weight;
+        }
+        neuron.bias += learning_rate * neuron_error * activation_derivative;
+    }
+    return prev_layer_error;
 }
-
 \end{lstlisting}
 \addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Anpassung von Gewichtungen und Biases aus der Layer-Klasse}
 Dies ist die Funktion, die in der Back-Propagation aufgerufen wird.
@@ -264,14 +234,12 @@ Die Korrektion für das Bias ist fast identisch zur Abweichung der Gewichtung. E
 
 \subsubsection{Sigmoid \& Ableitung}
 \label{sec:RealSigmoidAbleitungCode}
-\begin{lstlisting}[language=c++]
-double Util::sigmoid(double x) 
-{
+\begin{lstlisting}[language=C++]
+double Util::sigmoid(double x){
 	return 1.0 / (1.0 + exp(-x));
 }
 
-double Util::sigmoid_derivative(double x)
-{
+double Util::sigmoid_derivative(double x){
 	double s = sigmoid(x);
 	return s * (1.0 - s);
 }
@@ -287,36 +255,28 @@ Das sind die mathematischen Implementierungen der Sigmoid-Funktion und deren mat
 
 \subsubsection{MNIST-Reader}
 \label{sec:RealMNISTReaderCode}
-\begin{lstlisting}[language=c++]
-std::vector<std::vector<double>> Util::read_mnist_images(
-const std::string &filename
-) {
-	std::ifstream file(filename, std::ios::binary);
-	if (file.is_open()) 
-	{
-		int magic_number = read_int(file);
-		int number_of_images = read_int(file);
-		int number_of_rows = read_int(file);
-		int number_of_columns = read_int(file);
+\begin{lstlisting}[language=C++]
+std::vector<std::vector<double>> Util::read_mnist_images(const std::string &filename){
+    std::ifstream file(filename, std::ios::binary);
+    if (file.is_open()){
+        int magic_number = read_int(file);
+        int number_of_images = read_int(file);
+        int number_of_rows = read_int(file);
+        int number_of_columns = read_int(file);
 
-		std::vector<std::vector<double>> images(number_of_images, 
-			std::vector<double>(number_of_rows * number_of_columns));
+        std::vector<std::vector<double>> images(number_of_images, std::vector<double>(number_of_rows * number_of_columns));
 
-		for (int i = 0; i < number_of_images; ++i) 
-		{
-			for (int r = 0; r < number_of_rows * number_of_columns; ++r) 
-			{
-				unsigned char temp = 0;
-				file.read(reinterpret_cast<char*>(&temp), sizeof(temp));
-				images[i][r] = (double)temp / 255.0;
-			}
-		}
-		return images;
-	} 
-	else 
-	{
-		throw std::runtime_error("Cannot open file: " + filename);
-	}
+        for (int i = 0; i < number_of_images; ++i){
+            for (int r = 0; r < number_of_rows * number_of_columns; ++r){
+                unsigned char temp = 0;
+                file.read(reinterpret_cast<char*>(&temp), sizeof(temp));
+                images[i][r] = (double)temp / 255.0; // Normalizing pixel values to [0, 1]
+            }
+        }
+        return images;
+    }else{
+        throw std::runtime_error("Cannot open file: " + filename);
+    }
 }
 \end{lstlisting}
 \addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} MNIST-Reader aus der Util-Klasse}
@@ -327,14 +287,11 @@ Die Implementierung ist nach dem Muster von \url{http://yann.lecun.com/exdb/mnis
 \subsubsection{Ersten 4 Bytes}
 \label{sec:RealErsten4BytesCode}
 Dies ist die oben angesprochene „read\_int“-Funktion.
-\begin{lstlisting}[language=c++]
-int Util::read_int(std::ifstream &file) 
-{
-	unsigned char bytes[4];
-	file.read(reinterpret_cast<char*>(bytes), sizeof(bytes));
-	return (int)((bytes[0] << 24) | 
-							 (bytes[1] << 16) | 
-								(bytes[2] << 8) | bytes[3]);
+\begin{lstlisting}[language=C++]
+int Util::read_int(std::ifstream &file){
+    unsigned char bytes[4];
+    file.read(reinterpret_cast<char*>(bytes), sizeof(bytes));
+    return (int)((bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3]);
 }
 \end{lstlisting}
 \addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Utility Funktion für den MNIST-Reader aus der Util-Klasse}
