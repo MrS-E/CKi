@@ -1,4 +1,5 @@
 \section{Building}
+\label{sec:DeployBuilding}
 Die Erstellung des Projektes CKI lässt sich in drei Schritte unterteilen. Es gibt jedoch einige Anforderungen.
 \subsection{Anforderungen}
 \label{sec:BuildAnforderungen}
@@ -45,5 +46,24 @@ Es folgen nun die notwendigen Schritte, um dies zu bewerkstelligen:
 \end{enumerate}
 
 \section{Installation}
+Dieser Abschnitt setzt voraus, dass die Schritte aus dem Abschnitt Building \ref{sec:DeployBuilding} erfolgreich ausgeführt wurden und das Produkt des Projekts CKI bereit zur Ausführung im Build-Verzeichnis zu finden ist.
+\subsection{Installation mit CMake}
+\label{sec:InstallInstallationMitCMake}
+Nach dem Build-Vorgang können Sie das Projekt CKI installieren, indem Sie einen Installationsbefehl über CMake ausführen. Dieser Vorgang kopiert die erforderlichen ausführbaren Dateien, Bibliotheken und eventuell weitere Ressourcen in vordefinierte Verzeichnisse. Normalerweise wird dies durch den Befehl „\textit{cmake --install .}“ im Build-Verzeichnis erreicht. Stellen Sie sicher, dass Sie über die erforderlichen Berechtigungen verfügen, um Installationen in den Zielverzeichnissen durchführen zu können. Die genaue Konfiguration des Installationspfades und anderer Parameter kann in der „\textit{CMakeLists.txt}“ festgelegt werden. Diese Konfiguration muss jedoch vom Installierenden vorgenommen werden, da das Projekt CKI nicht für eine langfristige Installation gedacht ist, da es per se keinen Mehrwert für einen Endnutzer bringt.
+
+\subsection{Installation ohne CMake}
+\label{sec:IsntallInstallationOhneCMake}
+\textbf{Achtung!} Dieser Vorgang wurde nur flüchtig unter Windows getestet und kann daher nicht für Linux oder Mac garantiert werden.
+\\
+\\
+Nach dem Build-Vorgang kann die Datei, welche verantwortlich für die Ausführung ist (unter Windows \textit{CKI.exe}), in ein beliebiges anderes Verzeichnis kopiert werden. Unter Windows sollte das Produkt des Projekts CKI (\textit{CKI.exe}) ausführbar bleiben; für Linux und Mac kann aufgrund fehlender Versuchen keine Aussage getroffen werden. 
+
+\subsection{Hinzufügung von vortrainierten Gewichtungen und Biases}
+\label{sec:InstallHinzufügungVonVortrainiertenGewichtungenUndBiases}
+Um im Projekt CKI einer Installation oder einem Build vorhandene Gewichtungen und Biases für das neuronale Netzwerk hinzuzufügen, wird eine JSON-Datei benötigt, welche dem Netzwerk als Speicher für die Gewichtungen und Biases dient. Diese Datei liegt standardmässig im Root-Verzeichnis der installierten oder gebauten Applikation (also im gleichen Verzeichnis wie die ausführbare Datei/Applikation).
+\\
+Somit können alle Gewichtungen und Biases zwischen unterschiedlichen neuronalen Netzwerken (welche für die gleiche Aufgabe trainiert wurden) ausgetauscht werden. Dabei gilt allerdings zu beachten, dass das Netzwerk gleich aufgebaut sein muss. Das heisst, die Netzwerke benötigen die gleiche Anzahl an Layer und Neuronen pro Layer. Es muss die „ load_network“ -Funktion ausgeführt werden, vor der Verwendung des Netzwerkes und die JSON-Datei muss richtig benannt sein.
+\\
+Sollte sie die Standard-Version der Main-Datei verwendet werden, heisst diese Datei „network.json“ und wird bei nicht vorhanden sein automatisch beim ersten Trainingsvorgang erstellt. Somit wird mindestens beim Erststart ein Fehler erscheinen, dass die JSON-Datei nicht gelesen werden konnte. Dieser kann allerdings ignoriert werden, wenn keine vorhandenen Gewichtungen und Biases manuell zum Netzwerk hinzugefügt worden sind.
 
 \section{Verwendung}
