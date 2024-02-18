@@ -6,65 +6,82 @@
 % Duplex: oneside / twoside
 % Grundlegende Fontgrößen: 10pt / 11pt / 12pt
 
+%%% Pakete
 %% Spracheinstellungen & Codierung
 \usepackage[ngerman]{babel} %%Für deutsche Lokalisierung und Silbentrennung
 \usepackage[utf8]{inputenc}  %%Erlaubt die Verwendung von UTF-8 Kodierung
 \usepackage[T1]{fontenc} %%Verbessert die Schriftkodierung für europäische/sprachspezifische Zeichen
-
 %%Layout
-\usepackage{lmodern}  %%Lädt die "Latin Modern" Schriftfamilie für eine bessere Darstellung
+%\usepackage{lmodern}  %%Lädt die "Latin Modern" Schriftfamilie für eine bessere Darstellung
+\usepackage[scaled]{helvet} % Lädt die Helvetica Schriftart
 \usepackage{titling}  %%Bietet zusätzliche Anpassungsmöglichkeiten für den Titel und die Titelseite
 \usepackage{setspace} %%Zur Einstellung des Zeilenabstands (erneut aufgeführt, möglicherweise ein Versehen)
 \usepackage{a4wide} %%Kleinere Seitenränder = mehr Text pro Zeile.
 \usepackage{fancyhdr} %%Fancy Kopf- und Fußzeilen
 \usepackage{titlesec} %%Zur Anpassung von Titeln und Überschriften
 \usepackage{geometry} %%Zur einfachen Anpassung der Seitenränder
-
 %%Text Design
 \usepackage{xcolor} %%Definiert Farben und bietet vielfältige Farboptionen
 \usepackage{soul}  %%Bietet Möglichkeiten zum Unterstreichen, Durchstreichen und Hervorheben von Text
 \usepackage{hyperref}  %%Zur Erstellung von Hyperlinks innerhalb des Dokuments oder zu externen Quellen
 \usepackage{listings} %%Zur Einbindung von Programmcode mit Syntaxhervorhebung
-
 %% Grafik
 \usepackage{float} %%Bietet erweiterte Möglichkeiten zur Positionierung von Bildern und Tabellen
 \usepackage[export]{adjustbox} %%Erweitert Grafikoptionen, einschließlich Rahmen und Skalierung
 \usepackage{graphicx} %%Zum Laden von Grafiken
 %\usepackage{subfig} %%Teilabbildungen in einer Abbildung
-\graphicspath{ {./images/} } %%Ordner, in dem die Grafiken gesucht werden
-
-%% Beachten Sie:
-%% Die Einbindung einer Grafik erfolgt mit \includegraphics{Dateiname}
-%% bzw. über den Dialog im Einfügen-Menü.
-%% 
-%% Im Modus "LaTeX => PDF" können Sie u.a. folgende Grafikformate verwenden:
-%%   .jpg  .png  .pdf  .mps
-%% 
-%% In den Modi "LaTeX => DVI", "LaTeX => PS" und "LaTeX => PS => PDF"
-%% können Sie u.a. folgende Grafikformate verwenden:
-%%   .eps  .ps  .bmp  .pict  .pntg
-
 %% Mathe
 %\usepackage{amsmath} %%Bietet umfangreiche Funktionen zur Darstellung mathematischer Formeln
 %\usepackage{amsthm} %%Zur Definition und Formatierung von Theoremen, Definitionen etc.
 %\usepackage{amsfonts}  %%Stellt zusätzliche mathematische Schriftarten und Symbole bereit
-
 %% Tabellen
 \usepackage{tabularx}  %%Erweitert Tabellenfunktionen, erlaubt Tabellen mit automatischer Breitenanpassung
 \usepackage{xltabular} %Kombiniert 'longtable' und 'tabularx', für lange Tabellen mit automatischer Breitenanpassung
 %\usepackage{longtable} %%Für Tabellen, die eine Seite überschreiten
 %\usepackage{tabu} %%Bietet eine modernere und flexiblere Schnittstelle für Tabellen
-
 %% Querformat
 \usepackage{lscape} %%Ermöglicht Seiten im Querformat innerhalb eines ansonsten hochformatigen Dokuments
 \usepackage{pdflscape} %%Verbessert 'lscape' durch Rotation der Seiten im PDF für bessere Bildschirmdarstellung
-
 %% Imports
 \usepackage{import} %%Vereinfacht das Einbinden von Dateien aus unterschiedlichen Verzeichnissen
 \usepackage{pdfpages} %%Zum Einfügen von externen PDF-Seiten in das Dokument
 
-%https://tex.stackexchange.com/questions/137055/lstlisting-syntax-highlighting-for-c-like-in-editor
+%%% Einstellungen
+%% Seitenränder
+\geometry{
+    a4paper,
+    top=2.5cm,
+    left=2.5cm,
+    right=2cm,
+    bottom=4cm,
+    headheight=1.25cm,
+    footskip=1.1cm
+}
 
+%% Kopf- und Fußzeilen
+\pagestyle{fancy}
+\fancyhf{} % Löscht die aktuelle Kopf- und Fußzeile
+\fancyhead[C]{\thepage} % Zentrierte Seitenzahl in der Kopfzeile
+\fancyfoot[C]{\thepage} % Zentrierte Seitenzahl in der Fußzeile
+\renewcommand{\headrulewidth}{0pt} % Entfernt die Linie unter der Kopfzeile
+\renewcommand{\footrulewidth}{0pt} % Entfernt die Linie über der Fußzeile
+\pagestyle{empty} %Keine Kopf-/Fusszeilen auf den ersten Seiten
+
+%% Überschriften
+\titleformat{\chapter}[hang]{\bfseries\Large}{\thechapter}{16pt}{\Large}[{\vspace{8pt}}]
+\titleformat{\section}[hang]{\bfseries\large}{\thesection}{14pt}{\large}[{\vspace{7pt}}]
+\titleformat{\subsection}[hang]{\bfseries\normalsize}{\thesubsection}{12pt}{\normalsize}[{\vspace{6pt}}]
+\titleformat{\subsubsection}[hang]{\normalsize}{\thesubsubsection}{12pt}{\normalsize}[{\vspace{6pt}}]
+
+%% Standardtext Einstellungen
+%\renewcommand{\normalsize}{\fontsize{11pt}{12pt}\selectfont} % Setzt die Schriftgröße auf 11pt
+\renewcommand*\familydefault{\sfdefault} % Setzt die Standard-Schriftart auf Sans-Serif (Helvetica/Arial)
+
+%% Zeilenabstand
+\setstretch{1.5}
+
+%% Code
+%https://tex.stackexchange.com/questions/137055/lstlisting-syntax-highlighting-for-c-like-in-editor
 \lstset{
 	basicstyle=\footnotesize\sffamily\color{black},
 	commentstyle=\color{gray},
@@ -79,8 +96,18 @@
 	tabsize=2
 }
 
-%%Keine Kopf-/Fusszeilen auf den ersten Seiten.
-\pagestyle{empty}
+%%Grafik
+\graphicspath{ {./images/} } %%Ordner, in dem die Grafiken gesucht werden
+% Beachten Sie:
+% Die Einbindung einer Grafik erfolgt mit \includegraphics{Dateiname}
+% bzw. über den Dialog im Einfügen-Menü.
+%
+% Im Modus "LaTeX => PDF" können Sie u.a. folgende Grafikformate verwenden:
+%   .jpg  .png  .pdf  .mps
+%
+% In den Modi "LaTeX => DVI", "LaTeX => PS" und "LaTeX => PS => PDF"
+% können Sie u.a. folgende Grafikformate verwenden:
+%   .eps  .ps  .bmp  .pict  .pntg
 
 %% Deckblatt
 \title{CKi ein CNN-Model in C++}
