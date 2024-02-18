@@ -14,7 +14,7 @@
 #include "Network.h"
 #include "Util.h"
 
-void train(Network& nn, const std::string &images, const std::string &labels, int epochs = 1, double learning_rate = 0.1){
+double train(Network& nn, const std::string &images, const std::string &labels, int epochs = 1, double learning_rate = 0.1){
     std::cout << std::endl << "Training..." << std::endl;
     std::cout << "Reading MNIST data..." << std::endl;
     std::vector<std::vector<double>> training_inputs = Util::read_mnist_images(images);
@@ -25,6 +25,7 @@ void train(Network& nn, const std::string &images, const std::string &labels, in
     std::cout << "Error: " << error << std::endl;
 
     std::cout << "Done!" << std::endl;
+    return error;
 }
 double verif(Network& nn, const std::string &images, const std::string &labels){
     std::cout << std::endl << "Testing..." << std::endl;
@@ -125,6 +126,7 @@ int main(int argc, char * argv[]) {
             {
                 if(input.cmdOptionExists("--verify"))
                 {
+                    //verify
                     if(input.cmdOptionExists("-l") && input.cmdOptionExists("-i"))
                     {
                         std::string images = input.getCmdOption("-i");
@@ -138,6 +140,7 @@ int main(int argc, char * argv[]) {
                 }
                 else if(input.cmdOptionExists("--train"))
                 {
+                    //train
                     if(input.cmdOptionExists("-l") && input.cmdOptionExists("-i"))
                     {
                         std::string images = input.getCmdOption("-i");
