@@ -62,8 +62,47 @@ Nach dem Build-Vorgang kann die Datei, welche verantwortlich für die Ausführun
 \label{sec:InstallHinzufügungVonVortrainiertenGewichtungenUndBiases}
 Um im Projekt CKI einer Installation oder einem Build vorhandene Gewichtungen und Biases für das neuronale Netzwerk hinzuzufügen, wird eine JSON-Datei benötigt, welche dem Netzwerk als Speicher für die Gewichtungen und Biases dient. Diese Datei liegt standardmässig im Root-Verzeichnis der installierten oder gebauten Applikation (also im gleichen Verzeichnis wie die ausführbare Datei/Applikation).
 \\
-Somit können alle Gewichtungen und Biases zwischen unterschiedlichen neuronalen Netzwerken (welche für die gleiche Aufgabe trainiert wurden) ausgetauscht werden. Dabei gilt allerdings zu beachten, dass das Netzwerk gleich aufgebaut sein muss. Das heisst, die Netzwerke benötigen die gleiche Anzahl an Layer und Neuronen pro Layer. Es muss die „ load_network“ -Funktion ausgeführt werden, vor der Verwendung des Netzwerkes und die JSON-Datei muss richtig benannt sein.
+Somit können alle Gewichtungen und Biases zwischen unterschiedlichen neuronalen Netzwerken (welche für die gleiche Aufgabe trainiert wurden) ausgetauscht werden. Dabei gilt allerdings zu beachten, dass das Netzwerk gleich aufgebaut sein muss. Das heisst, die Netzwerke benötigen die gleiche Anzahl an Layer und Neuronen pro Layer. Es muss die „ load\_network“ -Funktion ausgeführt werden, vor der Verwendung des Netzwerkes und die JSON-Datei muss richtig benannt sein.
 \\
 Sollte sie die Standard-Version der Main-Datei verwendet werden, heisst diese Datei „network.json“ und wird bei nicht vorhanden sein automatisch beim ersten Trainingsvorgang erstellt. Somit wird mindestens beim Erststart ein Fehler erscheinen, dass die JSON-Datei nicht gelesen werden konnte. Dieser kann allerdings ignoriert werden, wenn keine vorhandenen Gewichtungen und Biases manuell zum Netzwerk hinzugefügt worden sind.
 
 \section{Verwendung}
+Das Projekt CKI nutzt ein neuronales Netzwerk, um mit dem MNIST-Datensatz zu arbeiten, einem Standarddatensatz für Handschrifterkennung. Dabei bietet es eine flexible Anwendung für maschinelles Lernen mit Fokus auf Bilderkennung. Es ermöglicht Benutzern, ein Convolutional Neural Network (CNN) mit dem MNIST-Datensatz für Handschrifterkennung zu trainieren, zu verifizieren und Vorhersagen für einzelne Bilder zu treffen. Durch Kommandozeilenargumente kann der Benutzer wählen, ob das Netzwerk trainiert, dessen Genauigkeit überprüft oder ein Bild klassifiziert werden soll. 
+\subsection{Interaktion}
+\label{sec:UsageInteraktion}
+Um über die CLI mit CKI zu interagieren, muss der Benutzer das Programm mit spezifischen Kommandozeilenargumenten ausführen. Diese Argumente steuern die Aktionen des Programms, wie das Trainieren des Netzwerks, die Überprüfung seiner Genauigkeit oder die Klassifizierung eines spezifischen Bildes.  Eine genaue Definition der Befehle ist im Abschnitt Design \ref{sec:DesignKonsole} zu finden.
+Der Übersichtlichkeit sind diese aber hier nochmals zusammengefasst:
+\begin{enumerate}
+	\item Training
+				\begin{itemize}
+					\item \textbf{Befehl:} 
+								\begin{lstlisting}[language=bash]
+$ cki --train -l [labels] -i [images] -e [epochs] -lr [learningrate]
+								\end{lstlisting}
+					\item \textbf{Verwendung:} Trainiert das Netzwerk mit Bildern und Labels. Die Optionen für Epochen (-e) und Lernrate (-lr) sind optional.
+				\end{itemize}
+	\item Verifizierung
+				\begin{itemize}
+					\item \textbf{Befehl:}
+								\begin{lstlisting}[language=bash]
+$ cki --verify -l [labels] -i [images]
+								\end{lstlisting}
+					\item \textbf{Verwendung:} Überprüft die Genauigkeit des trainierten Netzwerks mit einem Testdatensatz.
+				\end{itemize}
+	\item Vorhersage
+				\begin{itemize}
+					\item \textbf{Befehl:}
+								\begin{lstlisting}[language=bash]
+$ cki [file]
+								\end{lstlisting}
+					\item \textbf{Verwendung:} Macht eine Vorhersage für ein einzelnes Bild. Das Bild kann im JPG- oder PNG-Format sein.
+				\end{itemize}
+	\item Hilfe
+				\begin{itemize}
+					\item \textbf{Befehl:}
+								\begin{lstlisting}[language=bash]
+$ cki --help
+								\end{lstlisting}
+					\item \textbf{Verwendung:} Zeigt eine Liste aller verfügbaren Befehle an.
+				\end{itemize}
+\end{enumerate}
