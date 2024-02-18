@@ -86,7 +86,6 @@ Das CKI-Projekt ist strukturiert in:
 \\
 Um mehr über die hier erwähnten Funktionen zu erfahren, ist der Abschnitt \ref{sec:RealAlgorithmen} zu konsultieren.
 
-
 \subsection{Algorithmen}
 \label{sec:RealAlgorithmen}
 \subsubsection{ Forward-Propagation}
@@ -133,6 +132,7 @@ double learning_rate
 	return total_error;
 }
 \end{lstlisting}
+\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Train Funktion aus der Netzwerk-Klasse}
 Die Funktion, welche für das Lernen des neuronalen Netzwerks verantwortlich ist, ist simpel aufgebaut. Sie erhält primär zwei Listen: eine Liste aus Bildern und eine Liste aus Beschriftungen für die Bilder. Danach nutzt es die Funktionen der Forward- und Back-Propagation, um zuerst das Bild durch das Netzwerk bewerten zulassen und dann diese Bewertung mithilfe der Beschriftungen zu korrigieren. Dies tut sie für den gesamten Datensatz und der Anzahl Epochen entsprechend.
 
 \subsubsection{Verify}
@@ -156,6 +156,7 @@ const std::vector<double> &labels
 	return static_cast<double>(correct) / static_cast<double>(inputs.size());
 }
 \end{lstlisting}
+\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Verify Funktion aus der Netzwerk-Klasse}
 Die Funktion ist eigentlich gleich aufgebaut wie „Train“, jedoch mit dem markanten Unterschied, dass keine Back-Propagation zum Einsatz kommt. So werden die Bewertungen des neuronalen Netzwerks nur als richtig oder falsch bewertet und nicht korrigiert.
 
 \subsubsection{Predict}
@@ -168,6 +169,7 @@ int Network::predict(const std::vector<double> &input)
 		std::max_element(outputs.begin(), outputs.end()))); 
 }
 \end{lstlisting}
+\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Predict Funktion aus der Netzwerk-Klasse}
 Diese Funktion erhält nur ein einziges Bild als Attribut. Dieses Bild wird durch die Forward-Propagation bewertet. Die Bewertung wiederum besteht nur aus einer Liste von zehn Prozentzahlen (für die Ziffern von 0 bis 9) und damit diese besser für einen Menschen lesbar wird, muss die höchste Prozentzahl aus der Liste gesucht werden. Deren Index wird dann als errechnete Zahl zurückgegeben.
 
 \subsubsection{Forward-Propagation}
@@ -186,6 +188,7 @@ std::vector<double> forward_propagation(const std::vector<double>& input)
 	return layers[layers.size()-1].get_neuron_outputs();
 }
 \end{lstlisting}
+\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Forward-Propagation Funktion aus der Netzwerk-Klasse}
 In dieser Funktion wird eine Liste von grossen Fliesskommazahlen übernommen. Diese sind die einzelnen Pixel, in dem zu bearbeiteten Bild, welche nur einen Helligkeitswert beinhalten. Diese Pixel werden an den ersten Layer im Netzwerk übergeben. Dieser kalkuliert durch die Sigmoid-Funktion neue Ausgabewerte. Die Ausgabewerte werden mit der For-Schleife durch alle Schichten des Netzwerks weitergereicht, bis diese am Ende ausgelesen und als Rückgabewert dieser Funktion genutzt werden. Die Ausgabewerte haben zwar das gleiche Datenformat, unterscheiden sich jedoch anhand ihrer Grösse (Länge der Liste) und den tatsächlichen Werten.
 
 \subsubsection{Back-Propagation}
@@ -213,6 +216,7 @@ double Network::backward_propagation(const int& target, double learning_rate)
 	return total_error;
 }
 \end{lstlisting}
+\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Backward-Propagation Funktion aus der Netzwerk-Klasse}
 Im Gegensatz zur Forward-Propagation wird in der Back-Propagation ein Wert nicht von der ersten Schicht zur letzten übergeben, sondern Rückwerts von dem letzten Layer bis zur Eingabe zurück.
 \\ 
 Dabei muss zuerst die Abweichung von der erhaltenen Ausgabe (aus der Forward-Propagation) mit der erwarteten Ausgabe abgeglichen und der Fehler berechnet werden. Nun wird ähnlich zur Forward-Propagation dieser Fehler durch die einzelnen Schichten geschickt und dort verwendet, um die Gewichtungen und Biases für jedes Neuron anzupassen. Dies passiert in einer eigenen Funktion im Layer.
@@ -248,6 +252,7 @@ double learning_rate
 }
 
 \end{lstlisting}
+\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Anpassung von Gewichtungen und Biases aus der Layer-Klasse}
 Dies ist die Funktion, die in der Back-Propagation aufgerufen wird.
 \\
 Dabei wird für jedes Neuron für jede Gewichtung eine eigene Anpassung gesucht. Um dies zu erreichen, werden mehrere Werte benötigt: der Fehler, der das Neuron geliefert hat, die Ableitung der Sigmoid-Funktion (die Aktivierungsfunktion in diesem Netzwerk). Jetzt können mehrere Sachen errechnet werden. 
@@ -271,6 +276,7 @@ double Util::sigmoid_derivative(double x)
 	return s * (1.0 - s);
 }
 \end{lstlisting}
+\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Sigmoid \& Ableitung aus der Util-Klasse}
 Das sind die mathematischen Implementierungen der Sigmoid-Funktion und deren mathematischen Abweichungen. Diese Funktionen sind zuständig für die einzelnen Aktivierungen der Neuronen und verschieben eine Zahl in den Wertebereich zwischen 0 und 1.
 \begin{figure}[H]
 	\centering
@@ -278,7 +284,6 @@ Das sind die mathematischen Implementierungen der Sigmoid-Funktion und deren mat
 		\caption{Sigmoid Funktion}
 	\label{fig:sigmoid}
 \end{figure}
-
 
 \subsubsection{MNIST-Reader}
 \label{sec:RealMNISTReaderCode}
@@ -314,9 +319,11 @@ const std::string &filename
 	}
 }
 \end{lstlisting}
+\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} MNIST-Reader aus der Util-Klasse}
 Um die Daten aus den von \url{http://yann.lecun.com/exdb/mnist/} stammenden UByte-Dateien auszulesen, müssen gewisse Byte-Werte aus den Dateien ausgelesen werden. Die hier aufgeführte Funktion dient dazu, Bilder aus diesen Dateien auszulesen und ist beispielhaft auch für die Beschreibungen.
 \\
 Die Implementierung ist nach dem Muster von \url{http://yann.lecun.com/exdb/mnist/} implementiert. So sind in den ersten vier Byte gespeichert, wie viele Bilder/Beschriftungen im Datensatz zu finden sind. Um dies auszulesen, ist in einer eigenen Funktion implementiert (read\_int). Nach den ersten vier Byte müssen bestimmt viele Bytes in eine Liste eingetragen und auf den Wert zwischen 0 und 1 gebracht werden. Man spricht auch von der Normalisierung der Pixel-Werte.
+
 \subsubsection{Ersten 4 Bytes}
 \label{sec:RealErsten4BytesCode}
 Dies ist die oben angesprochene „read\_int“-Funktion.
@@ -330,6 +337,7 @@ int Util::read_int(std::ifstream &file)
 								(bytes[2] << 8) | bytes[3]);
 }
 \end{lstlisting}
+\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Utility Funktion für den MNIST-Reader aus der Util-Klasse}
 Die Funktion wurde mit der Hilfe von Stack Overflow unter dem Link \url{https://stackoverflow.com/questions/604431/c-reading-unsigned-char-from-file-stream} erstellt.
 \\
 Zuerst wird ein Array in der Grösse von vier Bytes erstellt und vier Bytes aus einer Datei eingelesen. Danach werden die vier Bytes zu einer einzigen ganzen Zahl zusammengesetzt. Dies geschieht, indem die Bytes um jeweils 8 Bits nach Links verschoben werden und somit das erste Byte die acht höchsten Stellen der ganzen Zahl symbolisiert, danach das zweite Byte und so folgend die restlichen Bytes.

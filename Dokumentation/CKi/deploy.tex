@@ -79,6 +79,7 @@ Der Übersichtlichkeit sind diese aber hier nochmals zusammengefasst:
 								\begin{lstlisting}[language=bash]
 $ cki --train -l [labels] -i [images] -e [epochs] -lr [learningrate]
 								\end{lstlisting}
+					\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Implementation des Trainingsbefehls}
 					\item \textbf{Verwendung:} Trainiert das Netzwerk mit Bildern und Labels. Die Optionen für Epochen (-e) und Lernrate (-lr) sind optional.
 				\end{itemize}
 	\item Verifizierung
@@ -87,6 +88,7 @@ $ cki --train -l [labels] -i [images] -e [epochs] -lr [learningrate]
 								\begin{lstlisting}[language=bash]
 $ cki --verify -l [labels] -i [images]
 								\end{lstlisting}
+					\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Implementation des Verifizierungsbefehls}
 					\item \textbf{Verwendung:} Überprüft die Genauigkeit des trainierten Netzwerks mit einem Testdatensatz.
 				\end{itemize}
 	\item Vorhersage
@@ -95,6 +97,7 @@ $ cki --verify -l [labels] -i [images]
 								\begin{lstlisting}[language=bash]
 $ cki [file]
 								\end{lstlisting}
+					\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Implementation des Predictionbefehls}
 					\item \textbf{Verwendung:} Macht eine Vorhersage für ein einzelnes Bild. Das Bild kann im JPG- oder PNG-Format sein.
 				\end{itemize}
 	\item Hilfe
@@ -103,6 +106,7 @@ $ cki [file]
 								\begin{lstlisting}[language=bash]
 $ cki --help
 								\end{lstlisting}
+					\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Implementation des Befehls für Hilfe}
 					\item \textbf{Verwendung:} Zeigt eine Liste aller verfügbaren Befehle an.
 				\end{itemize}
 \end{enumerate}
