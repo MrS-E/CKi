@@ -1,4 +1,48 @@
 \section{Building}
+Die Erstellung des Projektes CKI lässt sich in drei Schritte unterteilen. Es gibt jedoch einige Anforderungen.
+\subsection{Anforderungen}
+\label{sec:BuildAnforderungen}
+Das Projekt CKI ist zwar plattformunabhängig, kann also unter allen gängigen Betriebssystemen verwendet werden, muss jedoch erst für die entsprechende Plattform erstellt werden. Für diesen Erstell-Prozess sind folgende Anforderungen (Programme) unabdingbar:
+\begin{itemize}
+	\item CMake
+	\item C++ Compiler
+	\item Internet
+\end{itemize}
+Je nach Betriebssystem oder IDE können schon alle oder einige dieser Anforderungen erfüllt sein.
+
+\subsubsection{CMake}
+\label{sec:BuildCMake}
+CMake ist ein plattformübergreifendes Tool zur Automatisierung des Build-Prozesses, das es ermöglicht, Makefiles und Projekte für verschiedene Entwicklungsumgebungen zu generieren. Es verwendet eine Konfigurationsdatei „(\textit{CMakeLists.txt})“, um den Build-Prozess zu steuern. 
+\\
+Unter Windows kann CMake von der offiziellen Website heruntergeladen und entweder über einen grafischen Installer oder über die Kommandozeile installiert werden.
+\\
+Unter Linux und Mac kann CMake über den Package Manager der Wahl installiert werden. Die häufigsten sind Pacman, APT oder RPM unter Linux und Brew unter Mac.
+\\
+Für das Projekt CKI wird CMake benötigt, um die Build-Konfiguration zu erstellen, externe Abhängigkeiten zu verwalten und das Projekt für verschiedene Entwicklungsumgebungen vorzubereiten, wodurch eine konsistente und effiziente Entwicklung ermöglicht wird. Dabei ist bei der Installation notwendig, dass die CMake Version kompatibel mit der \textbf{Version 3.26}, wie in der CMakeLists.txt spezifiziert, ist.
+
+\subsubsection{C++ Compiler}
+\label{sec:BuildCCompiler}
+Ein C++-Compiler ist ein Software-Tool, das C++-Code in maschinenlesbaren Code übersetzt, sodass Programme ausgeführt werden können. 
+\\
+Unter Windows, Mac und Linux kann ein C++ Compiler durch die Installation einer Entwicklungsumgebung wie Visual Studio oder durch direkte Installation von GCC oder Clang eingebunden werden. 
+\\
+Für das Projekt CKI ist ein Compiler notwendig, da CMake, das für das Erstellen des Projektes verwendet wird, auf einen Compiler angewiesen ist, um den C++-Code in ausführbare Dateien zu übersetzen. CMake generiert Build-Konfigurationen, aber der eigentliche Kompilierungsprozess benötigt einen C++-Compiler. Dabei ist bei der Installation notwendig, dass der C++-Compiler den \textbf{C++-Standard 17} unterstützt, da das Projekt CKI auf diesen Standard aufgebaut wurde und moderne C++-Features nutzt.
+
+\subsubsection{Internet}
+\label{sec:BuildInternet}
+Das Projekt CKI benötigt Internet, um externe Abhängigkeiten wie \textit{googletest} für Unit-Tests und \textit{nlohmann_json} für JSON-Verarbeitung automatisch herunterzuladen und zu integrieren. Diese Bibliotheken sind essenziell für das Funktionieren und Testen des Projektes. CMake verwaltet diesen Prozess, indem es die benötigten Pakete aus dem Internet lädt, was eine effiziente und konsistente Set-up-Umgebung über verschiedene Entwicklungsplattformen hinweg ermöglicht.
+
+\subsection{Ausführung}
+\label{sec:BuildAusführung}
+Um das Projekt CKI zu bauen und auszuführen, gibt es verschiedene Wege, die wegen unterschiedlicher Entwicklungsumgebungen stark variieren können. Dementsprechend ist hier nur beschrieben, wie CKI mithilfe von CMake, einem C++-Compiler und Internet in der Konsole gebaut werden kann.
+\\
+Es folgen nun die notwendigen Schritte, um dies zu bewerkstelligen:
+\begin{enumerate}
+	\item Erstellen Sie ein Build-Verzeichnis im Root-Verzeichnis des Projektes. Dies kann über ein grafisches Interface passieren oder über die Konsole. Der entsprechende Befehl unter Windows, Linux und Mac sollte „\textit{mkdir}“ sein.
+	\item Wechseln Sie in das Build-Verzeichnis (Der entsprechende Befehl unter Windows, Linux und Mac sollte „\textit{cd}“ sein.) und führen Sie „\textit{cmake ..}“ aus, um die Build-Konfiguration zu generieren. Dieser Befehl variiert nicht unter den unterschiedlichen Betriebssystemen, setzt allerdings voraus, dass CMake installiert wurde. Siehe mehr unter Anforderungen \ref{sec:BuildAnforderungen}.
+	\item Führen Sie anschliessend „\textit{cmake --build .}“ aus, um das Projekt zu kompilieren. Dies setzt voraus, dass ein C++-Compiler installiert wurde. Siehe mehr unter Anforderungen \ref{sec:BuildAnforderungen}.
+	\item Wenn Sie nun den Inhalt des Build-Verzeichnisses begutachten, sollten Sie unterschiedlichste Dateien und Verzeichnisse vorfinden, aber auch eine Datei namens CKI mit einer Endung einer ausführbaren Datei (unter Windows würde die Datei \textit{CKI.exe} heissen). Diese ausführbare Datei ist das compilierte und fertige Produkt des Projektes CKI.
+\end{enumerate}
 
 \section{Installation}
 
