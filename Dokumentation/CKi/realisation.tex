@@ -37,6 +37,15 @@ Abhängigkeiten:
 \label{sec:RealArchitektur}
 \subsection{Klassen}
 \label{sec:RealKlassen}
+\subsubsection{Klassendiagramm}
+\label{sec:RealKlassendiagramm}
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=1.00\textwidth]{klassendiagramm_after_implementation.png}
+	\label{fig:klassendiagramm after implementation}
+\end{figure}
+Das ist das Klassendiagramm, wie die Applikation des Projektes CKI nach der Implementation und somit nach den nötigen Anpassungen, die seit der Design-Phase zu treffen waren. Wie zu sehen ist, gibt es etliche markante Änderungen in den Klassen Netzwerk und Layer. Dies kommt daher, dass durch Wissensgewinn die Struktur angepasst werden musste. Wie diese Klassen funktionieren, sowie die wichtigsten Funktionen sind in den Abschnitten \ref{sec:RealKlassen}, \ref{sec:RealOrdnerstruktur}, \ref{sec:RealCode}, \ref{sec:RealSnippetsCode} zu finden.
+
 \subsubsection{Netzwerk}
 \label{sec:RealNetzwerk}
 Die Network-Klasse repräsentiert das neuronale Netzwerk. Es unterstützt die Initialisierung des Netzwerks mit einer bestimmten Anzahl von Eingabe- und Ausgabeneuronen sowie eine variable Anzahl von versteckten Schichten und deren Grössen. Die Klasse bietet Funktionen für das Training des Netzwerks mit gegebenen Eingaben und Zielwerten, die Überprüfung der Netzwerkleistung, Vorhersagen für neue Eingaben, die Durchführung von Vorwärts- und Rückwärtspropagation, sowie das Speichern und Laden des Netzwerks in bzw. aus einer Datei. 
@@ -70,6 +79,7 @@ Das CKI-Projekt ist strukturiert in:
 \end{itemize}
 
 \section{Code}
+\label{sec:RealCode}
 \subsection{Konzept}
  Das Projekt CKI nutzt grundlegende Konzepte des maschinellen Lernens wie Vorwärts- und Rückwärts-Propagierung, Aktivierungsfunktionen (hier Sigmoid) und die Anpassung von Gewichten während des Trainingsprozesses. Die modulare Struktur, unterteilt in Schichten, Neuronen und Hilfsfunktionen, sowie die Verwendung von modernem C++ und externen Bibliotheken für Tests und Datenhandling, zeichnen die Architektur der Applikation aus.
 \\
@@ -96,6 +106,7 @@ Backpropagation nutzt die Kettenregel der Differenzialrechnung, um die Fehlergra
 Insgesamt ermöglicht Backpropagation das effiziente Training tiefer neuronaler Netzwerke, indem es systematisch die Netzwerkgewichte anpasst, um den Fehler zwischen den Vorhersagen des Netzwerks und den tatsächlichen Werten zu minimieren, was zu einer verbesserten Modellleistung führt.\footnote{Nüesch 2023}
 
 \subsection{Schlüsselpassagen \& Snippets} %stolpersteine
+\label{sec:RealSnippetsCode}
 Die wichtigsten Funktionen in einem neuronalen Netzwerk sind die beiden Propagation, vorwärts als auch rückwärts. Wobei diese das Grundgerüst für die drei Hauptfunktionen, Train, Verify \& Predict bilden.
 
 \subsubsection{Train}
