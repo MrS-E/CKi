@@ -59,12 +59,19 @@
 }
 
 %% Kopf- und Fußzeilen
-\pagestyle{fancy}
-\fancyhf{} % Löscht die aktuelle Kopf- und Fußzeile
-\fancyhead[C]{\thepage} % Zentrierte Seitenzahl in der Kopfzeile
-\fancyfoot[C]{\thepage} % Zentrierte Seitenzahl in der Fußzeile
-\renewcommand{\headrulewidth}{0pt} % Entfernt die Linie unter der Kopfzeile
-\renewcommand{\footrulewidth}{0pt} % Entfernt die Linie über der Fußzeile
+\fancypagestyle{plain}{
+    \fancyhf{} % Löscht die aktuelle Kopf- und Fußzeile
+    \renewcommand{\headrulewidth}{1pt} % Entfernt die Linie unter der Kopfzeile
+    \renewcommand{\footrulewidth}{1pt} % Entfernt die Linie über der Fußzeile
+
+    \fancyhead[L]{\leftmark} % Links: Kapitelname
+    \fancyhead[C]{} % Zentriert: leer
+    \fancyhead[R]{CKi ein CNN-Model in C++} % Rechts:  Dokumenttitel
+
+    \fancyfoot[L]{Kantonsschule Frauenfeld} % Links: Name
+    \fancyfoot[C]{} % Zentriert: leer
+    \fancyfoot[R]{\thepage} % Rechts: Seitenzahl
+}
 \pagestyle{empty} %Keine Kopf-/Fusszeilen auf den ersten Seiten
 
 %% Überschriften
@@ -145,13 +152,13 @@
 
 \maketitle
 
+\pagestyle{plain} %%Ab hier die Kopf-/Fusszeilen: headings / fancy / ...
+
 %% Inhaltsverzeichnis 
 \tableofcontents %Inhaltsverzeichnis
 \setcounter{secnumdepth}{4} %Setzung der Nummerierungstiefe
 \setcounter{tocdepth}{3} %Setung der Anzeige der Nummerierungstiefe im Inhaltsverzeichnis
 %\cleardoublepage %Das erste Kapitel soll auf einer ungeraden Seite beginnen.
-
-\pagestyle{plain} %%Ab hier die Kopf-/Fusszeilen: headings / fancy / ...
 
 %% Hauptteil
 %%Analyse
