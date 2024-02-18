@@ -21,12 +21,6 @@ void Layer::init_weights() {
     }
 }
 
-void Layer::set_weights(const std::vector<std::vector<double>> &weights) {
-    for (std::size_t i = 0; i < Layer::neurons.size(); ++i) {
-        Layer::neurons[i].weights = weights[i];
-    }
-}
-
 void Layer::calc_neuron_outputs(const std::vector<double> &inputs){
     for (auto & neuron : Layer::neurons) {
         neuron.calc_activation(inputs);
