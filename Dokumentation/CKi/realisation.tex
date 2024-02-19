@@ -326,7 +326,7 @@ std::vector<double> process_image(const char* filename) {
     int width, height, channels;
     unsigned char* img = stbi_load(filename, &width, &height, &channels, 0);
     if (img == nullptr) {
-        std::cerr << "Error in loading the image\n";
+        std::cerr << "Error in loading the image" << std::endl;
         exit(1);
     }
 
