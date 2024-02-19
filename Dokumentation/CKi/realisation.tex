@@ -346,6 +346,7 @@ std::vector<double> process_image(const char* filename) {
     return image_data;
 }
 \end{lstlisting}
+\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Bild Vorverarbeitung für Nutzer-gelieferte Bilder}
 Dies Funktion lädt ein Bild von der angegebenen Datei, skaliert es auf 28x28 Pixel herunter und konvertiert es in Graustufen. Zuerst wird das Bild geladen, wobei Breite, Höhe und Kanäle des Bildes erfasst werden. Falls das Laden fehlschlägt, wird eine Fehlermeldung ausgegeben und das Programm beendet. Anschließend wird das Bild auf die Größe 28x28 Pixel verkleinert, wobei die Anzahl der Kanäle beibehalten wird. Danach wird für jeden Pixel ein Graustufenwert berechnet, indem eine gewichtete Summe seiner RGB-Werte gebildet und durch 255 geteilt wird, um den Wert auf den Bereich [0, 1] zu normalisieren. Diese Werte werden gespeichert und am Ende der Funktion zurückgegeben. Zum Schluss werden der Speicher des ursprünglichen und des skalierten Bildes freigegeben, um Speicherlecks zu verhindern.
 \\
 Diese Funktion wird verwendet, um in der Ausführung von Predict das Bild des Nutzers zu übernehmen und auf das geforderte Format zu verkleinern.
