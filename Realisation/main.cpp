@@ -106,7 +106,7 @@ int main(int argc, char * argv[]) {
             std::cout << "CKi Application Help\n\n"
              << "Usage:\n"
              << "  ki --help\t\tShow this help message.\n"
-             << "  ki --train -l [label] -i [images] < -e [epoch] > < -lr [learningrate] > ]\tTrain the CNN with a dataset in ubyte format.\n"
+             << "  ki --train -l [label] -i [images] < -e [epoch] > < -lr [learningrate] >\tTrain the CNN with a dataset in ubyte format.\n"
              << "  ki --verify -l [label] -i [images]\tVerify the trained model accuracy with a dataset in ubyte format.\n"
              << "  ki [file]\t\tPredict the digit in a jpg image file.\n\n"
              << "Options:\n"
