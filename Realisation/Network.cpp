@@ -56,13 +56,13 @@ double Network::backward_propagation(const int& target, double learning_rate) {
     inputs[target] = 1;
     std::vector<double> error = layers[layers.size()-1].calculate_error(inputs);
     double total_error = 0;
-    for(double& e : error) {
+    for(double& e : error) { //remove for better performance
         total_error += e;
     }
 
     total_error/=error.size();
 
-    std::cout << total_error << std::endl;
+    //std::cout << total_error << std::endl;
 
     for (int i = layers.size() - 1; i >= 0; --i) {
         error = layers[i].update_weights_and_biases(error, learning_rate);

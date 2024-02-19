@@ -19,7 +19,6 @@ public:
     std::vector<double> inputs;
     double activation{};
     double bias = 1.0;
-    double sum{};
 };
 
 #endif //REALISATION_NEURON_H
