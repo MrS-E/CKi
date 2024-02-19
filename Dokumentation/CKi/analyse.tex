@@ -4,7 +4,7 @@ Die Aufgabe, die sich das Projekt CKi stellt, ist die Wissenserweiterung des Ent
 
 \section{Zielgruppe}
 \label{sec:AnalyseZielgruppe}
-Das Projekt CKi ist als solches nicht ausgelegt, einem realen Anwendungszweck zu entsprechen oder eine Lösung oder einen Lösungsansatz für einen solchen zu bieten. Diesbezüglich liegt der einzige Nutzen von CKi nicht in dessen Produkt, sondern nur im Wissensgewinn und Verständnis gewinn für den Entwickler in den Bereichen der künstlichen Intelligent oder genauer im Bereich des maschinellen Lernens mit einem \textit{Convolutional Neural Network}, der Realisation von Anwendungen mit C++ und dessen Möglichkeiten Hardware direkt in die programminternen Abläufe einzubinden. Somit richtet sich CKi nicht nach dem Grundsatz ein bestmögliches nutzbares Produkt zu sein, sondern lediglich nach dem grössten Wissensgewinn für den Entwickler. Nach diesem Grundsatz ist die resultierende Zielgruppe der Entwickler und vereint so multiple Rollen des Projektes CKi in einer Person.
+Das Projekt CKi ist als solches nicht ausgelegt, einem realen Anwendungszweck zu entsprechen oder eine Lösung oder einen Lösungsansatz für einen solchen zu bieten. Diesbezüglich liegt der einzige Nutzen von CKi nicht in dessen Produkt, sondern nur im Wissensgewinn und Verständnisgewinn für den Entwickler in den Bereichen der künstlichen Intelligent oder genauer im Bereich des maschinellen Lernens mit einem \textit{Convolutional Neural Network}, der Realisation von Anwendungen mit C++ und dessen Möglichkeiten Hardware direkt in die programminternen Abläufe einzubinden. Somit richtet sich CKi nicht nach dem Grundsatz ein bestmögliches nutzbares Produkt zu sein, sondern lediglich nach dem grössten Wissensgewinn für den Entwickler. Nach diesem Grundsatz ist die resultierende Zielgruppe der Entwickler und vereint so mehrere Rollen des Projektes CKi in einer Person.
 
 \section{Anforderungen}
 \label{sec:AnalyseAnforderungen}
@@ -15,12 +15,12 @@ Die Must-haves wurden aus dem Themenblatt, welches am 15.09.2023 bei Walter Schn
 
 \begin{itemize}
 	\item 
-	Rückgabe in Prozentwerten, die die Wahrscheinlichkeit der Übereinstimmung mit dem digitalen Gegenstück der handgeschriebenen Zahl abbilden. „Welche Zahl wurde (vermutlich) aufgeschrieben?“
+	\textbf{Rückgabe in Prozentwerten, die die Wahrscheinlichkeit der Übereinstimmung mit dem digitalen Gegenstück der handgeschriebenen Zahl abbilden.} „Welche Zahl wurde (vermutlich) aufgeschrieben?“
 	\\
 	\textbf{Erläuterung:}
-	Da ein simples neuronales Netzwerk für maschinelles Lernen durch ein „Netz“ aus Knotenpunkten gebaut wird und jeder dieser Knotenpunkte, auch die Knotenpunkte, welche bei einem solchen neuralen Netzwerk als Endschnittstellen fungieren, einzeln berechnet werden, erhält man, bei Anwendungsfall von CKi, eine multiple Anzahl von Prozentzahlen, welche zur Interpretation es gelieferten Endergebnisses verwendet werden können. Diese Rückgabe der einzelnen Prozentwerte erfolgt zum Beginn über eine Konsolenausgabe. Diese wird später, wie in \textit{"Nice-to-haves"} unter GUI erläutert, in ein grafisches Nutzerinterface integriert und zu diesem Zeitpunkt evtl. auch interpretiert (wobei die einzelnen Prozentwerte weiterhin einsichtig bleiben sollten).
+	Da ein simples neuronales Netzwerk für maschinelles Lernen durch ein „Netz“ aus Knotenpunkten gebaut wird und jeder dieser Knotenpunkte, auch die Knotenpunkte, welche bei einem solchen neuralen Netzwerk als Endschnittstellen fungieren, einzeln berechnet werden, erhält man, bei Anwendungsfall von CKi, eine multiple Anzahl von Prozentzahlen, welche zur Interpretation des gelieferten Endergebnisses verwendet werden können. Diese Rückgabe der einzelnen Prozentwerte erfolgt zum Beginn über eine Konsolenausgabe. Diese wird später, wie in \ref{sec:AnalyseNiceToHaveS} („Nice-to-haves“) unter GUI erläutert, in ein grafisches Nutzerinterface integriert und zu diesem Zeitpunkt evtl. auch interpretiert (wobei die einzelnen Prozentwerte weiterhin einsichtig bleiben sollten).
 	
-	\item CNN-Algorithmus (trainiert auf Zahlenwert)
+	\item \textbf{funktionales neuronales Netzwerk (trainiert auf Zahlenwert)}
 	\\
 	\textbf{Erläuterung:}
 	Ein CNN-Algorithmus oder auch Convolutional Neural Network wird beim maschinellen Lernen oft bei der Interpretation von Bildern genutzt. Dabei wird das Bild in kleinere Abschnitte unterteilt und „einzeln“ an den gehirnähnlich aufgebauten Algorithmus weitergegeben.
@@ -31,12 +31,12 @@ Die Must-haves wurden aus dem Themenblatt, welches am 15.09.2023 bei Walter Schn
 		\caption{CNN Model Aufbau Grafik von \href{https://www.researchgate.net/publication/309751512_Content-Aware_Convolutional_Neural_Network_for_Object_Recognition_Task}{researchgate.net}}
 		\label{fig:AnalyseCNN-model-with-several-convolution-and-pooling-layers-performed-alternately-combined}
 	\end{figure}
-	Im Projekt CKi wird dieser wie im Themenblatt beschrieben mit Bild von einzelnen handgeschriebenen Ziffern trainiert.
+	Im Projekt CKi wird dieser wie im Themenblatt beschrieben mit Bildern von einzelnen handgeschriebenen Ziffern trainiert, dem MNIST-Datensatz.
 	
-	\item Nutzer-Input ? Nutzer darf eine Zahl zeichnen
+	\item \textbf{Nutzer-Input | Nutzer darf eine Zahl zeichnen}
 	\\
 	\textbf{Erläuterung:}
-	Ein solches CNN-Model zu erbauen und zu trainieren ist zwar die Grundlage für dieses Must-have, jedoch sollte das Produkt auch erprobbar sein. Diesbezüglich muss der Nutzer in der Lage sein, eine handschriftliche Ziffer an das neurale Netzwerk zu liefern. Hierbei ist die minimale Anforderung, dass der Nutzer in einer anderweitigen Applikation ein solches Bild erstellt hat und es nun interpretieren lassen kann. Wie in Nice-to-haves unter GUI beschreiben, wird diese Eingabemöglichkeit (eine Ziffer zu zeichnen oder eine schon vorhandene grafische Abbildung zu verwenden) in einem weiteren Entwicklungsschritt direkt in die grafische Nutzeroberfläche der Applikation integriert.
+	Ein solches CNN-Model zu erbauen und zu trainieren ist zwar die Grundlage für dieses Must-have, jedoch sollte das Produkt auch erprobbar sein. Diesbezüglich muss der Nutzer in der Lage sein, eine handschriftliche Ziffer an das neurale Netzwerk zu liefern. Hierbei ist die minimale Anforderung, dass der Nutzer in einer anderweitigen Applikation ein solches Bild erstellt hat und es nun interpretieren lassen kann. Wie in \ref{sec:AnalyseNiceToHaveS} („Nice-to-haves“) unter GUI beschrieben, wird diese Eingabemöglichkeit (eine Ziffer zu zeichnen oder eine schon vorhandene grafische Abbildung zu verwenden) in einem weiteren Entwicklungsschritt direkt in die zukünftige grafische Nutzeroberfläche der Applikation integriert.
 	
 \end{itemize}
 
@@ -45,51 +45,55 @@ Die Must-haves wurden aus dem Themenblatt, welches am 15.09.2023 bei Walter Schn
 Die Nice-to-haves wurden aus dem Themenblatt, welches am 15.09.2023 bei Walter Schnyder eingereicht wurde, übernommen und mit weiterführenden Elaborationen versehen. Zudem behalte ich mir als Verfasser dieses Dokumentes, als Entwickler des Projektes CKi und als Zielgruppe des Projektes CKi vor, diese Liste in gegebene Falle zu erweitern.
 
 \begin{itemize}
-	\item GUI
+	\item \textbf{GUI}
 	\\
 	\textbf{Erläuterung:}
 	Ein GUI (oder auch grafisches User-Interface) ist die grafische Nutzeroberfläche der Applikation. Da die Applikation primär dem Wissensgewinn gewidmet ist und dementsprechend nicht für den Nutzer optimiert wird, hat eine solche Erweiterung nur eine geringe Priorität. Diese Nutzeroberfläche wird selbst bei der Umsetzung in einer möglichst simplen Form gehalten. Dabei sollte es folgende Bestandteile beinhalten:
 	\begin{itemize}
 		\item Eine Möglichkeit für den Nutzer eine anderweitig gezeichnete Ziffer interpretieren zu lassen
 		\item Eine Möglichkeit für den Nutzer eine Ziffer zu zeichnen.
-		\item Eine weiter-interpretierte Ausgabe der Interpretation des CNN.
-		\item Eine Ausgabe des nicht interpretierten Prozentwertes der Interpretation des CNN.
+		\item Eine (weiter-) interpretierte Ausgabe der Interpretation des CNN.
+		\item Eine Ausgabe der nicht interpretierten Prozentwerte der Interpretation des CNN.
 	\end{itemize}
 	Bis zu dem Punkt, wo ein GUI realisiert wurde und in den Einsatz gestellt wird, sind nicht alle dieser Funktionen über die Konsole (das Interface zum Programm, welches vor dem GUI zum Einsatz kommt) verfügbar.
 	
-	\item GPU als Berechnungsplattform nutzen
+	\item \textbf{GPU als Berechnungsplattform nutzen}
 	\\
 	\textbf{Erläuterung:}
-	Die CPU in einem Computer ist eine sehr „fokussierte“ Hardware. So kommt es dazu, dass diese immer nur einen einzelnen Prozess berechnen kann. Dies ist für ein neuronales Netzwerk, welches Hunderte oder Tausende Knotenpunkte hat und alle einzeln berechnet werden müssen, äusserst hinderlich. Die dezidierte Grafikkarte, wenn vorhanden, kann diesem Geschwindigkeitsverlust nachhelfen, da eine solche GPU in der Lage ist, tausende Berechnungen gleichzeitig zu tätigen.
-	Da im Projekt mit C++, einer Hardware-nahen Programmiersprache, gearbeitet wird, kann eine Anbindung an das Rechenpotential der GPU erreicht werden. Da dies jedoch ein äusserst schwieriger Prozess ist, sich diese Anbindung bei den unterschiedlichen Herstellern von GPUs unterscheiden kann und ich notwendig um ein funktionierendes CNN zu erstellen, wurde diese Optimierung als nicht notwendig eingestuft.
+	Die CPU in einem Computer ist eine sehr „fokussierte“ Hardware. So kommt es dazu, dass diese immer nur einen einzelnen Prozess berechnen kann. Dies ist für ein neuronales Netzwerk, welches Hunderte oder Tausende Knotenpunkte hat und alle einzeln berechnet werden müssen, äusserst hinderlich. Eine dezidierte Grafikkarte, wenn vorhanden, kann diesem Geschwindigkeitsverlust nachhelfen, da eine solche GPU in der Lage ist, tausende Berechnungen gleichzeitig zu tätigen.
+	Da im Projekt mit C++, einer Hardware-nahen Programmiersprache, gearbeitet wird, kann eine Anbindung an das Rechenpotential der GPU implementiert werden. Da dies jedoch ein äusserst schwieriger Prozess ist, sich diese Anbindung bei den unterschiedlichen Herstellern von GPUs unterscheiden kann und nicht notwendig um ein funktionierendes CNN zu erstellen, wurde diese Optimierung als nicht notwendig eingestuft.
 \end{itemize}
 
 \subsection{Use Cases}
 \label{sec:AnalyseUseCases}
 Die hier aufgelisteten Use Cases entsprechen den Use Cases nach den Must-haves und sind diesbezüglich ohne die grafische Nutzeroberfläche. Dies kann dazu führen, dass ein endgültiges Produkt nicht mehr kohärent zu den Use Cases steht. Im Allgemeinen sollte aber selbst eine solche Inkohärenz nicht in extremer Weise auftreten, da die Bedienung der Applikation als Konsole als auch als grafische Oberfläche in ähnlicher Weise auftreten sollte.
 \begin{enumerate}
-	\item Interpretation
+	\item \textbf{Prediction}
 		\begin{itemize}
 			\item \textbf{Akteur:} Nutzer, CNN
 			\item \textbf{Ablauf:} Siehe Ablaufdiagramm \ref{sec:AnalyseInterpretation} („Interpretation“).
-			\item \textbf{Nachbedingungen:} Der Nutzer sollte in der Konsole eine Auflistung aller möglichen Ziffern (0–9) und deren entsprechende Wahrscheinlichkeit sehen. Zudem kann der Nutzer auch die kongruierende Zahl zur höchsten Möglichkeit auf einer speziellen Zeile in der Konsole ablesen.
-			\item \textbf{Ausnahmen:} Bei der Interpretation von benutzereigenen Abbildungen kann es zu multiplexen Fehlern kommen. Diese reichen von falscher Dateikodierung zu falscher Auflösung. Aufgrund dieser mannigfaltigen Möglichkeiten zu Fehlern können diese nicht alle hier erläutert werden. Eine Auflistung aller Fehler ist in der Dokumentation unter „\textit{Fehler}“ zu finden.
+			\item \textbf{Nachbedingungen:} Der Nutzer sollte in der Konsole eine Auflistung aller möglichen Ziffern (0–9) und deren entsprechende Wahrscheinlichkeit sehen. Zudem kann der Nutzer auch die kongruierende Zahl mit der höchsten Wahrscheinlichkeit auf einer speziellen Zeile in der Konsole ablesen.
+			\item \textbf{Ausnahmen:} Bei der Interpretation von benutzereigenen Abbildungen kann es zu multiplexen Fehlern kommen. Diese reichen von falscher Dateikodierung zu falscher Auflösung. Aufgrund dieser mannigfaltigen Möglichkeiten zu Fehlern können diese nicht alle hier erläutert werden.
 			\item \textbf{Anmerkungen:} Offiziell ist zwar „Training“ keine Vorbedingung von „Testen“, jedoch macht die Anwendung der Applikation keinen Sinn, wenn man nicht erwarten kann, dass man ein realistisches oder sinnvolles Ergebnis erhält.
 		\end{itemize}
-	\item Training
+	\item \textbf{Training}
 	\begin{itemize}
 		\item \textbf{Akteur:} Nutzer, CNN
 		\item \textbf{Ablauf:} Siehe Ablaufdiagramm \ref{sec:AnalyseTraining} („Training“).
-		\item \textbf{Nachbedingungen:} Der Nutzer erhält nach der Beendigung der Schulung des CNN-Models eine kurze Benachrichtigung, dass das Training abgeschlossen ist. Zudem erhält der Nutzer nach jedem einzelnen Datensatz den Output, dass nun x von y Datensätzen bearbeitet wurden.
-		\item \textbf{Ausnahmen:} Hierbei kann es zu zwei Fehlern kommen. Dabei handelt es sich beides um Fehler bei der Datenbank. Der erste ist ein Fehler, wenn die benötigten „Tabellen“ in der Datenbank nicht stimmig mit den Erwartungen sind und der andere, wenn keine Daten in der Datenbank zu finden sind. Für die genauen Fehlercodes ist die Dokumentation unter „\textit{Fehler}“ zu kontaktieren.
-		\item \textbf{Anmerkungen:}
+		\item \textbf{Nachbedingungen:} Der Nutzer erhält nach der Beendigung der Schulung des CNN-Models eine kurze Benachrichtigung, dass das Training abgeschlossen ist. Zudem erhält der Nutzer nach jedem einzelnen Datensatz den Output, dass nun x von y Datensätzen bearbeitet wurden (kann auch als Lade-Balken oder Ähnliches (Ladetext) implementiert werden).
+		\item \textbf{Ausnahmen:} Hierbei kann es zu zwei Fehlern kommen. Dabei handelt es sich jedoch um Fehler bei den Datensätzen. Der eine Fehler ergibt sich aus der Möglichkeit, dass CKi die entsprechende Datei aus befindlichen Gründen nicht öffnen kann.
+Der andere Fehler ergibt sich, wenn der Datensatz nicht dem Standard der MNIST-Datensätze im UByte-Format entspricht.
+\\
+Natürlich können auch andere Fehler eintreten, diese können nur nicht zu diesem Zeitpunkt abgeschätzt werden.
 	\end{itemize}
-	\item Testen
+	\item \textbf{Testing}
 	\begin{itemize}
 		\item \textbf{Akteur:} Nutzer, CNN
 		\item \textbf{Ablauf:} Siehe Ablaufdiagramm \ref{sec:AnalyseTesten} („Testen“).
-		\item \textbf{Nachbedingungen:} Der Nutzer findet nach jedem Datensatz in der Test-Datenbank eine simple Gegenüberstellung der richtigen und der falschen interpretierten Ziffern. Diese weiterzuverarbeiten, ist dem Nutzer überlassen. Neben der Gegenüberstellung erhält der Nutzer auch die Benachrichtigung, dass nun x von y Datensätzen bearbeitet wurden.
-		\item \textbf{Ausnahmen:} Hier kann es zu zwei Fehlern kommen. Dabei handelt es sich beides um Fehler bei der Datenbank. Der erste ist ein Fehler, wenn die benötigten „Tabellen“ in der Datenbank nicht stimmig mit den Erwartungen sind und der andere, wenn keine Daten in der Datenbank zu finden sind. Für die genauen Fehlercodes ist die Dokumentation unter „\textit{Fehler}“ zu kontaktieren.
+		\item \textbf{Nachbedingungen:} Der Nutzer erhält eine Benachrichtigung, dass x von y Datensätzen bearbeitet wurden (kann auch als Lade-Balken oder Ähnliches (Ladetext) implementiert werden). Nach Beendigung erhält der Nutzer die Mitteilung, dass das Testen abgeschlossen ist und einen Prozentwert mit der Genauigkeit des Netzwerkes.
+		\item \textbf{Ausnahmen:} Hierbei kann es zu zwei Fehlern kommen. Dabei handelt es sich jedoch um Fehler bei den Datensätzen. Der eine Fehler ergibt sich aus der Möglichkeit, dass CKi die entsprechende Datei aus befindlichen Gründen nicht öffnen kann.
+Der andere Fehler ergibt sich, wenn der Datensatz nicht dem Standard der MNIST-Datensätze im UByte-Format entspricht.
+Natürlich können auch andere Fehler eintreten, diese können nur nicht zu diesem Zeitpunkt abgeschätzt werden.
 		\item \textbf{Anmerkungen:} Bei den Testdaten würde es evtl. Sinn ergeben, die einzelnen Konsolen Outputs auch in einer CSV-Datei festzuhalten, wobei dies mit Pipes in der Konsole dem Nutzer bereits offensteht. Offiziell ist zwar „Training“ keine Vorbedingung von „Testen“, jedoch ergibt das Testen nur begrenzt Sinn, wenn es noch nichts gibt, was sich zu testen lohnt.
 	\end{itemize}
 \end{enumerate}
@@ -151,7 +155,7 @@ Wie im Themenblatt vom 15.09.2023 wird für die Umsetzung reines C++ verwendet.
 
 \subsection{Entwicklungsumgebung}
 \label{sec:AnalyseEntwicklungsumgebung}
-Bei der Entwicklungsumgebung wird das JetBrains Produkt \textbf{CLion} zum Einsatz kommen. Dieses beinhaltet alle benötigten Funktionalitäten, die bei der Entwicklung des Produktes nötig sind. Gegebenen Falles könnte noch \textbf{SQLite Browser} zur Verwendung kommen, da dieses ein besseres (und für den Entwickler ein gewohntes) Interface zur Handhabung von lokalen Datenbanken bietet. Für die Version Control des Projektes wird lokal \textbf{Git} verwendet und zur Sicherung in der Cloud wird sowohl \textbf{GitHub} als auch \textbf{GitLab} verwendet. Die Entwicklungsumgebung mit IDE und Version Control wird primär auf dem Betriebssystem Windows verwendet. Es kann jedoch nicht garantiert sein, dass die Entwicklung nicht teilweise unter einer Distribution von Linux ablaufen wird. Hierbei sollten (evtl. abgesehen von der GUI) keine Kompatibilitätsprobleme mit sich führen. 
+Bei der Entwicklungsumgebung wird das JetBrains Produkt \textbf{CLion} zum Einsatz kommen. Dieses beinhaltet alle benötigten Funktionalitäten, die bei der Entwicklung des Produktes nötig sind. Gegebenen Falles könnte noch \textbf{SQLite Browser} zur Verwendung kommen, da dieses ein besseres (und für den Entwickler ein gewohntes) Interface zur Handhabung von lokalen Datenbanken bietet. (Dieses Produkt kam nicht zum Einsatz, da keine Datenbank verwendet wurde.) Für die Version Control des Projektes wird lokal \textbf{Git} verwendet und zur Sicherung in der Cloud wird sowohl \textbf{GitHub} als auch \textbf{GitLab} verwendet. Die Entwicklungsumgebung mit IDE und Version Control wird primär auf dem Betriebssystem Windows verwendet. Es kann jedoch nicht garantiert sein, dass die Entwicklung nicht teilweise unter einer Distribution von Linux ablaufen wird. Hierbei sollten (evtl. abgesehen von der GUI) keine Kompatibilitätsprobleme mit sich führen. 
 \subsubsection{Auflistung Versionen}
 \label{sec:AnalyseDevEnvAuflistung}
 \begin{itemize}
@@ -173,19 +177,20 @@ Die \textit{Eingabeschicht} ist eine dieser zwei erwähnten Schichten. Diese akz
 Auf die Eingabeschicht folgt die \textit{Convolutional Layers} oder auch \textit{Faltungsschichten}. Diese Faltungsschichten sind einer der Schlüsselbestandteile eines CNN. Die Convolutional Layer dienen dazu, bestimmte Merkmale und Schlüsselelemente aus dem Bild zu extrahieren. Hierbei wird bei jedem der Convolutional Layer eine 
 mathematische Faltungsoperationen durchführt. 
 Nach den Faltungsschichten kommen die simplen \textit{Pooling-Schichten}. Bei einer Pooling-Schicht wird die Dimension eines Bildes reduziert (Downsampling). Dies kann durch zwei Arten geschehen, entweder durch Max-Pooling, dabei wird aus einer Liste von Werten nur der höchste übermittelt oder durch Durchschnitts-Pooling, wobei der Durchschnitt dieser Liste berechnet und übermittelt wird. Durch diese Datenreduktion wird Rechenleistung gespart und so das Ergebnis schneller und stabiler geliefert. 
-Vor der Ausgabeschicht gibt es noch die \textit{FC Layers} oder auch \textit{Vollständig verknüpfte Schichten}. Bei diesen ist jeder Knotenpunkt mit jedem Knotenpunkt in der nächsten Schicht verbunden. Dies ist das Herz des gesamten Models. Dabei wird in jedem Knotenpunkt ein neuer Wert berechnet, um in der letzten Schicht, der \textit{Ausgabeschicht} diese in Wahrscheinlichkeit zu „konvertieren“.
+Vor der Ausgabeschicht gibt es noch die \textit{FC Layers} oder auch \textit{Vollständig verknüpfte Schichten} (\textit{Hidden Layers}). Bei diesen ist jeder Knotenpunkt mit jedem Knotenpunkt in der nächsten Schicht verbunden. Dies ist das Herz des gesamten Models. Dabei wird in jedem Knotenpunkt ein neuer Wert berechnet, um in der letzten Schicht, der \textit{Ausgabeschicht} diese in Wahrscheinlichkeit zu „konvertieren“.\footnote{} %TODO add zitat
 
 \subsubsection{Implementation}
 \label{sec:AnalyseImplementation}
-Bei der Implementation eines CNN-Models wurde für CKi der Entschluss getroffen, eine C++-Klasse für jede benötigte Art von Layer zu schreiben. Danach muss ein Grundgerüst, eine Main-Klasse realisiert werden, die alle Klassen miteinander kombiniert. Dies erleichtert es in einem späteren Schritt die grosse Umstellung von einer Konsolen-Anwendung hin zu einer grafisch passierten Anwendung (auch wenn immer noch grosse Teile der Main-Klasse ausgetauscht werden müssen.). Für die Speicherung der Berechnungswerte für die FC-Layer ist die Abwägung zu treffen, ob es sinnvoll ist, diese in einer lokalen Datenbank zu speichern oder in eine konkret hierfür entworfene Datei zu schreiben.
+Bei der Implementation eines neuronalen Netzwerkes wurde für CKi der Entschluss getroffen, eine C++-Klasse für jede benötigte Art von Komponente, die die Applikation benötigt, zu kreieren. Konkret bedeutet dies, dass eine Klasse für das Neuron, eine für den Layer und eine für das Netzwerk entstehen müssen. Dabei werden die Klassen aufeinander aufgebaut; ein Netzwerk hat multiple Layer, ein Layer hat multiple Neuronen. Dieses Netzwerk wird danach in die Main-Funktion, den Programmeinstieg, integriert. Dies erleichtert es in einem späteren Schritt die grosse Umstellung von einer Konsolen-Anwendung hin zu einer grafisch passierten Anwendung (auch wenn immer noch grosse Teile der Main-Klasse ausgetauscht werden müssen.). Für die Speicherung der Berechnungswerte für die FC-Layer ist die Abwägung zu treffen, ob es sinnvoll ist, diese in einer lokalen Datenbank zu speichern oder in eine konkret hierfür entworfene Datei zu schreiben.
 
 \subsection{Testdaten}
 \label{sec:AnalyseTestdaten}
-Die Testdaten für CKi können in unzähliger Ausführung auf \href{https://www.kaggle.com/}{Kaggle} gefunden werden.
+Die Testdaten für CKi können in unzähliger Ausführung auf \href{https://www.kaggle.com/}{Kaggle} gefunden werden. Es wird jedoch der Standard von \url{http://yann.lecun.com/exdb/mnist/} verwendet.
 
 \subsubsection{Speicherung}
 \label{sec:AnalyseSpeicherung}
-Im gegebenen Fall würde es für die Schulung, des CNN, Sinn ergeben, die einzelnen Bilder nicht über Ordner- oder Archivstrukturen zu speichern, sondern in eine oder mehrere lokale Datenbanken abzuspeichern.
+Im gegebenen Fall würde es für die Schulung, des CNN, Sinn ergeben, die einzelnen Bilder nicht über Ordner- oder Archivstrukturen zu speichern, sondern in eine oder mehrere lokale Datenbanken abzuspeichern.//
+Im Falle von \url{http://yann.lecun.com/exdb/mnist/} ist dies jedoch nicht notwendig, da diese im UByte-Format vorliegen, wie in \ref{sec:DesignUByte} beschrieben.
 
 \section{Abwägung des Nutzens und der Alternativen}
 \label{sec:AnalyseNutzwertanalyseDerLösungsvarianten}
@@ -193,7 +198,7 @@ Im gegebenen Fall würde es für die Schulung, des CNN, Sinn ergeben, die einzel
 \label{sec:AnalyseAlternativen}
 Die möglichen Alternativen zu einer kompletten Realisation eines CNN oder eines neuronalen Netzwerks in C++ ohne Bibliotheken oder Frameworks für neuronale Netze sind endlos. 
 Wenngleich man bereits bestehende Produkte begutachtet, wird man auf GitHub schnell fündig. Bei einer Suche auf GitHub mit dem Query „mnist digit recogniser“ findet man nach Stand 20.10.2023 02:13 178 Repositorien (je eines in C, C++, C\#, Rust, drei in Java + Kotlin und 53 in Python).
-Auch wenn man unter dem Beschluss steht, dass man das CNN selbst bauen wolle, würde man für jede beliebige Sprache eine Bibliothek oder Framework finden, das einem diese Aufgabe erleichtern würde.
+Auch unter dem Beschluss, dass man das CNN selbst bauen wolle, würde man für jede beliebige Sprache eine Bibliothek oder Framework finden, das einem diese Aufgabe erleichtern würde.
 
 \subsection{Kosten}
 \label{sec:AnalyseKosten}
@@ -213,7 +218,7 @@ Wenn man die Stundenzahl aus der Planung mit einem Stundensatz von 50 CHF quanti
 	\\\hline
 	Projektleitung & 39h & 1950.00 Fr.
 	\\\hline
-	Hardware & 0 & 0.00 Fr.
+	Hardware & - & 0.00 Fr.
 	\\\hline
 	Software & Lizenz & 827.00 Fr.
 	\\\hline\hline
@@ -228,11 +233,11 @@ Wenn man die Stundenzahl aus der Planung mit einem Stundensatz von 50 CHF quanti
 
 \subsection{Nutzen}
 \label{sec:AnalyseNutzen}
-Wie bereits im Abschnitt Zielgruppe erwähnt, ist dieses Produkt auf den Wissensgewinn ausgerichtet und nicht auf das Produkt selbst. Dementsprechend ist in der geplanten Umsetzung der Projektes CKi der maximale Nutzen gewährleistet. Leider lässt sich dieser Nutzen nicht/schlecht quantifizieren.
+Wie bereits im Abschnitt Zielgruppe \ref{sec:AnalyseZielgruppe} erwähnt, ist dieses Produkt auf den Wissensgewinn ausgerichtet und nicht auf das Produkt selbst. Dementsprechend ist in der geplanten Umsetzung der Projektes CKi der maximale Nutzen gewährleistet. Leider lässt sich dieser Nutzen nicht/schlecht quantifizieren.
 
 \subsection{Effektivität}
 \label{sec:AnalyseEffektivität}
-Der Vergleich in Effektivität der Anwendung, der aus dem Projekt CKi resultiert und den professionell entwickelten Bibliotheken in Python etc. zieht, wird CKi selbst mit GPU-Berechnung und dem Geschwindigkeitsvorteil von C++ gegen diese Bibliotheken in Bezug auf Run-Time-Length verlieren.
+Der Vergleich in Effektivität der Anwendung, der aus dem Projekt CKi resultiert und den professionell entwickelten Bibliotheken in Python, etc. zieht, wird CKi selbst mit GPU-Berechnung und dem Geschwindigkeitsvorteil von C++ gegen diese Bibliotheken in Bezug auf Run-Time-Length verlieren.
 
 \subsection{Vergleich}
 \label{sec:AnalyseVergleich}
@@ -252,16 +257,15 @@ Der Vergleich in Effektivität der Anwendung, der aus dem Projekt CKi resultiert
 \end{xltabular}
 \label{tab:AnalyseVergleichTable}
 \addcontentsline{lot}{table}{\protect\numberline{\thetable}Vergleich bestehendes Produkt gegen eigene Kreation}
-
 Eine kurze Zusammenfassung der Kosten-Nutzen-Analyse zeigt den desolaten Zustand von CKi.
 \\
-Es werden Kosten für die Arbeitszeit von 8'600 CHF anfallen. Die Effektivität ist niedriger, als wenn dasselbe Produkt mit einer vorhandenen Bibliothek geschrieben werden würde (und die Entwicklungsdauer wäre ebenfalls geringer). Der Nutzen des Endproduktes ist nichtig, da dieses nie zur wirklichen Anwendung kommen wird. Des Weiteren gibt es unzählige kostenlose Alternativen, die es nur zu verwenden gilt.
+Es werden Kosten für die Arbeitszeit von 8'600 CHF anfallen. Die Effektivität ist niedriger, als wenn dasselbe Produkt mit einer vorhandenen Bibliothek geschrieben werden würde (und die Entwicklungsdauer wäre ebenfalls geringer). Des Weiteren gibt es unzählige kostenlose Alternativen, die es nur zu verwenden gilt.
 \\
-Das Projekt CKi kann und wird sich nur auf den Wissensgewinn für den Entwickler stützen, in der Hoffnung, dass dieser die Kosten-Politik aufwiegen wird.
+Der Nutzen des Endproduktes ist nichtig, da dieses nie zur wirklichen Anwendung kommen wird. Das Projekt CKi kann und wird sich nur auf den Wissensgewinn für den Entwickler stützen, in der Hoffnung, dass dieser die Kosten-Politik aufwiegen wird.
 
 \subsection{Nutzwertanalyse}
 \label{sec:AnalyseNutzwerkanalyse}
-Bei der Nutzwertanalyse werden unterschiedliche Alternativen systematisch und statistisch nach gewissen Kategorien verglichen. Konkret werden hier unterschiedliche Möglichkeiten der Implementierung miteinander verglichen, dabei wird eine Punkteskala von eins bis zehn verwendet. Wichtig bei der Implementation ist es, dass eine höhere Punktzahl nicht bedeutet, wie hoch diese Kategorie ist. Eine Entwicklungsdauer von 10 bedeutet nicht, dass diese besonders lang ist, sondern dass diese Option im Bereich Entwicklungsdauer zehn Punkte erhalten hat (also besonders schnell zum Implementieren ist).
+Bei der Nutzwertanalyse werden unterschiedliche Alternativen systematisch und statistisch nach gewissen Kategorien verglichen. Konkret werden hier unterschiedliche Möglichkeiten der Implementierung miteinander verglichen, dabei wird eine Punkteskala von eins bis zehn verwendet. Wichtig bei der Implementation ist es, dass eine höhere Punktzahl nicht bedeutet, wie hoch diese Kategorie ist. Eine Entwicklungsdauer von 10 bedeutet nicht, dass diese besonders lang ist, sondern dass diese Option im Bereich Entwicklungsdauer zehn Punkte erhalten hat (also besonders schnell zum implementieren ist).
 
 \begin{xltabular}{\linewidth}{|l|l||c|c||c|c|}
 	\hline

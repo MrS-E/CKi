@@ -71,7 +71,7 @@ Dieser Befehl liefert eine Liste an Befehlen, die in der Konsole verwendet werde
 Die Applikation benötigt keine Datenbank. Zur Speicherung der Test- und Trainings-Datensätze werden sogenannte ubyte-Dateien eingesetzt. Diese enden auf der Dateierweiterung „.ubyte“.
 
 \subsection{UByte}
-\label{sec:UByte}
+\label{sec:DesignUByte}
 Die Bilddateien im MNIST-Datensatz werden im sogenannten „ubyte“ (unsigned byte) Format gespeichert. Dies bedeutet, dass die Pixelwerte der Bilder als Bytes gespeichert werden. Jedes Bild im Datensatz wird als Reihe von Bytes dargestellt, wobei jedes Byte den Graustufenwert eines Pixels repräsentiert. Hinzu kommt, dass auch die dazugehörigen Labels in einer „ubyte“-Datei gespeichert werden.
 \\
 Aufgrund dieser Speicherung müssen die Datensets vor deren Verwendung eingelesen und interpretiert werden. 
