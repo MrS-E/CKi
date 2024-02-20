@@ -162,7 +162,7 @@ double Network::verify(const std::vector<std::vector<double>> &inputs, const std
 Die Funktion ist eigentlich gleich aufgebaut wie „Train“, jedoch mit dem markanten Unterschied, dass keine Back-Propagation zum Einsatz kommt. So werden die Bewertungen des neuronalen Netzwerks nur als richtig oder falsch bewertet und nicht korrigiert.
 
 \subsubsection{Predict}
-\label{sec:RealPredictCode} %TODO change code...
+\label{sec:RealPredictCode}
 \begin{lstlisting}[language=C++]
 int Network::predict(const std::vector<double> &input){
     std::vector<double> outputs = Network::forward_propagation(input);
@@ -172,7 +172,7 @@ int Network::predict(const std::vector<double> &input){
 \addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Predict Funktion aus der Netzwerk-Klasse}
 Diese Funktion erhält nur ein einziges Bild als Attribut. Dieses Bild wird durch die Forward-Propagation bewertet. Die Bewertung wiederum besteht nur aus einer Liste von zehn Prozentzahlen (für die Ziffern von 0 bis 9) und damit diese besser für einen Menschen lesbar wird, muss die höchste Prozentzahl aus der Liste gesucht werden. Deren Index wird dann als errechnete Zahl zurückgegeben.
 \\
-(Diese Funktion ist ein Zusammenzug aus der Predic-Funktion und Logic aus der main.cpp-Datei.) %FIXME if code changes remove
+(Diese Funktion ist ein Zusammenzug aus der Predic-Funktion und Logic aus der main.cpp-Datei.)
 
 \subsubsection{Forward-Propagation}
 \label{sec:RealForwardPropagationCode}
