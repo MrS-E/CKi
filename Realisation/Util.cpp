@@ -15,6 +15,16 @@ double Util::sigmoid_derivative(double x) {
     return s * (1.0 - s);
 }
 
+double Util::relu(double x)
+{
+    return std::max(0.0, x);
+}
+
+double Util::relu_derivative(double x)
+{
+    return (x > 0) * 1;
+}
+
 std::vector<std::vector<double>> Util::read_mnist_training_images(const std::string &folder) {
     auto dataset = mnist::read_dataset<std::vector, std::vector, double, uint8_t>(folder);
 

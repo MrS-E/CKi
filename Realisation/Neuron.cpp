@@ -4,19 +4,24 @@
 
 #include "Neuron.h"
 
-double Neuron::calc_out(const std::vector<double> &inputs) {
+double Neuron::calc_activation(const std::vector<double> &inputs)
+{
     double sum = Neuron::bias;
+    Neuron::inputs = inputs;
     for (size_t i = 0; i < inputs.size(); ++i) {
         sum += inputs[i] * Neuron::weights[i];
     }
-    Neuron::out = Util::sigmoid(sum);
-    return Neuron::out;
+    Neuron::activation = Util::sigmoid(sum);
+    Neuron::sum = sum;
+    return Neuron::activation;
 }
 
-double Neuron::calc_err(double target) const {
-    return target - Neuron::out;
+double Neuron::activation_derivative() const
+{
+    return Util::sigmoid_derivative(Neuron::activation);
 }
 
-double Neuron::calc_delta(double error) const {
-    return error * Util::sigmoid_derivative(Neuron::out);
+double Neuron::calc_error(const double &target) const
+{
+    return Neuron::activation - target;
 }

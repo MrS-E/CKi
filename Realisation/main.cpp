@@ -12,13 +12,11 @@ void train(Network& nn){
     nn.train(training_inputs, training_labels, 1, 0.01);
 
     std::cout << "Saving weights..." << std::endl;
-    nn.save_weights();
     std::cout << "Done!" << std::endl;
 }
 
 double verif(Network& nn){
     std::cout << std::endl << "Testing..." << std::endl;
-    nn.load_weights();
     std::cout << "Reading MNIST data..." << std::endl;
     std::vector<std::vector<double>> test_inputs = Util::read_mnist_test_images("../mnist");
     std::vector<std::vector<double>> test_labels = Util::read_mnist_test_labels("../mnist");
@@ -36,7 +34,7 @@ int main() {
     train(nn);
     verif(nn);
     /*std::string cmd;
-    
+
     std::cout << "Welcome to CKi" << std::endl;
     do {
         std::cout << "---------------------" << std::endl;

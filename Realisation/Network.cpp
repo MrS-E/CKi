@@ -64,7 +64,7 @@ double Network::verify(const std::vector<std::vector<double>> &inputs, const std
             correct++;
         }
     }
-    return static_cast<double>(correct) / inputs.size();
+    return static_cast<double>(correct) / static_cast<double>(inputs.size());
 }
 
 void Network::save_weights() {

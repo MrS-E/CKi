@@ -17,7 +17,8 @@ public:
     std::vector<double> get_neuron_outputs();
     void init_weights();
     void set_weights(const std::vector<std::vector<double>>& weights);
-    std::vector<double> forward_propagation(const std::vector<double>& inputs);
+    std::vector<double> update_weights_and_biases(const std::vector<double>& error, double learning_rate);
+    std::vector<double> calculate_error(const std::vector<double>& target);
 
     std::vector<Neuron> neurons;
 };
