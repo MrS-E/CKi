@@ -5,10 +5,10 @@ Das Projekt CKi ist in seinem Grundaufbau für die Konsole konzipiert. Der grund
 	$ ki [options] [file]
 \end{lstlisting}
 \addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Konsolenbefehl Grundlage}
-Dabei gibt es drei Ausführungen von diesem Befehl.
+Dabei gibt es drei Formen von diesem Befehl.
 
 \subsection{Training}
-\label{sec:DesignTraining}
+\label{sec:DesignTraining} %TODO edit code in realisation
 \subsubsection{Input}
 \label{sec:DesignTraiInput}
 \begin{lstlisting}[language=bash]
@@ -20,10 +20,10 @@ Dabei gibt es drei Ausführungen von diesem Befehl.
 
 \subsubsection{Output}
 \label{sec:TraiOutput}
-Nach jedem Datensatz wird angezeigt, wie viele der zum Training gegebenen Daten bereits abgearbeitet wurden. 
+Nach jedem Datensatz wird angezeigt, wie viele der zum Training gegebenen Daten bereits abgearbeitet wurden (Dies wird evtl. nicht implementiert.). Am Ende wird ein progressiv berechneter Fehler angezeigt.
 
 \subsection{Verify}
-\label{sec:DesignTest}
+\label{sec:DesignTest} %TODO edit code in realisation
 \subsubsection{Input}
 \label{sec:DesignTestInput}
 \begin{lstlisting}[language=bash]
@@ -34,9 +34,7 @@ Nach jedem Datensatz wird angezeigt, wie viele der zum Training gegebenen Daten 
 
 \subsubsection{Output}
 \label{sec:TestOutput}
-Nach jedem Datensatz wird angezeigt, wie viele der zum Testen gegebenen Daten bereits abgearbeitet wurden. Zudem wird angezeigt, wie viele der Datensatz richtig, genauer gesagt falsch erkannt wurden. 
-\\
-Eine interessante Erweiterung wäre es, bei diesem Befehl (oder in einer leicht abgewandelten Form) ein kleines Fenster zu öffnen, um dort direkt die Zahl zu zeichnen. Dies hätte den Vorteil, dass Parameter wie Grösse direkt bekannt und kontrolliert werden können.
+Nach jedem Datensatz wird angezeigt, wie viele der zum Testen bereitgestellten Daten bereits abgearbeitet wurden. Zudem wird angezeigt, wie viele der Datensatz richtig, genauer gesagt falsch erkannt wurden (Dies wird evtl. nicht implementiert.). Am Ende wird aber angezeigt, wie akkurat das Netzwerk die Test-Datensätze bewertet hat. 
 
 \subsection{Prediction}
 \label{sec:DesignAnwendung}
@@ -51,6 +49,8 @@ Eine interessante Erweiterung wäre es, bei diesem Befehl (oder in einer leicht 
 \subsubsection{Output}
 \label{sec:DesignUseOutput}
 Als Output werden alle Ziffern von 0 bis 9 mit den entsprechenden Prozentwerten zurückgegeben (Dies kommt daher, dass die KI die Wahrscheinlichkeit der Übereinstimmung für jede Ziffer berechnet.). Zudem wird auch angezeigt, welche Ziffer die höchste Übereinstimmung hat. Da diese die erkannte Ziffer darstellt.
+\\
+Eine interessante Erweiterung wäre es, bei diesem Befehl (oder in einer leicht abgewandelten Form) ein kleines Fenster zu öffnen, um dort direkt die Zahl zu zeichnen. Dies hätte den Vorteil, dass Parameter wie Grösse direkt bekannt und kontrolliert werden können.
 
 \subsection{Help}
 \label{sec:DesignHelp}
@@ -71,14 +71,14 @@ Dieser Befehl liefert eine Liste an Befehlen, die in der Konsole verwendet werde
 Die Applikation benötigt keine Datenbank. Zur Speicherung der Test- und Trainings-Datensätze werden sogenannte ubyte-Dateien eingesetzt. Diese enden auf der Dateierweiterung „.ubyte“.
 
 \subsection{UByte}
-\label{sec:UByte}
+\label{sec:DesignUByte}
 Die Bilddateien im MNIST-Datensatz werden im sogenannten „ubyte“ (unsigned byte) Format gespeichert. Dies bedeutet, dass die Pixelwerte der Bilder als Bytes gespeichert werden. Jedes Bild im Datensatz wird als Reihe von Bytes dargestellt, wobei jedes Byte den Graustufenwert eines Pixels repräsentiert. Hinzu kommt, dass auch die dazugehörigen Labels in einer „ubyte“-Datei gespeichert werden.
 \\
 Aufgrund dieser Speicherung müssen die Datensets vor deren Verwendung eingelesen und interpretiert werden. 
 \\
 Für diese Interpretation muss die standardisierte Höhe und Weite für jedes auszulesende Bild multipliziert werden. Danach müssen so viele Bytes aus der entsprechenden „ubyte“-Datei ausgelesen werden und als vorzeichenlose ganze Zahlen gespeichert. Denn jede dieser Zahlen stellt einen Pixel dar.
-
-Für eine genaue Anleitung für das Einlesen und Interpretieren in Python ist die Webseite \href{https://androidkt.com/extract-images-from-mnist-idx3-ubyte-file-format-in-python/}{AndroidKT} zu kontaktieren.
+\\
+Für eine genaue Anleitung für das Einlesen und Interpretieren in Python ist die Webseite \href{https://androidkt.com/extract-images-from-mnist-idx3-ubyte-file-format-in-python/}{AndroidKT} zu kontaktieren.\footnote{vgl. LeCun \& Cortes \&  Burges, 2002; AndroidKT, 2023}
 
 \begin{figure}[H]
 	\centering
@@ -93,7 +93,7 @@ Für eine genaue Anleitung für das Einlesen und Interpretieren in Python ist di
 \label{sec:DesignCode}
 \subsection{Klassendiagramm}
 \label{sec:DesignKlassendiagramm}
-Es gibt vier Klassen im Projekt CKi. Dabei handelt es sich um auf sich selbst aufbauende Strukturen. Als Code-Einstieg fungiert die Main-Klasse, welche die Main-Funktion bereitstellt. In dieser wird die Klasse „Network“ aufgesetzt. Es werden mehrere Hidden-Layer erstellt, die Datensätze der MNIST-Datenkollektion eingelesen und die Funktionen „Train“ und „Predict“ sowie „Save Weights“ ausgeführt. 
+Es gibt vier Klassen im Projekt CKi. Dabei handelt es sich um auf sich selbst aufbauende Strukturen. Als Code-Einstieg fungiert die Main-Klasse, welche die Main-Funktion bereitstellt. In dieser wird die Klasse „Network“ aufgesetzt. Es werden mehrere Hidden-Layer erstellt, die Datensätze der MNIST-Datenkollektion eingelesen und die Funktionen „Train“, „Verify“ und „Predict“ sowie „Load Network“ ausgeführt. 
 \\
 In der Network-Klasse werden mehrere Layer initialisiert und verwendet. Diese Layer sind in der Layer-Klasse definiert und besitzen wiederum multiple Neuronen.
 \\
@@ -105,7 +105,7 @@ Um Sigmoid und die Ableitung von Sigmoid zu berechnen, gibt es noch eine Utility
 \begin{figure}[H]
 	\centering
 	\includegraphics[height=0.5\paperheight]{Klassendiagramm.png}
-	\caption{Das Klassendiagramm, Grundaufbau der Applikation}
+	\caption{Das Klassendiagramm, Grundaufbau der Applikation (überholt)}
 	\label{fig:designklassendiagramm}
 \end{figure}
 
@@ -120,4 +120,4 @@ Bei einer dieser Schnittstellen wird die KI getestet. Dies geschieht, indem die 
 Egal, ob das Ergebnis korrekt oder inkorrekt erkannt worden ist, wird es statistisch aufgenommen. Am Ende wird dem Nutzer eine Prozentzahl der korrekten Erkenntnisse präsentiert. Diesbezüglich ist dies kein Test, in dem die Applikation versagen könnte, es ist eine reine Leistungsüberprüfung, ob mehr Training vonnöten ist.
 Zusätzlich zu diesen zwei Testmöglichkeiten gibt es noch die Unit-Tests. Diese werden dazu genützt, um einzelne Funktionen und Klassen noch vor deren Verwendung zu überprüfen.
 \\
-Zusätzlich gegenüber diesen drei Tests wäre es überaus interessant zu begutachten und zu vergleichen, wie hoch die Leistungsunterschiede zwischen CKi und einem in Python mit TensorFlow gebauten Programm mit vergleichbarer Grundstruktur sind. Diesbezüglich wird neben CKi auch ein kleines vergleichbares Modell in Python realisiert, um diese Daten zu sammeln.
+Zusätzlich gegenüber diesen drei Tests wäre es überaus interessant zu begutachten und zu vergleichen, wie hoch die Leistungsunterschiede zwischen CKi und einem in Python mit TensorFlow gebauten Programm mit vergleichbarer Grundstruktur sind. Diesbezüglich wird eventuell neben CKi auch ein kleines vergleichbares Modell in Python realisiert, um diese Daten zu sammeln.

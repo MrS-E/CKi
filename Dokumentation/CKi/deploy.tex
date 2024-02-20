@@ -21,17 +21,17 @@ Unter Linux und Mac kann CMake über den Package Manager der Wahl installiert we
 \\
 Für das Projekt CKI wird CMake benötigt, um die Build-Konfiguration zu erstellen, externe Abhängigkeiten zu verwalten und das Projekt für verschiedene Entwicklungsumgebungen vorzubereiten, wodurch eine konsistente und effiziente Entwicklung ermöglicht wird. Dabei ist bei der Installation notwendig, dass die CMake Version kompatibel mit der \textbf{Version 3.26}, wie in der CMakeLists.txt spezifiziert, ist.
 
-\subsubsection{C++ Compiler}
+\subsubsection{C++-Compiler}
 \label{sec:BuildCCompiler}
-Ein C++ Compiler ist ein Software-Tool, das C++ Code in maschinenlesbaren Code übersetzt, sodass Programme ausgeführt werden können. 
+Ein C++-Compiler ist ein Software-Tool, das C++-Code in maschinenlesbaren Code übersetzt, sodass Programme ausgeführt werden können. 
 \\
-Unter Windows, Mac und Linux kann ein C++ Compiler durch die Installation einer Entwicklungsumgebung wie Visual Studio oder durch direkte Installation von GCC oder Clang eingebunden werden. 
+Unter Windows, Mac und Linux kann ein C++-Compiler durch die Installation einer Entwicklungsumgebung wie Visual Studio oder durch direkte Installation von GCC oder Clang eingebunden werden. 
 \\
-Für das Projekt CKI ist ein Compiler notwendig, da CMake, das für das Erstellen des Projektes verwendet wird, auf einen Compiler angewiesen ist, um den C++ Code in ausführbare Dateien zu übersetzen. CMake generiert Build-Konfigurationen, aber der eigentliche Kompilierungsprozess benötigt einen C++ Compiler. Dabei ist bei der Installation notwendig, dass der C++ Compiler den \textbf{C++ Standard 17} unterstützt, da das Projekt CKI auf diesen Standard aufgebaut wurde und moderne C++ Features nutzt.
+Für das Projekt CKI ist ein Compiler notwendig, da CMake, das für das Erstellen des Projektes verwendet wird, auf einen Compiler angewiesen ist, um den C++-Code in ausführbare Dateien zu übersetzen. CMake generiert Build-Konfigurationen, aber der eigentliche Kompilierungsprozess benötigt einen C++-Compiler. Dabei ist bei der Installation notwendig, dass der C++-Compiler den \textbf{C++-Standard 17} unterstützt, da das Projekt CKI auf diesen Standard aufgebaut wurde und moderne C++-Features nutzt.
 
 \subsubsection{Internet}
 \label{sec:BuildInternet}
-Das Projekt CKI benötigt Internet, um externe Abhängigkeiten wie \textit{googletest} für Unit\-Tests und \textit{nlohmann\_json} für JSON\-Verarbeitung automatisch herunterzuladen und zu integrieren. Diese Bibliotheken sind essenziell für das Funktionieren und Testen des Projektes. CMake verwaltet diesen Prozess, indem es die benötigten Pakete aus dem Internet lädt, was eine effiziente und konsistente Set\-up\-Umgebung über verschiedene Entwicklungsplattformen hinweg ermöglicht.
+Das Projekt CKI benötigt Internet, um externe Abhängigkeiten wie \textit{googletest} für Unit\-Tests und \textit{nlohmann\_json} für JSON-Verarbeitung automatisch herunterzuladen und zu integrieren. Diese Bibliotheken sind essenziell für das Funktionieren und Testen des Projektes. CMake verwaltet diesen Prozess, indem es die benötigten Pakete aus dem Internet lädt, was eine effiziente und konsistente Set-up-Umgebung über verschiedene Entwicklungsplattformen hinweg ermöglicht.
 
 \subsection{Ausführung}
 \label{sec:BuildAusführung}
@@ -60,7 +60,7 @@ Nach dem Build-Vorgang kann die Datei, welche verantwortlich für die Ausführun
 
 \subsection{Hinzufügung von vortrainierten Gewichtungen und Biases}
 \label{sec:InstallHinzufügungVonVortrainiertenGewichtungenUndBiases}
-Um im Projekt CKI einer Installation oder einem Build vorhandene Gewichtungen und Biases für das neuronale Netzwerk hinzuzufügen, wird eine JSON-Datei benötigt, welche dem Netzwerk als Speicher für die Gewichtungen und Biases dient. Diese Datei liegt standardmässig im Root-Verzeichnis der installierten oder gebauten Applikation (also im gleichen Verzeichnis wie die ausführbare Datei/Applikation).
+Um im Projekt CKI, einer Installation oder einem Build, vorhandene Gewichtungen und Biases für das neuronale Netzwerk hinzuzufügen, wird eine JSON-Datei benötigt, welche dem Netzwerk als Speicher für die Gewichtungen und Biases dient. Diese Datei liegt standardmässig im Root-Verzeichnis der installierten oder gebauten Applikation (also im gleichen Verzeichnis wie die ausführbare Datei/Applikation).
 \\
 Somit können alle Gewichtungen und Biases zwischen unterschiedlichen neuronalen Netzwerken (welche für die gleiche Aufgabe trainiert wurden) ausgetauscht werden. Dabei gilt allerdings zu beachten, dass das Netzwerk gleich aufgebaut sein muss. Das heisst, die Netzwerke benötigen die gleiche Anzahl an Layer und Neuronen pro Layer. Es muss die „ load\_network“ -Funktion ausgeführt werden, vor der Verwendung des Netzwerkes und die JSON-Datei muss richtig benannt sein.
 \\
@@ -80,7 +80,7 @@ Der Übersichtlichkeit sind diese aber hier nochmals zusammengefasst:
 $ cki --train -l [labels] -i [images] -e [epochs] -lr [learningrate]
 								\end{lstlisting}
 					\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Implementation des Trainingsbefehls}
-					\item \textbf{Verwendung:} Trainiert das Netzwerk mit Bildern und Labels. Die Optionen für Epochen (-e) und Lernrate (-lr) sind optional.
+					\item \textbf{Verwendung:} Trainiert das Netzwerk mit Bildern und Labels. Die Optionen für Epochen (-e) und Lernrate (-lr) sind optional. -l und -i benötigen einen Dateipfad zu den entsprechenden UByte-Dateien.
 				\end{itemize}
 	\item Verifizierung
 				\begin{itemize}
@@ -89,7 +89,7 @@ $ cki --train -l [labels] -i [images] -e [epochs] -lr [learningrate]
 $ cki --verify -l [labels] -i [images]
 								\end{lstlisting}
 					\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Implementation des Verifizierungsbefehls}
-					\item \textbf{Verwendung:} Überprüft die Genauigkeit des trainierten Netzwerks mit einem Testdatensatz.
+					\item \textbf{Verwendung:} Überprüft die Genauigkeit des trainierten Netzwerks mit einem Testdatensatz.-l und -i benötigen einen Dateipfad zu den entsprechenden UByte-Dateien.
 				\end{itemize}
 	\item Vorhersage
 				\begin{itemize}
