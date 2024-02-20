@@ -19,7 +19,7 @@ public:
 
     double train(std::vector<std::vector<double>> &inputs, std::vector<double> &labels, int epochs, double learning_rate);
     double verify(const std::vector<std::vector<double>>& inputs, const std::vector<double>& labels);
-    int predict(const std::vector<double>& input);
+    std::vector<double> predict(const std::vector<double>& input);
     std::vector<double> forward_propagation(const std::vector<double>& input);
     double backward_propagation(const int& target, double learning_rate);
     void save_network(const std::string& filename);

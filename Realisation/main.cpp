@@ -35,7 +35,7 @@ double verif(Network& nn, const std::string &images, const std::string &labels){
 
     std::cout << "Testing..." << std::endl;
     double acc = nn.verify(test_inputs, test_labels);
-    std::cout << "Accuracy: " << acc << std::endl;
+    std::cout << "Accuracy: " << acc*100 << "%" << std::endl;
     std::cout << "Done!" << std::endl;
     return acc;
 }
@@ -93,35 +93,36 @@ int main(int argc, char * argv[]) {
     Network nn(784, 10, {32, 16});
     InputParser input(argc, argv);
     std::string filename = input.tokens[input.tokens.size()-1];
-    try{
-        std::cout << "Loading network..." << std::endl;
-        nn.load_network("network.json");
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
 
-    try {
-        if(input.cmdOptionExists("--help"))
-        {
-            std::cout << "CKi Application Help\n\n"
-             << "Usage:\n"
-             << "  ki --help\t\tShow this help message.\n"
-             << "  ki --train -l [label] -i [images] < -e [epoch] > < -lr [learningrate] >\tTrain the CNN with a dataset in ubyte format.\n"
-             << "  ki --verify -l [label] -i [images]\tVerify the trained model accuracy with a dataset in ubyte format.\n"
-             << "  ki [file]\t\tPredict the digit in a jpg image file.\n\n"
-             << "Options:\n"
-             << "  --help\t\tShow help information.\n"
-             << "  --training\t\tInitiate model training with specified dataset.\n"
-             << "  --verify\t\tVerify model with specified dataset.\n"
-             << "  [file]\t\tThe path to the input file for training, verification, or prediction.\n\n"
-             << "Example:\n"
-             << "  ki --train -i data/train-images-idx3-ubyte -l data/train-labels-idx3-ubyte\n"
-             << "  ki --verify -i data/t10k-images-idx3-ubyte -l data/t10k-labels-idx3-ubyte\n"
-             << "  ki image.jpg\n\n"
-             << "For more information, visit github.com/MrS-E/CKi.\n" << std::endl;
+    if(input.cmdOptionExists("--help"))
+    {
+        std::cout << "CKi Application Help\n\n"
+         << "Usage:\n"
+         << "  ki --help\t\tShow this help message.\n"
+         << "  ki --train -l [label] -i [images] < -e [epoch] > < -lr [learningrate] >\tTrain the CNN with a dataset in ubyte format.\n"
+         << "  ki --verify -l [label] -i [images]\tVerify the trained model accuracy with a dataset in ubyte format.\n"
+         << "  ki [file]\t\tPredict the digit in a jpg image file.\n\n"
+         << "Options:\n"
+         << "  --help\t\tShow help information.\n"
+         << "  --training\t\tInitiate model training with specified dataset.\n"
+         << "  --verify\t\tVerify model with specified dataset.\n"
+         << "  [file]\t\tThe path to the input file for training, verification, or prediction.\n\n"
+         << "Example:\n"
+         << "  ki --train -i data/train-images-idx3-ubyte -l data/train-labels-idx3-ubyte\n"
+         << "  ki --verify -i data/t10k-images-idx3-ubyte -l data/t10k-labels-idx3-ubyte\n"
+         << "  ki image.jpg\n\n"
+         << "For more information, visit github.com/MrS-E/CKi.\n" << std::endl;
+    }
+    else
+    {
+        try{
+            std::cout << "Loading network..." << std::endl;
+            nn.load_network("network.json");
+        } catch (const std::exception& e) {
+            std::cerr << "Error: " << e.what() << std::endl;
         }
-        else
-        {
+
+        try{
             if (input.tokens.size() > 0 && std::filesystem::exists(filename))
             {
                 if(input.cmdOptionExists("--verify"))
@@ -160,7 +161,13 @@ int main(int argc, char * argv[]) {
                 {
                     //predic
                     std::vector<double> image = process_image(filename.c_str());
-                    int result = nn.predict(image);
+                    std::vector<double> outputs = nn.predict(image);
+                    int result = static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end())));
+                    for (size_t i=0; i<outputs.size(); i++)
+                    {
+                        std::cout << "Ziffer " << i <<": " << outputs[i]*100 << "%" << std::endl;
+                    }
+                    std::cout << "------------------------" << std::endl;
                     std::cout << "Predicted digit: " << result << std::endl;
                 }
             }
@@ -168,10 +175,10 @@ int main(int argc, char * argv[]) {
             {
                 std::cout << "File needed, type --help for more information." << std::endl;
             }
+        }catch (const std::exception& e) {
+            std::cerr << "Error: " << e.what() << std::endl;
+            return 1;
         }
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
     }
-
     return 0;
 }

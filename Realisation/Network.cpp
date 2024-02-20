@@ -13,15 +13,16 @@ Network::Network(int in_size, int out_size, std::vector<int> hidden_layers_sizes
     Network::layers.emplace_back(in_size, out_size);
 }
 
-int Network::predict(const std::vector<double> &input) {
+std::vector<double> Network::predict(const std::vector<double> &input) {
     std::vector<double> outputs = Network::forward_propagation(input);
-    return static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end()))); //return number of the neuron with the highest output +1
+    return outputs;
 }
 
 double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<double> &labels) {
     int correct = 0;
     for (std::size_t i = 0; i < inputs.size(); ++i) {
-        if (Network::predict(std::vector<double>(inputs[i])) == static_cast<int>(labels[i])) {
+        std::vector<double> outputs = Network::predict(std::vector<double>(inputs[i]));
+        if (static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end()))) == static_cast<int>(labels[i])) { //number of the neuron with the highest output vs label
             correct++;
         }
     }
