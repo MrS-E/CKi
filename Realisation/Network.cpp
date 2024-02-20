@@ -57,12 +57,13 @@ int Network::predict(const std::vector<double> &input) {
     return static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end())));
 }
 
-double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<std::vector<double>> &labels) {
+double Network::verify(const std::vector<std::vector<double>> &inputs, const std::vector<std::vector<double>> &labels, std::function <void (int, int)> cb_progress) {
     int correct = 0;
     for (std::size_t i = 0; i < inputs.size(); ++i) {
         if (Network::predict(std::vector<double>(inputs[i])) == std::distance(labels[i].begin(), std::max_element(labels[i].begin(), labels[i].end()))) {
             correct++;
         }
+        cb_progress((int) i+1, inputs.size());
     }
     return static_cast<double>(correct) / static_cast<double>(inputs.size());
 }
@@ -111,6 +112,13 @@ void Network::load_weights() {
             }
             Network::layers[i].set_weights(weights);
             file.close();
+void Network::train(std::vector<std::vector<double>> &inputs, std::vector<std::vector<double>> &labels, int epochs, double learning_rate, std::function <void (int, int)> cb_progress, std::function <void (double)> cb_error) {
+    for(int epoch = 0; epoch<epochs; epoch++ ){
+        for(std::size_t i = 0; i < inputs.size(); i++) {
+            std::vector<double> outputs = Network::forward_propagation(inputs[i]);
+            //double error = Network::backward_propagation(labels[i], learning_rate);
+            cb_error(Network::backward_propagation(labels[i], learning_rate));
+            cb_progress((int) (i+1)*(epoch+1), inputs.size()*epochs);
         }
     } catch (std::exception& e) {
         std::cerr << "Weights where not readable" << std::endl;
@@ -146,6 +154,11 @@ void Network::backpropagation(const std::vector<double> &expected_output, double
                     learning_rate * next_layer_deltas[i] * layers[layers.size() - 2].neurons[j].out;
         }
 
+double Network::backward_propagation(const std::vector<double>& target, double learning_rate) {
+    std::vector<double> error = layers[layers.size()-1].calculate_error(target);
+    double total_error = 0;
+    for(double& e : error) {
+        total_error += e;
         output_layer.neurons[i].bias += learning_rate * next_layer_deltas[i];
     }
 
@@ -156,6 +169,7 @@ void Network::backpropagation(const std::vector<double> &expected_output, double
 
         std::vector<double> current_layer_deltas(current_layer.neurons.size(), 0.0);
 
+    //std::cout << total_error << std::endl;
         for (std::size_t j = 0; j < current_layer.neurons.size(); ++j) {
             double sum_weights_deltas = 0.0;
 
@@ -176,6 +190,7 @@ void Network::backpropagation(const std::vector<double> &expected_output, double
 
         next_layer_deltas = current_layer_deltas;
     }
+    return total_error;
 }
 
 

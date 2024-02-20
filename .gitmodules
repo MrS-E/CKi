@@ -1,0 +1,3 @@
+[submodule "Realisation/FTXUI"]
+	path = Realisation/FTXUI
+	url = https://github.com/ArthurSonzogni/FTXUI
