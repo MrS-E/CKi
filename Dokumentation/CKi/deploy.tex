@@ -1,0 +1,112 @@
+\section{Building}
+\label{sec:DeployBuilding}
+Die Erstellung des Projektes CKI lässt sich in drei Schritte unterteilen. Es gibt jedoch einige Anforderungen.
+\subsection{Anforderungen}
+\label{sec:BuildAnforderungen}
+Das Projekt CKI ist zwar plattformunabhängig, kann also unter allen gängigen Betriebssystemen verwendet werden, muss jedoch erst für die entsprechende Plattform erstellt werden. Für diesen Erstell-Prozess sind folgende Anforderungen (Programme) unabdingbar:
+\begin{itemize}
+	\item CMake
+	\item C++ Compiler
+	\item Internet
+\end{itemize}
+Je nach Betriebssystem oder IDE können schon alle oder einige dieser Anforderungen erfüllt sein.
+
+\subsubsection{CMake}
+\label{sec:BuildCMake}
+CMake ist ein plattformübergreifendes Tool zur Automatisierung des Build-Prozesses, das es ermöglicht, Makefiles und Projekte für verschiedene Entwicklungsumgebungen zu generieren. Es verwendet eine Konfigurationsdatei „(\textit{CMakeLists.txt})“, um den Build-Prozess zu steuern. 
+\\
+Unter Windows kann CMake von der offiziellen Website heruntergeladen und entweder über einen grafischen Installer oder über die Kommandozeile installiert werden.
+\\
+Unter Linux und Mac kann CMake über den Package Manager der Wahl installiert werden. Die häufigsten sind Pacman, APT oder RPM unter Linux und Brew unter Mac.
+\\
+Für das Projekt CKI wird CMake benötigt, um die Build-Konfiguration zu erstellen, externe Abhängigkeiten zu verwalten und das Projekt für verschiedene Entwicklungsumgebungen vorzubereiten, wodurch eine konsistente und effiziente Entwicklung ermöglicht wird. Dabei ist bei der Installation notwendig, dass die CMake Version kompatibel mit der \textbf{Version 3.26}, wie in der CMakeLists.txt spezifiziert, ist.
+
+\subsubsection{C++ Compiler}
+\label{sec:BuildCCompiler}
+Ein C++ Compiler ist ein Software-Tool, das C++ Code in maschinenlesbaren Code übersetzt, sodass Programme ausgeführt werden können. 
+\\
+Unter Windows, Mac und Linux kann ein C++ Compiler durch die Installation einer Entwicklungsumgebung wie Visual Studio oder durch direkte Installation von GCC oder Clang eingebunden werden. 
+\\
+Für das Projekt CKI ist ein Compiler notwendig, da CMake, das für das Erstellen des Projektes verwendet wird, auf einen Compiler angewiesen ist, um den C++ Code in ausführbare Dateien zu übersetzen. CMake generiert Build-Konfigurationen, aber der eigentliche Kompilierungsprozess benötigt einen C++ Compiler. Dabei ist bei der Installation notwendig, dass der C++ Compiler den \textbf{C++ Standard 17} unterstützt, da das Projekt CKI auf diesen Standard aufgebaut wurde und moderne C++ Features nutzt.
+
+\subsubsection{Internet}
+\label{sec:BuildInternet}
+Das Projekt CKI benötigt Internet, um externe Abhängigkeiten wie \textit{googletest} für Unit\-Tests und \textit{nlohmann\_json} für JSON\-Verarbeitung automatisch herunterzuladen und zu integrieren. Diese Bibliotheken sind essenziell für das Funktionieren und Testen des Projektes. CMake verwaltet diesen Prozess, indem es die benötigten Pakete aus dem Internet lädt, was eine effiziente und konsistente Set\-up\-Umgebung über verschiedene Entwicklungsplattformen hinweg ermöglicht.
+
+\subsection{Ausführung}
+\label{sec:BuildAusführung}
+Um das Projekt CKI zu bauen und auszuführen, gibt es verschiedene Wege, die wegen unterschiedlicher Entwicklungsumgebungen stark variieren können. Dementsprechend ist hier nur beschrieben, wie CKI mithilfe von CMake, einem C++ Compiler und Internet in der Konsole gebaut werden kann.
+\\
+Es folgen nun die notwendigen Schritte, um dies zu bewerkstelligen:
+\begin{enumerate}
+	\item Erstellen Sie ein Build-Verzeichnis im Root-Verzeichnis des Projektes. Dies kann über ein grafisches Interface passieren oder über die Konsole. Der entsprechende Befehl unter Windows, Linux und Mac sollte „\textit{mkdir}“ sein.
+	\item Wechseln Sie in das Build-Verzeichnis (Der entsprechende Befehl unter Windows, Linux und Mac sollte „\textit{cd}“ sein.) und führen Sie „\textit{cmake ..}“ aus, um die Build-Konfiguration zu generieren. Dieser Befehl variiert nicht unter den unterschiedlichen Betriebssystemen, setzt allerdings voraus, dass CMake installiert wurde. Siehe mehr unter Anforderungen \ref{sec:BuildAnforderungen}.
+	\item Führen Sie anschliessend „\textit{cmake --build .}“ aus, um das Projekt zu kompilieren. Dies setzt voraus, dass ein C++ Compiler installiert wurde. Siehe mehr unter Anforderungen \ref{sec:BuildAnforderungen}.
+	\item Wenn Sie nun den Inhalt des Build-Verzeichnisses begutachten, sollten Sie unterschiedlichste Dateien und Verzeichnisse vorfinden, aber auch eine Datei namens CKI mit einer Endung einer ausführbaren Datei (unter Windows würde die Datei \textit{CKI.exe} heissen). Diese ausführbare Datei ist das compilierte und fertige Produkt des Projektes CKI.
+\end{enumerate}
+
+\section{Installation}
+Dieser Abschnitt setzt voraus, dass die Schritte aus dem Abschnitt Building \ref{sec:DeployBuilding} erfolgreich ausgeführt wurden und das Produkt des Projekts CKI bereit zur Ausführung im Build-Verzeichnis zu finden ist.
+\subsection{Installation mit CMake}
+\label{sec:InstallInstallationMitCMake}
+Nach dem Build-Vorgang können Sie das Projekt CKI installieren, indem Sie einen Installationsbefehl über CMake ausführen. Dieser Vorgang kopiert die erforderlichen ausführbaren Dateien, Bibliotheken und eventuell weitere Ressourcen in vordefinierte Verzeichnisse. Normalerweise wird dies durch den Befehl „\textit{cmake --install .}“ im Build-Verzeichnis erreicht. Stellen Sie sicher, dass Sie über die erforderlichen Berechtigungen verfügen, um Installationen in den Zielverzeichnissen durchführen zu können. Die genaue Konfiguration des Installationspfades und anderer Parameter kann in der „\textit{CMakeLists.txt}“ festgelegt werden. Diese Konfiguration muss jedoch vom Installierenden vorgenommen werden, da das Projekt CKI nicht für eine langfristige Installation gedacht ist, da es per se keinen Mehrwert für einen Endnutzer bringt.
+
+\subsection{Installation ohne CMake}
+\label{sec:IsntallInstallationOhneCMake}
+\textbf{Achtung!} Dieser Vorgang wurde nur flüchtig unter Windows getestet und kann daher nicht für Linux oder Mac garantiert werden.
+\\
+\\
+Nach dem Build-Vorgang kann die Datei, welche verantwortlich für die Ausführung ist (unter Windows \textit{CKI.exe}), in ein beliebiges anderes Verzeichnis kopiert werden. Unter Windows sollte das Produkt des Projekts CKI (\textit{CKI.exe}) ausführbar bleiben; für Linux und Mac kann aufgrund fehlender Versuchen keine Aussage getroffen werden. 
+
+\subsection{Hinzufügung von vortrainierten Gewichtungen und Biases}
+\label{sec:InstallHinzufügungVonVortrainiertenGewichtungenUndBiases}
+Um im Projekt CKI einer Installation oder einem Build vorhandene Gewichtungen und Biases für das neuronale Netzwerk hinzuzufügen, wird eine JSON-Datei benötigt, welche dem Netzwerk als Speicher für die Gewichtungen und Biases dient. Diese Datei liegt standardmässig im Root-Verzeichnis der installierten oder gebauten Applikation (also im gleichen Verzeichnis wie die ausführbare Datei/Applikation).
+\\
+Somit können alle Gewichtungen und Biases zwischen unterschiedlichen neuronalen Netzwerken (welche für die gleiche Aufgabe trainiert wurden) ausgetauscht werden. Dabei gilt allerdings zu beachten, dass das Netzwerk gleich aufgebaut sein muss. Das heisst, die Netzwerke benötigen die gleiche Anzahl an Layer und Neuronen pro Layer. Es muss die „ load\_network“ -Funktion ausgeführt werden, vor der Verwendung des Netzwerkes und die JSON-Datei muss richtig benannt sein.
+\\
+Sollte sie die Standard-Version der Main-Datei verwendet werden, heisst diese Datei „network.json“ und wird bei nicht vorhanden sein automatisch beim ersten Trainingsvorgang erstellt. Somit wird mindestens beim Erststart ein Fehler erscheinen, dass die JSON-Datei nicht gelesen werden konnte. Dieser kann allerdings ignoriert werden, wenn keine vorhandenen Gewichtungen und Biases manuell zum Netzwerk hinzugefügt worden sind.
+
+\section{Verwendung}
+Das Projekt CKI nutzt ein neuronales Netzwerk, um mit dem MNIST-Datensatz zu arbeiten, einem Standarddatensatz für Handschrifterkennung. Dabei bietet es eine flexible Anwendung für maschinelles Lernen mit Fokus auf Bilderkennung. Es ermöglicht Benutzern, ein Convolutional Neural Network (CNN) mit dem MNIST-Datensatz für Handschrifterkennung zu trainieren, zu verifizieren und Vorhersagen für einzelne Bilder zu treffen. Durch Kommandozeilenargumente kann der Benutzer wählen, ob das Netzwerk trainiert, dessen Genauigkeit überprüft oder ein Bild klassifiziert werden soll. 
+\subsection{Interaktion}
+\label{sec:UsageInteraktion}
+Um über die CLI mit CKI zu interagieren, muss der Benutzer das Programm mit spezifischen Kommandozeilenargumenten ausführen. Diese Argumente steuern die Aktionen des Programms, wie das Trainieren des Netzwerks, die Überprüfung seiner Genauigkeit oder die Klassifizierung eines spezifischen Bildes.  Eine genaue Definition der Befehle ist im Abschnitt Design \ref{sec:DesignKonsole} zu finden.
+Der Übersichtlichkeit sind diese aber hier nochmals zusammengefasst:
+\begin{enumerate}
+	\item Training
+				\begin{itemize}
+					\item \textbf{Befehl:} 
+								\begin{lstlisting}[language=bash]
+$ cki --train -l [labels] -i [images] -e [epochs] -lr [learningrate]
+								\end{lstlisting}
+					\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Implementation des Trainingsbefehls}
+					\item \textbf{Verwendung:} Trainiert das Netzwerk mit Bildern und Labels. Die Optionen für Epochen (-e) und Lernrate (-lr) sind optional.
+				\end{itemize}
+	\item Verifizierung
+				\begin{itemize}
+					\item \textbf{Befehl:}
+								\begin{lstlisting}[language=bash]
+$ cki --verify -l [labels] -i [images]
+								\end{lstlisting}
+					\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Implementation des Verifizierungsbefehls}
+					\item \textbf{Verwendung:} Überprüft die Genauigkeit des trainierten Netzwerks mit einem Testdatensatz.
+				\end{itemize}
+	\item Vorhersage
+				\begin{itemize}
+					\item \textbf{Befehl:}
+								\begin{lstlisting}[language=bash]
+$ cki [file]
+								\end{lstlisting}
+					\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Implementation des Predictionbefehls}
+					\item \textbf{Verwendung:} Macht eine Vorhersage für ein einzelnes Bild. Das Bild kann im JPG- oder PNG-Format sein.
+				\end{itemize}
+	\item Hilfe
+				\begin{itemize}
+					\item \textbf{Befehl:}
+								\begin{lstlisting}[language=bash]
+$ cki --help
+								\end{lstlisting}
+					\addcontentsline{lol}{lstlisting}{\protect\numberline{\thelstlisting} Implementation des Befehls für Hilfe}
+					\item \textbf{Verwendung:} Zeigt eine Liste aller verfügbaren Befehle an.
+				\end{itemize}
+\end{enumerate}

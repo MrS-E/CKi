@@ -16,12 +16,12 @@ Die Must-haves wurden aus dem Themenblatt, welches am 15.09.2023 bei Walter Schn
 \begin{itemize}
 	\item 
 	Rückgabe in Prozentwerten, die die Wahrscheinlichkeit der Übereinstimmung mit dem digitalen Gegenstück der handgeschriebenen Zahl abbilden. „Welche Zahl wurde (vermutlich) aufgeschrieben?“
-	\subparagraph{}
+	\\
 	\textbf{Erläuterung:}
 	Da ein simples neuronales Netzwerk für maschinelles Lernen durch ein „Netz“ aus Knotenpunkten gebaut wird und jeder dieser Knotenpunkte, auch die Knotenpunkte, welche bei einem solchen neuralen Netzwerk als Endschnittstellen fungieren, einzeln berechnet werden, erhält man, bei Anwendungsfall von CKi, eine multiple Anzahl von Prozentzahlen, welche zur Interpretation es gelieferten Endergebnisses verwendet werden können. Diese Rückgabe der einzelnen Prozentwerte erfolgt zum Beginn über eine Konsolenausgabe. Diese wird später, wie in \textit{"Nice-to-haves"} unter GUI erläutert, in ein grafisches Nutzerinterface integriert und zu diesem Zeitpunkt evtl. auch interpretiert (wobei die einzelnen Prozentwerte weiterhin einsichtig bleiben sollten).
 	
 	\item CNN-Algorithmus (trainiert auf Zahlenwert)
-	\subparagraph{}
+	\\
 	\textbf{Erläuterung:}
 	Ein CNN-Algorithmus oder auch Convolutional Neural Network wird beim maschinellen Lernen oft bei der Interpretation von Bildern genutzt. Dabei wird das Bild in kleinere Abschnitte unterteilt und „einzeln“ an den gehirnähnlich aufgebauten Algorithmus weitergegeben.
 	\begin{figure}[H]
@@ -33,8 +33,8 @@ Die Must-haves wurden aus dem Themenblatt, welches am 15.09.2023 bei Walter Schn
 	\end{figure}
 	Im Projekt CKi wird dieser wie im Themenblatt beschrieben mit Bild von einzelnen handgeschriebenen Ziffern trainiert.
 	
-	\item Nutzer-Input → Nutzer darf eine Zahl zeichnen
-	\subparagraph{}
+	\item Nutzer-Input ? Nutzer darf eine Zahl zeichnen
+	\\
 	\textbf{Erläuterung:}
 	Ein solches CNN-Model zu erbauen und zu trainieren ist zwar die Grundlage für dieses Must-have, jedoch sollte das Produkt auch erprobbar sein. Diesbezüglich muss der Nutzer in der Lage sein, eine handschriftliche Ziffer an das neurale Netzwerk zu liefern. Hierbei ist die minimale Anforderung, dass der Nutzer in einer anderweitigen Applikation ein solches Bild erstellt hat und es nun interpretieren lassen kann. Wie in Nice-to-haves unter GUI beschreiben, wird diese Eingabemöglichkeit (eine Ziffer zu zeichnen oder eine schon vorhandene grafische Abbildung zu verwenden) in einem weiteren Entwicklungsschritt direkt in die grafische Nutzeroberfläche der Applikation integriert.
 	
@@ -46,7 +46,7 @@ Die Nice-to-haves wurden aus dem Themenblatt, welches am 15.09.2023 bei Walter S
 
 \begin{itemize}
 	\item GUI
-	\subparagraph{}
+	\\
 	\textbf{Erläuterung:}
 	Ein GUI (oder auch grafisches User-Interface) ist die grafische Nutzeroberfläche der Applikation. Da die Applikation primär dem Wissensgewinn gewidmet ist und dementsprechend nicht für den Nutzer optimiert wird, hat eine solche Erweiterung nur eine geringe Priorität. Diese Nutzeroberfläche wird selbst bei der Umsetzung in einer möglichst simplen Form gehalten. Dabei sollte es folgende Bestandteile beinhalten:
 	\begin{itemize}
@@ -58,7 +58,7 @@ Die Nice-to-haves wurden aus dem Themenblatt, welches am 15.09.2023 bei Walter S
 	Bis zu dem Punkt, wo ein GUI realisiert wurde und in den Einsatz gestellt wird, sind nicht alle dieser Funktionen über die Konsole (das Interface zum Programm, welches vor dem GUI zum Einsatz kommt) verfügbar.
 	
 	\item GPU als Berechnungsplattform nutzen
-	\subparagraph{}
+	\\
 	\textbf{Erläuterung:}
 	Die CPU in einem Computer ist eine sehr „fokussierte“ Hardware. So kommt es dazu, dass diese immer nur einen einzelnen Prozess berechnen kann. Dies ist für ein neuronales Netzwerk, welches Hunderte oder Tausende Knotenpunkte hat und alle einzeln berechnet werden müssen, äusserst hinderlich. Die dezidierte Grafikkarte, wenn vorhanden, kann diesem Geschwindigkeitsverlust nachhelfen, da eine solche GPU in der Lage ist, tausende Berechnungen gleichzeitig zu tätigen.
 	Da im Projekt mit C++, einer Hardware-nahen Programmiersprache, gearbeitet wird, kann eine Anbindung an das Rechenpotential der GPU erreicht werden. Da dies jedoch ein äusserst schwieriger Prozess ist, sich diese Anbindung bei den unterschiedlichen Herstellern von GPUs unterscheiden kann und ich notwendig um ein funktionierendes CNN zu erstellen, wurde diese Optimierung als nicht notwendig eingestuft.
@@ -67,40 +67,32 @@ Die Nice-to-haves wurden aus dem Themenblatt, welches am 15.09.2023 bei Walter S
 \subsection{Use Cases}
 \label{sec:AnalyseUseCases}
 Die hier aufgelisteten Use Cases entsprechen den Use Cases nach den Must-haves und sind diesbezüglich ohne die grafische Nutzeroberfläche. Dies kann dazu führen, dass ein endgültiges Produkt nicht mehr kohärent zu den Use Cases steht. Im Allgemeinen sollte aber selbst eine solche Inkohärenz nicht in extremer Weise auftreten, da die Bedienung der Applikation als Konsole als auch als grafische Oberfläche in ähnlicher Weise auftreten sollte.
-
-\begin{landscape}
-	\begin{xltabular}{\linewidth}{|X|X|X|X|X|X|X|}
-		\hline
-		Nummer & Name & Akteur  & Ablauf & Nachbedingungen & Ausnahmen & Anmerkungen
-		\\\hline
-		1 & 
-		Interpretation & 
-		Nutzer, CNN  & 
-		Siehe Ablaufdiagramm „Interpretation“ & 
-		Der Nutzer sollte in der Konsole eine Auflistung aller möglichen Ziffern (0–9) und deren entsprechende Wahrscheinlichkeit sehen. Zudem kann der Nutzer auch die kongruierende Zahl zur höchsten Möglichkeit auf einer speziellen Zeile in der Konsole ablesen. & 
-		Bei der Interpretation von benutzereigenen Abbildungen kann es zu multiplexen Fehlern kommen. Diese reichen von falscher Dateikodierung zu falscher Auflösung. Aufgrund dieser mannigfaltigen Möglichkeiten zu Fehlern können diese nicht alle hier erläutert werden. Eine Auflistung aller Fehler ist in der Dokumentation unter „\textit{Fehler}“ zu finden. & 
-		Offiziell ist zwar „Training“ keine Vorbedingung von „Testen“, jedoch macht die Anwendung der Applikation keinen Sinn, wenn man nicht erwarten kann, dass man ein realistisches oder sinnvolles Ergebnis erhält.
-		
-		\\\hline
-		2 &
-		Training & 
-		Nutzer, CNN  & 
-		Siehe Ablaufdiagramm „Training“ & 
-		Der Nutzer erhält nach der Beendigung der Schulung des CNN-Models eine kurze Benachrichtigung, dass das Training abgeschlossen ist. Zudem erhält der Nutzer nach jedem einzelnen Datensatz den Output, dass nun x von y Datensätzen bearbeitet wurden.  & 
-		Hierbei kann es zu zwei Fehlern kommen. Dabei handelt es sich beides um Fehler bei der Datenbank. Der erste ist ein Fehler, wenn die benötigten „Tabellen“ in der Datenbank nicht stimmig mit den Erwartungen sind und der andere, wenn keine Daten in der Datenbank zu finden sind. Für die genauen Fehlercodes ist die Dokumentation unter „\textit{Fehler}“ zu kontaktieren. &
-		\\\hline
-		3 & 
-		Testen & 
-		Nutzer, CNN & 
-		Siehe Ablaufdiagramm „Testen“ & 
-		Der Nutzer findet nach jedem Datensatz in der Test-Datenbank eine simple Gegenüberstellung der richtigen und der falschen interpretierten Ziffern. Diese weiterzuverarbeiten, ist dem Nutzer überlassen. Neben der Gegenüberstellung erhält der Nutzer auch die Benachrichtigung, dass nun x von y Datensätzen bearbeitet wurden. & 
-		Hier kann es zu zwei Fehlern kommen. Dabei handelt es sich beides um Fehler bei der Datenbank. Der erste ist ein Fehler, wenn die benötigten „Tabellen“ in der Datenbank nicht stimmig mit den Erwartungen sind und der andere, wenn keine Daten in der Datenbank zu finden sind. Für die genauen Fehlercodes ist die Dokumentation unter „\textit{Fehler}“ zu kontaktieren. & 
-		Bei den Testdaten würde es evtl. Sinn ergeben, die einzelnen Konsolen Outputs auch in einer CSV-Datei festzuhalten, wobei dies mit Pipes in der Konsole dem Nutzer bereits offensteht.  
-		Offiziell ist zwar „Training“ keine Vorbedingung von „Testen“, jedoch ergibt das Testen nur begrenzt Sinn, wenn es noch nichts gibt, was sich zu testen lohnt. 
-		\\\hline
-	\end{xltabular}
-	\label{tab:AnalyseUseCases}
-\end{landscape}
+\begin{enumerate}
+	\item Interpretation
+		\begin{itemize}
+			\item \textbf{Akteur:} Nutzer, CNN
+			\item \textbf{Ablauf:} Siehe Ablaufdiagramm \ref{sec:AnalyseInterpretation} („Interpretation“).
+			\item \textbf{Nachbedingungen:} Der Nutzer sollte in der Konsole eine Auflistung aller möglichen Ziffern (0–9) und deren entsprechende Wahrscheinlichkeit sehen. Zudem kann der Nutzer auch die kongruierende Zahl zur höchsten Möglichkeit auf einer speziellen Zeile in der Konsole ablesen.
+			\item \textbf{Ausnahmen:} Bei der Interpretation von benutzereigenen Abbildungen kann es zu multiplexen Fehlern kommen. Diese reichen von falscher Dateikodierung zu falscher Auflösung. Aufgrund dieser mannigfaltigen Möglichkeiten zu Fehlern können diese nicht alle hier erläutert werden. Eine Auflistung aller Fehler ist in der Dokumentation unter „\textit{Fehler}“ zu finden.
+			\item \textbf{Anmerkungen:} Offiziell ist zwar „Training“ keine Vorbedingung von „Testen“, jedoch macht die Anwendung der Applikation keinen Sinn, wenn man nicht erwarten kann, dass man ein realistisches oder sinnvolles Ergebnis erhält.
+		\end{itemize}
+	\item Training
+	\begin{itemize}
+		\item \textbf{Akteur:} Nutzer, CNN
+		\item \textbf{Ablauf:} Siehe Ablaufdiagramm \ref{sec:AnalyseTraining} („Training“).
+		\item \textbf{Nachbedingungen:} Der Nutzer erhält nach der Beendigung der Schulung des CNN-Models eine kurze Benachrichtigung, dass das Training abgeschlossen ist. Zudem erhält der Nutzer nach jedem einzelnen Datensatz den Output, dass nun x von y Datensätzen bearbeitet wurden.
+		\item \textbf{Ausnahmen:} Hierbei kann es zu zwei Fehlern kommen. Dabei handelt es sich beides um Fehler bei der Datenbank. Der erste ist ein Fehler, wenn die benötigten „Tabellen“ in der Datenbank nicht stimmig mit den Erwartungen sind und der andere, wenn keine Daten in der Datenbank zu finden sind. Für die genauen Fehlercodes ist die Dokumentation unter „\textit{Fehler}“ zu kontaktieren.
+		\item \textbf{Anmerkungen:}
+	\end{itemize}
+	\item Testen
+	\begin{itemize}
+		\item \textbf{Akteur:} Nutzer, CNN
+		\item \textbf{Ablauf:} Siehe Ablaufdiagramm \ref{sec:AnalyseTesten} („Testen“).
+		\item \textbf{Nachbedingungen:} Der Nutzer findet nach jedem Datensatz in der Test-Datenbank eine simple Gegenüberstellung der richtigen und der falschen interpretierten Ziffern. Diese weiterzuverarbeiten, ist dem Nutzer überlassen. Neben der Gegenüberstellung erhält der Nutzer auch die Benachrichtigung, dass nun x von y Datensätzen bearbeitet wurden.
+		\item \textbf{Ausnahmen:} Hier kann es zu zwei Fehlern kommen. Dabei handelt es sich beides um Fehler bei der Datenbank. Der erste ist ein Fehler, wenn die benötigten „Tabellen“ in der Datenbank nicht stimmig mit den Erwartungen sind und der andere, wenn keine Daten in der Datenbank zu finden sind. Für die genauen Fehlercodes ist die Dokumentation unter „\textit{Fehler}“ zu kontaktieren.
+		\item \textbf{Anmerkungen:} Bei den Testdaten würde es evtl. Sinn ergeben, die einzelnen Konsolen Outputs auch in einer CSV-Datei festzuhalten, wobei dies mit Pipes in der Konsole dem Nutzer bereits offensteht. Offiziell ist zwar „Training“ keine Vorbedingung von „Testen“, jedoch ergibt das Testen nur begrenzt Sinn, wenn es noch nichts gibt, was sich zu testen lohnt.
+	\end{itemize}
+\end{enumerate}
 
 \subsection{Use Case Diagramme}
 \label{sec:AnalyseUseCaseDiagramme}
@@ -148,7 +140,7 @@ Die hier aufgelisteten Use Cases entsprechen den Use Cases nach den Must-haves u
 \label{sec:AnalyseCNN-Magic}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{1 RXJ6tAmfN1AYLQr7p48L7w-631173908.png}
+	\includegraphics[width=\linewidth]{1RXJ6tAmfN1AYLQr7p48L7w-631173908.png}
 	\caption{Visuelle Darstellung der Funktionsweise eines CNN von \href{https://blog.goodaudience.com/cnn-for-rnns-a-gentle-approach-to-use-cnns-for-nlp-53ab80768d43}{blog.goodaudience.com}}
 	\label{fig:analyse1RXJ6tAmfN1AYLQr7p48L7w-631173908}
 \end{figure}
@@ -166,6 +158,9 @@ Bei der Entwicklungsumgebung wird das JetBrains Produkt \textbf{CLion} zum Einsa
 	\item JetBrains Toolbox 2.1.1.18388, Windows 11, x64
 	\item CLion (von JetBrains Toolbox) 2023.2.2
 	\item Git 2.39.2.windows.1
+	\item CMake 3.27.7
+	\item GCC 13.2.0
+	\item MiKTeX 23.10
 \end{itemize}
 
 \subsection{CNN}
@@ -227,11 +222,12 @@ Wenn man die Stundenzahl aus der Planung mit einem Stundensatz von 50 CHF quanti
 	\\\hline
 \end{xltabular}
 \label{tab:AnalyseKostenTable}
+\addcontentsline{lot}{table}{\protect\numberline{\thetable}Kostenanalyse}
 
 
 \subsection{Nutzen}
 \label{sec:AnalyseNutzen}
-Wie bereits im Abschnitt \ref{sec:Zielgruppe} erwähnt, ist dieses Produkt auf den Wissensgewinn ausgerichtet und nicht auf das Produkt selbst. Dementsprechend ist in der geplanten Umsetzung der Projektes CKi der maximale Nutzen gewährleistet. Leider lässt sich dieser Nutzen nicht/schlecht quantifizieren.
+Wie bereits im Abschnitt Zielgruppe erwähnt, ist dieses Produkt auf den Wissensgewinn ausgerichtet und nicht auf das Produkt selbst. Dementsprechend ist in der geplanten Umsetzung der Projektes CKi der maximale Nutzen gewährleistet. Leider lässt sich dieser Nutzen nicht/schlecht quantifizieren.
 
 \subsection{Effektivität}
 \label{sec:AnalyseEffektivität}
@@ -254,6 +250,7 @@ Der Vergleich in Effektivität der Anwendung, der aus dem Projekt CKi resultiert
 	\\\hline
 \end{xltabular}
 \label{tab:AnalyseVergleichTable}
+\addcontentsline{lot}{table}{\protect\numberline{\thetable}Vergleich bestehendes Produkt gegen eigene Kreation}
 
 Eine kurze Zusammenfassung der Kosten-Nutzen-Analyse zeigt den desolaten Zustand von CKi.
 \\
@@ -288,6 +285,8 @@ Bei der Nutzwertanalyse werden unterschiedliche Alternativen systematisch und st
 	Total & 100 \% & 52 & 5.5 & \hl{61} & \hl{7.05}
 	\\\hline
 \end{xltabular}
+\addcontentsline{lot}{table}{\protect\numberline{\thetable}Nutzwertanalyse}
+
 \label{tab:AnalyseNutzwertanalyse}
 
 
