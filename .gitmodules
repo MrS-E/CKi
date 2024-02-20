@@ -1,3 +1,6 @@
 [submodule "Realisation/FTXUI"]
 	path = Realisation/FTXUI
 	url = https://github.com/ArthurSonzogni/FTXUI
+[submodule "Realisation/mnist"]
+	path = Realisation/mnist
+	url = https://github.com/wichtounet/mnist.git

@@ -14,8 +14,8 @@ using namespace ftxui;
 void train(Network &nn) {
     std::cout << std::endl << "Training..." << std::endl;
     std::cout << "Reading MNIST data..." << std::endl;
-    std::vector<std::vector<double>> training_inputs = Util::read_mnist_training_images("../mnist");
-    std::vector<std::vector<double>> training_labels = Util::read_mnist_training_labels("../mnist");
+    std::vector<std::vector<double>> training_inputs = Util::read_mnist_training_images("../datasets");
+    std::vector<std::vector<double>> training_labels = Util::read_mnist_training_labels("../datasets");
 
     std::cout << "Training..." << std::endl;
     nn.train(training_inputs, training_labels, 1, 0.01);
@@ -27,8 +27,8 @@ void train(Network &nn) {
 double verif(Network &nn) {
     std::cout << std::endl << "Testing..." << std::endl;
     std::cout << "Reading MNIST data..." << std::endl;
-    std::vector<std::vector<double>> test_inputs = Util::read_mnist_test_images("../mnist");
-    std::vector<std::vector<double>> test_labels = Util::read_mnist_test_labels("../mnist");
+    std::vector<std::vector<double>> test_inputs = Util::read_mnist_test_images("../datasets");
+    std::vector<std::vector<double>> test_labels = Util::read_mnist_test_labels("../datasets");
 
     std::cout << "Testing..." << std::endl;
     double acc = nn.verify(test_inputs, test_labels);
