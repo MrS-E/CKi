@@ -4,4 +4,6 @@
 !CKi.pdf
 !literatur.bib
 !images
-!images/*
+!images/*.png
+!images/*.jpg
+!images/*.jpeg

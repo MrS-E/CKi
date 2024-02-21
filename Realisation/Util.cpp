@@ -2,9 +2,7 @@
 // Created by simeo on 02.12.2023.
 //
 
-#include <cstdint>
 #include "Util.h"
-#include "mnist/mnist_reader.hpp"
 
 double Util::sigmoid(double x) {
     return 1.0 / (1.0 + exp(-x));
@@ -15,70 +13,50 @@ double Util::sigmoid_derivative(double x) {
     return s * (1.0 - s);
 }
 
-double Util::relu(double x)
-{
-    return std::max(0.0, x);
+int Util::read_int(std::ifstream &file) { //https://stackoverflow.com/questions/604431/c-reading-unsigned-char-from-file-stream
+    unsigned char bytes[4];
+    file.read(reinterpret_cast<char*>(bytes), sizeof(bytes));
+    return (int)((bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3]);
 }
 
-double Util::relu_derivative(double x)
-{
-    return (x > 0) * 1;
-}
+//http://yann.lecun.com/exdb/mnist/
+std::vector<std::vector<double>> Util::read_mnist_images(const std::string &filename) {
+    std::ifstream file(filename, std::ios::binary);
+    if (file.is_open()) {
+        int magic_number = read_int(file);
+        int number_of_images = read_int(file);
+        int number_of_rows = read_int(file);
+        int number_of_columns = read_int(file);
 
-std::vector<std::vector<double>> Util::read_mnist_training_images(const std::string &folder) {
-    auto dataset = mnist::read_dataset<std::vector, std::vector, double, uint8_t>(folder);
+        std::vector<std::vector<double>> images(number_of_images, std::vector<double>(number_of_rows * number_of_columns));
 
-    std::vector<std::vector<double>> images;
-    images.reserve(dataset.training_images.size());
-    for ( auto image : dataset.training_images) {
-        for(double & p : image) {
-            p = p / 255.0;
+        for (int i = 0; i < number_of_images; ++i) {
+            for (int r = 0; r < number_of_rows * number_of_columns; ++r) {
+                unsigned char temp = 0;
+                file.read(reinterpret_cast<char*>(&temp), sizeof(temp));
+                images[i][r] = (double)temp / 255.0; // Normalizing pixel values to [0, 1]
+            }
         }
-        images.push_back(image);
-    }
+        return images;
+    } else {
+        throw std::runtime_error("Cannot open file: " + filename);
+    }}
 
-    return images;
-}
+std::vector<double> Util::read_mnist_labels(const std::string &filename) {
+    std::ifstream file(filename, std::ios::binary);
+    if (file.is_open()) {
+        int magic_number = read_int(file);
+        int number_of_items = read_int(file);
 
-std::vector<std::vector<double>> Util::read_mnist_training_labels(const std::string &folder) {
-    auto dataset = mnist::read_dataset<std::vector, std::vector, double, uint8_t>(folder);
+        std::vector<double> labels(number_of_items);
 
-    std::vector<std::vector<double>> labels;
-    labels.reserve(dataset.training_labels.size());
-    for (const auto& label : dataset.training_labels) {
-        std::vector<double> label_vec(10, 0.0);
-        label_vec[label] = 1.0;
-        labels.push_back(label_vec);
-    }
-
-    return labels;
-}
-
-std::vector<std::vector<double>> Util::read_mnist_test_images(const std::string &folder) { //todo simplify (combine with read_mnist_training_images)
-    auto dataset = mnist::read_dataset<std::vector, std::vector, double, uint8_t>(folder);
-
-    std::vector<std::vector<double>> images;
-    images.reserve(dataset.test_images.size());
-    for ( auto image : dataset.test_images) {
-        for(double & p : image) {
-            p = p / 255.0;
+        for (int i = 0; i < number_of_items; ++i) {
+            unsigned char temp = 0;
+            file.read(reinterpret_cast<char*>(&temp), sizeof(temp));
+            labels[i] = (double)temp;
         }
-        images.push_back(image);
+        return labels;
+    } else {
+        throw std::runtime_error("Cannot open file: " + filename);
     }
-
-    return images;
-}
-
-std::vector<std::vector<double>> Util::read_mnist_test_labels(const std::string &folder) { //todo simplify (combine with read_mnist_training_labels)
-    auto dataset = mnist::read_dataset<std::vector, std::vector, double, uint8_t>(folder);
-
-    std::vector<std::vector<double>> labels;
-    labels.reserve(dataset.test_labels.size());
-    for (const auto& label : dataset.test_labels) {
-        std::vector<double> label_vec(10, 0.0);
-        label_vec[label] = 1.0;
-        labels.push_back(label_vec);
-    }
-
-    return labels;
 }

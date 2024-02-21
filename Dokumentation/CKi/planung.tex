@@ -1,7 +1,6 @@
 \section{Rollenverteilung}
 \label{sec:PlanungRollenverteilung}
-\begin{table}[H]
-	\centering
+
 	\begin{xltabular}{\linewidth}{|l|X|}
 		\hline
 		\textbf{Rolle} & \textbf{Person}
@@ -14,7 +13,7 @@
 		\\\hline
 	\end{xltabular}
 	\label{tab:planungrollenverteilungtable}
-\end{table}
+	\addcontentsline{lot}{table}{\protect\numberline{\thetable} Rollenverteilung im Projekt CKI}
 \section{Aufgabenliste} 
 \label{sec:PlanungAufgabenliste} 
 \begin{enumerate} 
@@ -33,7 +32,7 @@
 		\item Anforderungen definieren 
 		\item Use Cases 
 		\item weitere Analysen 
-		\item Schreiben Analyse 
+		\item Analyse schreiben
 	\end{itemize} 
 	\item \textbf{\emph{Design:}} 
 	\begin{itemize} 
@@ -55,7 +54,7 @@
 		\item GPU-Anbindung implementieren 
 		\item Kommentare schreiben 
 		\item weitere Verbesserungen vornehmen 
-		\item Buffer Zeit programmieren 
+		\item Buffer-Zeit fürs Programmieren 
 	\end{itemize} 
 	\item \textbf{\emph{Dokumentieren:}} 
 	\begin{itemize} 
@@ -76,10 +75,10 @@
 	\begin{itemize} 
 		\item Präsentation erstellen 
 	\end{itemize}
-	\item \textbf{\emph{Buffer allgemein}} 
 \end{enumerate} 
 \section{Meilensteine} 
 \label{sec:PlanungMeilensteine} 
+
 \begin{xltabular}{\linewidth}{|X|X|} 
 	\hline Meilenstein-Name & Datum 
 	\\\hline Vorbereitungen abgeschlossen & 20.10.2023 
@@ -90,14 +89,37 @@
 	\\\hline \hl{Projekt abgegeben} & \hl{23.02.2024} 
 	\\\hline 
 \end{xltabular}
+\addcontentsline{lot}{table}{\protect\numberline{\thetable}Meilensteine}
+
 \label{tab:PlanungMeilensteineTable}
 \section{Gantt} 
 \label{sec:PlanungGantt} 
 \begin{landscape}
-	\includepdf{gantt1.jpg}
-	\includepdf{gantt2.jpg}
-	\includepdf{gantt3.jpg}
-	\includepdf{gantt4.jpg}
+	\addcontentsline{lof}{figure}{\protect\numberline{\thefigure}Das Gantt-Diagramm für das Projekt CKI}
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{gantt1_turned.jpg}
+		\label{fig:gantt1}
+	\end{figure}
+
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{gantt2_turned.jpg}
+		\label{fig:gantt2}
+	\end{figure}
+
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{gantt3_turned.jpg}
+		\label{fig:gantt3}
+	\end{figure}
+
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{gantt4_turned.jpg}
+		\label{fig:gantt4}
+	\end{figure}
+
 \end{landscape}
 
 
