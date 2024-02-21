@@ -7,3 +7,5 @@
 !images/*.png
 !images/*.jpg
 !images/*.jpeg
+!appendix
+!appendix/*
