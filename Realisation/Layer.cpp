@@ -21,12 +21,6 @@ void Layer::init_weights() {
     }
 }
 
-void Layer::set_weights(const std::vector<std::vector<double>> &weights) {
-    for (std::size_t i = 0; i < Layer::neurons.size(); ++i) {
-        Layer::neurons[i].weights = weights[i];
-    }
-}
-
 void Layer::calc_neuron_outputs(const std::vector<double> &inputs){
     for (auto & neuron : Layer::neurons) {
         neuron.calc_activation(inputs);
@@ -65,7 +59,7 @@ std::vector<double> Layer::update_weights_and_biases(const std::vector<double>& 
             const double delta_weight = neuron_error * activation_derivative * neuron.inputs[j];
             neuron.weights[j] -= learning_rate * delta_weight;
         }
-        neuron.bias -= learning_rate * neuron_error * activation_derivative;
+        neuron.bias -= learning_rate * neuron_error * activation_derivative; //FIXME is it + or -? test with + =  42.31% and - = 61.85%
     }
 
     return prev_layer_error;
