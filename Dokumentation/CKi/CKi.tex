@@ -46,6 +46,12 @@
 %% Imports
 \usepackage{import} %%Vereinfacht das Einbinden von Dateien aus unterschiedlichen Verzeichnissen
 \usepackage{pdfpages} %%Zum Einfügen von externen PDF-Seiten in das Dokument
+%%Verzeichnisse
+\usepackage[toc,page,title]{appendix}
+\usepackage{etoolbox}
+\appto\appendix{\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}}
+\appto\listoffigures{\addtocontents{lof}{\protect\setcounter{tocdepth}{1}}}
+\appto\listoftables{\addtocontents{lot}{\protect\setcounter{tocdepth}{1}}}
 
 %%% Einstellungen
 %% Seitenränder
@@ -233,7 +239,16 @@
 \lstlistoflistings
 
 %% Anhänge
-%%\appendix
+\clearpage
+\begin{appendices}
+\renewcommand{\thesection}{\Alph{section}}
+\section{Fortschrittsberichte}
+\includepdf[pages=-]{./appendix/Fortschrittsbericht_01_Stix_2023-10-20.pdf}
+\includepdf[pages=-]{./appendix/Fortschrittsbericht_02_Stix_2023-11-10.pdf}
+\includepdf[pages=-]{./appendix/Fortschrittsbericht_03_Stix_2023-12-02.pdf}
+\includepdf[pages=-]{./appendix/Fortschrittsbericht_04_Stix_2024-01-05.pdf}
+\includepdf[pages=-]{./appendix/Fortschrittsbericht_05_Stix_2024-02-10.pdf}
+\end{appendices}
 
 \end{document}
 
