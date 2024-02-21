@@ -10,52 +10,52 @@ Dabei werden Unit-Tests in CKI mit der „Google-Tests“ Bibliothek von Google 
 \label{sec:DesignUtilUtilityKlasse}
 \subsubsection{Sigmoid-Funktionstests}
 \label{sec:DesignSigmoidFunktionstests}
-Prüfen, ob die Sigmoid- und ihre Ableitungsfunktion die erwarteten Werte zurückgeben.
+... prüfen, ob die Sigmoid- und ihre Ableitungsfunktion die erwarteten Werte zurückgeben.
 \subsubsection{Dateilese-Tests}
 \label{sec:DesignDateileseTests}
-Überprüfen das korrekte Lesen eines Integers aus einer Binärdatei und das korrekte Verhalten beim Versuch, nicht vorhandene Dateien zu lesen.
+... überprüfen das korrekte Lesen eines Integers aus einer Binärdatei und das korrekte Verhalten beim Versuch, nicht vorhandene Dateien zu lesen.
 \subsubsection{MNIST-Daten-Tests}
 \label{sec:DesignMNISTDatenTests}
-Überprüfen das Einlesen von MNIST-Bild- und Label-Daten, einschliesslich der Überprüfung der Anzahl und der Normalisierung von Bildern sowie der Überprüfung der Gültigkeit von Labels.
+... überprüfen das Einlesen von MNIST-Bild- und Label-Daten, einschliesslich der Überprüfung der Anzahl und der Normalisierung von Bildern sowie der Überprüfung der Gültigkeit von Labels.
 
 \subsection{Network}
 \label{sec:DesignNetwork}
 \subsubsection{Index in akzeptiertem Bereich}
 \label{sec:DesignIndexInAkzeptiertemBereich}
-Überprüft, ob die predict-Methode einen gültigen Index innerhalb des erwarteten Bereichs zurückgibt.
+... überprüft, ob die predict-Methode einen gültigen Index innerhalb des erwarteten Bereichs zurückgibt.
 \subsubsection{Training beeinflusst das Verhalten.}
 \label{sec:DesignTrainingBeeinflusstDasVerhalten}
-Testet, ob das Training des Netzwerks dessen Verhalten ändert, indem es die Ausgaben vor und nach dem Training vergleicht. Es wird festgestellt, dass sich die Ausgaben verändern sollten, was auf eine Modifikation des Netzwerks hinweist.
-\subsubsection{Netzwerkspeicher}
+... testet, ob das Training des Netzwerks dessen Verhalten ändert, indem es die Ausgaben vor und nach dem Training vergleicht. Es wird festgestellt, dass sich die Ausgaben verändern sollten, was auf eine Modifikation des Netzwerks hinweist.
+\subsubsection{Netzwerkspeicher-Tests}
 \label{sec:DesignNetzwerkspeicher}
-Überprüft die Funktionalität zum Speichern und Laden des Netzwerks. Nach dem Speichern und Laden wird erwartet, dass das Netzwerk wie vorgesehen funktioniert.
+... überprüfen die Funktionalität zum Speichern und Laden des Netzwerks. Nach dem Speichern und Laden wird erwartet, dass das Netzwerk wie vorgesehen funktioniert.
 
 \subsection{Layer}
 \label{sec:DesignLayer}
 \subsubsection{Initialisierung}
 \label{sec:DesignInitialisierung}
-Überprüft die korrekte Initialisierung der Neuronen in der Schicht mit der richtigen Anzahl von Gewichten.
+... überprüft die korrekte Initialisierung der Neuronen in der Schicht mit der richtigen Anzahl von Gewichten.
 \subsubsection{Gewichtungen setzen}
 \label{sec:DesignGewichtungenSetzen}
-Testet das Setzen und Abrufen der Gewichte eines Neurons.
+... testet das Setzen und Abrufen der Gewichte eines Neurons.
 \subsubsection{Output kalkulieren}
 \label{sec:DesignOutputKalkulieren}
-Überprüft die Berechnung der Ausgänge der Neuronen basierend auf gegebenen Eingaben und gesetzten Gewichten.
+... überprüft die Berechnung der Ausgänge der Neuronen basierend auf gegebenen Eingaben und gesetzten Gewichten.
 \subsubsection{Fehler kalkulieren}
 \label{sec:DesignFehlerKalkulieren}
-Testet die Fehlerberechnung der Schicht basierend auf den Ausgängen und den erwarteten Werten.
+... testet die Fehlerberechnung der Schicht basierend auf den Ausgängen und den erwarteten Werten.
 \subsubsection{Änderung der Gewichtungen und Biases}
 \label{sec:DesignÄnderungDerGewichtungenUndBiases}
-Überprüft das Aktualisieren der Gewichte und Biases der Neuronen basierend auf einem berechneten Fehler.
+... überprüft das Aktualisieren der Gewichte und Biases der Neuronen basierend auf einem berechneten Fehler.
 
 \subsection{Neuron}
 \label{sec:DesignNeuron}
 \subsubsection{Aktivierungsfunktion}
 \label{sec:DesignAktivierungsfunktion}
-Überprüft, ob das Neuron die richtige Ausgabe liefert, wenn eine bestimmte Eingabe gegeben wird.
+... überprüft, ob das Neuron die richtige Ausgabe liefert, wenn eine bestimmte Eingabe gegeben wird.
 \subsubsection{Ableitung der Aktivierungsfunktion}
 \label{sec:DesignAbleitungDerAktivierungsfunktion}
-Untersucht, ob die Ableitung der Aktivierungsfunktion korrekt berechnet wird.
+... untersucht, ob die Ableitung der Aktivierungsfunktion korrekt berechnet wird.
 \subsubsection{Fehlerberechnung  }
 \label{sec:DesignFehlerberechnung}
 Der Fehler wird durch den Unterschied zwischen dem erwarteten und dem tatsächlichen Ausgang des Neurons bewertet.
@@ -64,5 +64,5 @@ Der Fehler wird durch den Unterschied zwischen dem erwarteten und dem tatsächli
 Es gibt keine Integrationstests, da keine (externen) Komponenten verwendet werden, auf denen das Projekt beruht und deren Verwendung nicht über Unittests abgedeckt werden.
 
 \section{Deployment-Tests}
-Es gibt keine Deployment-Tests, da dieses Produkt nicht ausgelegt wurde, an die breite Öffentlichkeit weitergegeben zu werden.
+Es gibt keine Deployment-Tests, da dieses Produkt nicht ausgelegt wurde an die breite Öffentlichkeit weitergegeben zu werden.
 Somit werden keine Deployment-Tests benötigt, da jeder, der dieses Projekt verwenden möchte, dieses selbst „bauen“ muss.
