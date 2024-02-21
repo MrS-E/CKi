@@ -12,7 +12,6 @@ double Neuron::calc_activation(const std::vector<double> &inputs)
         sum += inputs[i] * Neuron::weights[i];
     }
     Neuron::activation = Util::sigmoid(sum);
-    Neuron::sum = sum;
     return Neuron::activation;
 }
 

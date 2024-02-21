@@ -31,6 +31,18 @@ if (NOT nlohmannjson_POPULATED)
     add_subdirectory(${nlohmannjson_SOURCE_DIR} ${nlohmannjson_BINARY_DIR})
 endif ()
 
+#stb_image
+FetchContent_Declare(
+        stb
+        GIT_REPOSITORY https://github.com/nothings/stb.git
+        GIT_TAG 5736b15)
+
+FetchContent_GetProperties(stb)
+if(NOT stb_POPULATED)
+    FetchContent_Populate(stb)
+    include_directories(${stb_SOURCE_DIR})
+endif()
+
 #CKI
 add_library(CKI_lib STATIC
         Util.h
