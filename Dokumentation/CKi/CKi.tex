@@ -122,7 +122,7 @@
 }
 
 %%Grafik
-\graphicspath{ {./images/} } %%Ordner, in dem die Grafiken gesucht werden
+\graphicspath{ {./images/}{./appendix} } %%Ordner, in dem die Grafiken gesucht werden
 % Beachten Sie:
 % Die Einbindung einer Grafik erfolgt mit \includegraphics{Dateiname}
 % bzw. über den Dialog im Einfügen-Menü.
@@ -156,7 +156,7 @@
         
         \vfill
         
-        Version: 2.1
+        Version: 3
         
         \vspace{1cm}
         
@@ -243,11 +243,27 @@
 \begin{appendices}
 \renewcommand{\thesection}{\Alph{section}}
 \section{Fortschrittsberichte}
-\includepdf[pages=-]{./appendix/Fortschrittsbericht_01_Stix_2023-10-20.pdf}
-\includepdf[pages=-]{./appendix/Fortschrittsbericht_02_Stix_2023-11-10.pdf}
-\includepdf[pages=-]{./appendix/Fortschrittsbericht_03_Stix_2023-12-02.pdf}
-\includepdf[pages=-]{./appendix/Fortschrittsbericht_04_Stix_2024-01-05.pdf}
-\includepdf[pages=-]{./appendix/Fortschrittsbericht_05_Stix_2024-02-10.pdf}
+Sie sind in chronologischer Reihenfolge.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{Fortschrittsbericht_01_Stix_2023-10-20-1.jpg}
+\end{figure}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{Fortschrittsbericht_02_Stix_2023-11-10-1.jpg}
+\end{figure}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{Fortschrittsbericht_03_Stix_2023-12-02-1.jpg}
+\end{figure}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{Fortschrittsbericht_04_Stix_2024-01-05-1.jpg}
+\end{figure}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{Fortschrittsbericht_05_Stix_2024-02-10-1.jpg}
+\end{figure}
 \end{appendices}
 
 \end{document}
