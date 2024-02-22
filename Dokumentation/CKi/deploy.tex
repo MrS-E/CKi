@@ -47,6 +47,8 @@ Es folgen nun die notwendigen Schritte, um dies zu bewerkstelligen:
 
 \section{Installation}
 Dieser Abschnitt setzt voraus, dass die Schritte aus dem Abschnitt Building \ref{sec:DeployBuilding} erfolgreich ausgeführt wurden und das Produkt des Projekts CKI bereit zur Ausführung im Build-Verzeichnis zu finden ist.
+\\
+Jedoch ist anzumerken, dass das Projekt CKI nicht für eine langfristige Installation ausgelegt ist. Es wird empfohlen, die Executable im Build-Verzeichnis zu verwenden, ohne diese dauerhaft in einem (System-) Verzeichnis zu installieren.
 \subsection{Installation mit CMake}
 \label{sec:InstallInstallationMitCMake}
 Nach dem Build-Vorgang können Sie das Projekt CKI installieren, indem Sie einen Installationsbefehl über CMake ausführen. Dieser Vorgang kopiert die erforderlichen ausführbaren Dateien, Bibliotheken und eventuell weitere Ressourcen in vordefinierte Verzeichnisse. Normalerweise wird dies durch den Befehl „\textit{cmake --install .}“ im Build-Verzeichnis erreicht. Stellen Sie sicher, dass Sie über die erforderlichen Berechtigungen verfügen, um Installationen in den Zielverzeichnissen durchführen zu können. Die genaue Konfiguration des Installationspfades und anderer Parameter kann in der „\textit{CMakeLists.txt}“ festgelegt werden. Diese Konfiguration muss jedoch vom Installierenden vorgenommen werden, da das Projekt CKI nicht für eine langfristige Installation gedacht ist, da es per se keinen Mehrwert für einen Endnutzer bringt.
