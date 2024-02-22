@@ -52,7 +52,7 @@
 \[\frac{\partial z^{(L)}}{\partial a^{(L-1)}} = w^{(L)}\]
 \[\frac{\partial C_0}{\partial a^{(L-1)}} = w^{(L)}\; \sigma '(z^{(L)}\; 2(a^{(L)}-y)\]
 
-\noindent Diese Formel zeigt, im Gegensatz zu den beiden anderen, wie der Gradient der Kostenfunktion $C_0$? bezüglich der Aktivierungen $a^{(L-1)}$ des vorherigen Layers berechnet wird. So kann diese Funktion, gleich wie die für die Gewichtung und das Bias, dazu verwendet werden, zu verstehen, wie Änderungen in den Aktivierungen des vorherigen Layers $L-1$ den Gesamtfehler beeinflussen können.
+\noindent Diese Formel zeigt, im Gegensatz zu den beiden anderen, wie der Gradient der Kostenfunktion $C_0$ bezüglich der Aktivierungen $a^{(L-1)}$ des vorherigen Layers berechnet wird. So kann diese Funktion, gleich wie die für die Gewichtung und dem Bias, dazu verwendet werden, zu verstehen, wie Änderungen in den Aktivierungen des vorherigen Layers $L-1$ den Gesamtfehler beeinflussen können.
 
 \[\frac{\partial C}{\partial w^{(L)}} = \frac{1}{n}\sum_{k=0}^{n-1} \frac{\partial C_{k}}{\partial w^{(L)}}\]
 \[\nabla C = \left(\begin{array}{c} \frac{\partial C}{\partial w^{(1)}} \\ \frac{\partial C}{\partial b^{(1)}} \\ \vdots \\ \frac{\partial C}{\partial w^{(L)}} \\ \frac{\partial C}{\partial b^{(L)}} \end{array}\right)\] %Gradient vector
@@ -61,7 +61,7 @@
 \\
 \noindent Die 2 Notation ($\nabla C$) stellt den Gradienten der Kostenfunktion $C$ als Vektor dar, der alle partiellen Ableitungen der Kostenfunktion in Bezug auf alle Gewichte $w^{(L)}$ und alle Bias-Werte $b^{(l)}$ für jede Schicht $L$ des Netzwerks enthält. Dieser Gradientenvektor ist wesentlich für die Anwendung des Gradientenabstiegsverfahrens, da er die Richtung angibt, in der die Gewichte und Bias-Werte angepasst werden müssen, um die Kostenfunktion zu minimieren.
 
-\subparagraph{Mit mehreren Outputs:}
+\noindent\textbf{Mit mehreren Outputs:}
 
 \begin{figure}[H]
 	\centering
