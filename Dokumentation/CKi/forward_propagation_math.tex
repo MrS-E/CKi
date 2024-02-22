@@ -1,0 +1,19 @@
+\paragraph{Mathematische Beschreibung der Forward Propagation}
+\label{sec:forward_propagation_math}
+
+[\sigma(x)=\frac{1}{1+e^{-x}}]
+[b=Bias]
+[w=Weight]
+[a=Activation]
+
+%image neuron network {2,1}
+
+[a$_{0}$$^{(1)}$ = \sigma(w$_{0}$ a$_{0}$$^{(0)}$ + w$_{1}$ a$_{1}$$^{(0)}$ + b) = \sigma(\sum_{j}^{n} w$_{j}$*a$_{j}$$^{(0)}$ + b)]
+
+%image neuron network 2 layers
+
+[a$_{0}$$^{(1)}$ = \sigma(w$_{0,0}$ a$_{0}$$^{(0)}$ + w$_{0,1}$ a$_{1}$$^{(0)}$ + \cdots + w$_{0,n}$ a$_{n}$$^{(0)}$ + b$_{0}$)]
+
+[\sigma(\left(\begin{array}{c} w$_{0,0}$ w$_{0,1}$ \cdots w$_{0,n}$ \\ w$_{1,0}$ w$_{1,1}$ \cdots w$_{1,n}$ \\ \vdots \vdots \ddots \vdots \\ w$_{k,0}$ w$_{k,1}$ \cdots w$_{k,n}$  \end{array}\right) \left(\begin{array}{c} a$_{0}$$^{(0)}$ \\ a$_{1}$$^{(0)}$ \\ \vdots \\ a$_{n}$$^{(0)}$ \end{array}\right) + \left(\begin{array}{c} b$_{0}$ \\ b$_{1}$ \\ \vdots \\ b$_{n}$ \end{array}\right))]
+
+[a$^{(1)}$ = \sigma(W a$^{(0)}$ + b)]
