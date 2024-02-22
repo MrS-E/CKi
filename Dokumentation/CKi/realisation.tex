@@ -111,7 +111,8 @@ Die Forward-Propagation ist ein grundlegender Prozess in neuronalen Netzwerken, 
 Die Aktivierungsfunktion bestimmt, wie Neuronen ihre Eingaben in Ausgaben umwandeln und ist entscheidend für die Fähigkeit des Netzwerks, komplexe Muster in den Daten zu erkennen. Beliebte Aktivierungsfunktionen sind die Sigmoid-, Tanh- und ReLU-Funktion.\footnote{vgl. Li \& Johnson \& Yeung, 2017; databasecamp, 2023}
 \\
 Sobald die Eingabedaten durch das Netzwerk propagiert worden sind und die Ausgabeschicht erreicht haben, wird das Ergebnis mit dem tatsächlichen Wert verglichen, um den Fehler der Vorhersage zu bestimmen. Dieser Fehler wird dann in einem separaten Prozess, der als Backpropagation bekannt ist, verwendet, um die Gewichte im Netzwerk anzupassen und die Vorhersagegenauigkeit zu verbessern.\footnote{vgl. Nüesch, 2023;  3Blue1Brown, 2017;}
-%TODO add Math
+\input{forward_propagation_math.tex}
+
 \subsubsection{Back-Propagation}
 \label{sec:RealBackPropagation}
 Die Backpropagation, kurz für „backward propagation of errors“, ist ein Schlüsselmechanismus im Training neuronaler Netzwerke. Dieser Algorithmus ermöglicht es, die Gewichte des Netzwerks so anzupassen, dass der Gesamtfehler bei der Vorhersage minimiert wird. Backpropagation wird nach der Forward-Propagation angewendet, nachdem eine Vorhersage durch das Netzwerk gemacht und der Fehler zwischen der Vorhersage und dem tatsächlichen Wert berechnet wurde.
@@ -267,7 +268,7 @@ Das sind die mathematischen Implementierungen der Sigmoid-Funktion und deren mat
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=0.75\linewidth]{sigmoid.png}
-		\caption{Sigmoid Funktion}
+		\caption{Sigmoid Funktion (Bild von \href{https://towardsdatascience.com/derivative-of-the-sigmoid-function-536880cf918e}{Towards Datascience}})
 	\label{fig:sigmoid}
 \end{figure}
 
