@@ -48,6 +48,8 @@
 \usepackage{pdfpages} %%Zum Einfügen von externen PDF-Seiten in das Dokument
 %%Verzeichnisse
 \usepackage[toc,page,title]{appendix}
+\renewcommand{\appendixpagename}{Anhang}
+\renewcommand{\appendixtocname}{Anhang}
 \usepackage{etoolbox}
 \appto\appendix{\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}}
 \appto\listoffigures{\addtocontents{lof}{\protect\setcounter{tocdepth}{1}}}
@@ -240,7 +242,6 @@
 
 %% Anhänge
 \clearpage
-\renewcommand{\appendixname}{Anhang}
 \begin{appendices}
 \renewcommand{\thesection}{\Alph{section}}
 \section{Fortschrittsberichte}
