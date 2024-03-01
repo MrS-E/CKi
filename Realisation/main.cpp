@@ -123,7 +123,7 @@ int main(int argc, char * argv[]) {
         }
 
         try{
-            if (input.tokens.size() > 0 && std::filesystem::exists(filename))
+            if (input.tokens.size() > 0)
             {
                 if(input.cmdOptionExists("--verify"))
                 {
@@ -159,21 +159,25 @@ int main(int argc, char * argv[]) {
                 }
                 else
                 {
-                    //predic
-                    std::vector<double> image = process_image(filename.c_str());
-                    std::vector<double> outputs = nn.predict(image);
-                    int result = static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end())));
-                    for (size_t i=0; i<outputs.size(); i++)
-                    {
-                        std::cout << "Ziffer " << i <<": " << outputs[i]*100 << "%" << std::endl;
+                    if(std::filesystem::exists(filename)){
+                        //predic
+                        std::vector<double> image = process_image(filename.c_str());
+                        std::vector<double> outputs = nn.predict(image);
+                        int result = static_cast<int>(std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end())));
+                        for (size_t i=0; i<outputs.size(); i++)
+                        {
+                            std::cout << "Ziffer " << i <<": " << outputs[i]*100 << "%" << std::endl;
+                        }
+                        std::cout << "------------------------" << std::endl;
+                        std::cout << "Predicted digit: " << result << std::endl;
+                    }else{
+                        std::cout << "File needed, type --help for more information." << std::endl;
                     }
-                    std::cout << "------------------------" << std::endl;
-                    std::cout << "Predicted digit: " << result << std::endl;
                 }
             }
             else
             {
-                std::cout << "File needed, type --help for more information." << std::endl;
+                std::cout << "Unknown Error" << std::endl;
             }
         }catch (const std::exception& e) {
             std::cerr << "Error: " << e.what() << std::endl;
